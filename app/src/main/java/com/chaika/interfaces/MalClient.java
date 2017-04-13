@@ -1,6 +1,7 @@
 package com.chaika.interfaces;
 
 import com.chaika.estructuraDatos.MalUserData;
+import com.chaika.estructuraDatos.MyAnimeList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -11,5 +12,5 @@ import retrofit2.http.GET;
 
 public interface MalClient {
     @GET("?u=ricardo7227")
-    Call<MalUserData> getUserData();
+    Call<MyAnimeList> getUserData();
 }//fin clase

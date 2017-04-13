@@ -5,6 +5,6 @@ package com.chaika.llamadasAPI;
  */
 
 public class UrlAPIs {
-    public static final String BASE_URL = "https://myanimelist.net/malappinfo.php";
+    public static final String BASE_URL = "https://myanimelist.net/malappinfo.php/";
 
 }//fin clase
