@@ -5,6 +5,10 @@ package com.chaika.interfaces;
  */
 
 public interface InterfacesComunes {
-    void getMalUserProfile();
+    void getMalUserProfile(String user);
+
+    void getCredentials(String user,String password);
+
+    void getAnimeSearch(String query);
 
 }//fin clase

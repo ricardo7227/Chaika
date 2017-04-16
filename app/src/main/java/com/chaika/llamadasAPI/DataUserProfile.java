@@ -1,6 +1,12 @@
 package com.chaika.llamadasAPI;
 
-import com.chaika.estructuraDatos.MyAnimeList;
+import android.widget.TextView;
+
+import com.chaika.R;
+import com.chaika.estructuraDatos.search.Anime;
+import com.chaika.estructuraDatos.search.Entry;
+import com.chaika.estructuraDatos.usuario.Credentials;
+import com.chaika.estructuraDatos.usuario.MyAnimeList;
 import com.chaika.interfaces.InterfacesComunes;
 import com.chaika.interfaces.MalClient;
 
@@ -8,7 +14,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 /**
  * Created by Gato on 13/04/2017.
@@ -16,24 +21,25 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class DataUserProfile implements InterfacesComunes {
 
-    private static Retrofit retrofit = null;
+   private static Retrofit retrofit = null;
 
 
     @Override
-    public void getMalUserProfile() {
-        if (retrofit == null){
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(UrlAPIs.BASE_URL).addConverterFactory(SimpleXmlConverterFactory.create()).build();
-        }
-        MalClient malClient = retrofit.create(MalClient.class);
+    public void getMalUserProfile(String user) {
+        //cambio a la URL correspondiente
+        ServiceGenerator.changeApiBaseUrl(UrlAPIs.BASE_URL_MALAPPINFO);
+        String apiBase = ServiceGenerator.apiBaseUrl;
+        //acceso al servicio
+        MalClient malClient = ServiceGenerator.createService(MalClient.class);
 
-        Call<MyAnimeList> llamada = malClient.getUserData();
+        Call<MyAnimeList> llamada = malClient.getUserData(user);
+        //la url que consulta
+        String urlcall = llamada.request().url().toString();
         llamada.enqueue(new Callback<MyAnimeList>() {
             @Override
             public void onResponse(Call<MyAnimeList> call, Response<MyAnimeList> response) {
                 if (response.isSuccessful()){
                     MyAnimeList datosUsuario = response.body();
-
                 }
             }
 
@@ -44,6 +50,52 @@ public class DataUserProfile implements InterfacesComunes {
             }
         });
 
+
+    }
+
+    @Override
+    public void getCredentials(String user, String password) {
+
+        MalClient malClient = ServiceGenerator.createService(MalClient.class,user,password);
+
+        Call<Credentials> llamada = malClient.getCredentials();
+        llamada.enqueue(new Callback<Credentials>() {
+            @Override
+            public void onResponse(Call<Credentials> call, Response<Credentials> response) {
+                if (response.isSuccessful()){
+                    Credentials cr = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Credentials> call, Throwable t) {
+
+            }
+        });
+
+
+    }
+
+    @Override
+    public void getAnimeSearch(String query) {
+
+        MalClient malClient = ServiceGenerator.createService(MalClient.class);
+        Call<Anime> llamada = malClient.getAnimeSearch(query);
+        String urlcall = llamada.request().url().toString();
+        llamada.enqueue(new Callback<Anime>() {
+            @Override
+            public void onResponse(Call<Anime> call, Response<Anime> response) {
+                if (response.isSuccessful()){
+                    Anime entradas = response.body();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Anime> call, Throwable t) {
+
+            }
+        });
 
     }
 }//fin clase

@@ -14,9 +14,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        pantalla = (TextView) findViewById(R.id.pantalla);
+        //pantalla = (TextView) findViewById(R.id.pantalla);
 
-        new DataUserProfile().getMalUserProfile();
+        //new DataUserProfile().getMalUserProfile("ricardo7227");
+        new DataUserProfile().getCredentials("ricardoAlexis","**");
+        //pendiente controlar los strings que recibe, espacios en blanco
+        new DataUserProfile().getAnimeSearch("Asterisk");
 
 
 

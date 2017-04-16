@@ -1,4 +1,4 @@
-package com.chaika.estructuraDatos;
+package com.chaika.estructuraDatos.usuario;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
