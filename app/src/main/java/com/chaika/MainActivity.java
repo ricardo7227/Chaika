@@ -2,6 +2,7 @@ package com.chaika;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -9,9 +10,18 @@ import android.widget.TextView;
 import com.chaika.Pruebas.Test;
 import com.chaika.llamadasAPI.DataUserProfile;
 
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class MainActivity extends AppCompatActivity {
 
-    TextView pantalla;
+    public static TextView pantalla;
     Button boton;
 
     @Override
@@ -32,7 +42,37 @@ public class MainActivity extends AppCompatActivity {
         new DataUserProfile().getAnimeSearch("Asterisk");
 
         Test.obs();
+///////////////////////////////////////////////////////////
 
+
+        //emite enteros infinitamente cada segundo
+        Observable<Long> observableInf = Observable.interval(1, TimeUnit.SECONDS);
+        Observer<Long> observerLong = new Observer<Long>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.d("TEST","Subscribe");
+            }
+
+            @Override
+            public void onNext(@NonNull Long aLong) {
+                Log.d("TEST",aLong.toString());
+                pantalla.setText(aLong.toString());
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("TEST","CompletedINT");
+            }
+        } ;
+        //muestra por pantalla un numero ascendente infinitamente
+        observableInf.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observerLong);
 
 
     }//fin onCreate
