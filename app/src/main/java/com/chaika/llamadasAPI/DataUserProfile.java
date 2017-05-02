@@ -1,12 +1,8 @@
 package com.chaika.llamadasAPI;
 
-import android.widget.TextView;
-
-import com.chaika.R;
 import com.chaika.estructuraDatos.search.Anime;
-import com.chaika.estructuraDatos.search.Entry;
-import com.chaika.estructuraDatos.usuario.Credentials;
-import com.chaika.estructuraDatos.usuario.MyAnimeList;
+import com.chaika.estructuraDatos.api.Credentials;
+import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
 import com.chaika.interfaces.InterfacesComunes;
 import com.chaika.interfaces.MalClient;
 

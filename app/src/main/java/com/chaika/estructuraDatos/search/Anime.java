@@ -1,8 +1,5 @@
 package com.chaika.estructuraDatos.search;
 
-import com.chaika.estructuraDatos.usuario.MalUserData;
-
-import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
@@ -15,5 +12,6 @@ import java.util.List;
 public class Anime {
     @ElementList(name = "entry",inline = true)
     public List<Entry> entradas;
+
 
 }//fin clase

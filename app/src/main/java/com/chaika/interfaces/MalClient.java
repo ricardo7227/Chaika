@@ -1,12 +1,11 @@
 package com.chaika.interfaces;
 
 import com.chaika.estructuraDatos.search.Anime;
-import com.chaika.estructuraDatos.usuario.Credentials;
-import com.chaika.estructuraDatos.usuario.MyAnimeList;
+import com.chaika.estructuraDatos.api.Credentials;
+import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**

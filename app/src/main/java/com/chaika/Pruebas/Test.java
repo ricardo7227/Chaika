@@ -16,9 +16,11 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.SingleObserver;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
+import io.reactivex.internal.operators.single.SingleObserveOn;
 
 /**
  * Created by Gato on 23/04/2017.
@@ -69,6 +71,7 @@ public class Test {
             }
         };
         observable.subscribe(observerint);
+        //Observable<Long> obsLong = ;
 
         //emite enteros infinitamente cada segundo
         Observable<Long> observableInf = Observable.interval(1, TimeUnit.SECONDS);
@@ -124,13 +127,93 @@ public class Test {
 
         //la fusión
 
-        flowman.subscribe(observerman);
+        flowman.subscribe(getObserver());
 
 
 
 
 
     }
+
+    //metodos
+
+    private static Observer<String> getObserver(){
+        return new Observer<String>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.d("Method","Subscribe");
+            }
+
+            @Override
+            public void onNext(@NonNull String s) {
+                Log.d("Method",s.toUpperCase());
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.d("Method","Error");
+
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("Method","Complete");
+
+            }
+        };
+    }
+    private SingleObserver<String> getSingle(){
+        return new SingleObserver<String>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(@NonNull String s) {
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+        };
+    }
+
+    // Test.obs();
+///////////////////////////////////////////////////////////
+
+
+    //emite enteros infinitamente cada segundo
+       /* Observable<Long> observableInf = Observable.interval(1, TimeUnit.SECONDS);
+        Observer<Long> observerLong = new Observer<Long>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.d("TEST","Subscribe");
+            }
+
+            @Override
+            public void onNext(@NonNull Long aLong) {
+                Log.d("TEST",aLong.toString());
+                pantalla.setText(aLong.toString());
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("TEST","CompletedINT");
+            }
+        } ;*/
+    //muestra por pantalla un numero ascendente infinitamente
+    //observableInf.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observerLong);
 
 }//fin clase
 

@@ -2,27 +2,28 @@ package com.chaika;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
-import com.chaika.Pruebas.Test;
+import com.chaika.application.ChaikaApplication;
+import com.chaika.componentes.AppComponent;
+
+import com.chaika.componentes.DaggerAppComponent;
+import com.chaika.databases.Data;
 import com.chaika.llamadasAPI.DataUserProfile;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static TextView pantalla;
+    public static TextView pantalla,textView;
+    EditText editText;
     Button boton;
+
+    @Inject
+    Data data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         pantalla = (TextView) findViewById(R.id.pantalla);
         boton = (Button) findViewById(R.id.button);
+        textView = (TextView) findViewById(R.id.text);
+        editText = (EditText) findViewById(R.id.editText);
+        //RXbin...
+        RxTextView.textChanges(editText).subscribe(charSequence -> {textView.setText(charSequence);});
+
         //soporte Lambda Expressions
         //boton.setOnClickListener(v -> pantalla.setText("click"));
         String val ="valor";
@@ -41,41 +47,22 @@ public class MainActivity extends AppCompatActivity {
         //pendiente controlar los strings que recibe, espacios en blanco
         new DataUserProfile().getAnimeSearch("Asterisk");
 
-        Test.obs();
-///////////////////////////////////////////////////////////
+      //A realizar: modulizar la aplicación a estilo de Dagger2
 
+        //////////dagger2
+       AppComponent component = DaggerAppComponent.builder()
+                .databaseComponent(ChaikaApplication.get(this).component())
+                .build();
 
-        //emite enteros infinitamente cada segundo
-        Observable<Long> observableInf = Observable.interval(1, TimeUnit.SECONDS);
-        Observer<Long> observerLong = new Observer<Long>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-                Log.d("TEST","Subscribe");
-            }
+        component.injectMain(this);
+        //accedo a la base de datos, modo prueba
+        data.getUser();
 
-            @Override
-            public void onNext(@NonNull Long aLong) {
-                Log.d("TEST",aLong.toString());
-                pantalla.setText(aLong.toString());
-
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-
-
-            }
-
-            @Override
-            public void onComplete() {
-                Log.d("TEST","CompletedINT");
-            }
-        } ;
-        //muestra por pantalla un numero ascendente infinitamente
-        observableInf.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observerLong);
 
 
     }//fin onCreate
+
+
     private void showText(String val){
         pantalla.setText("hi");
     }
