@@ -10,9 +10,13 @@ import dagger.Component;
  * Created by Gato on 01/05/2017.
  */
 @DatabaseScope
-@Component(modules = DatabaseModulo.class)
-public interface DatabaseComponent {
+@Component(modules = {DatabaseModulo.class})
+public interface DatabaseApplicationComponent {
 
     MalDBHelper getMalDbHelper();
+
+    //para Glide
+    //RequestManager getRequestManager();
+
 
 }

@@ -20,7 +20,7 @@ public class MyInfo {
     @Element(name = "user_dropped")
     private int user_dropped;
     @Element(name = "user_days_spent_watching")
-    private long user_days_spent_watching;
+    private float user_days_spent_watching;
 
     public MyInfo(){}
 
@@ -80,12 +80,26 @@ public class MyInfo {
         this.user_dropped = user_dropped;
     }
 
-    public long getUser_days_spent_watching() {
+    public float getUser_days_spent_watching() {
         return user_days_spent_watching;
     }
 
-    public void setUser_days_spent_watching(long user_days_spent_watching) {
+    public void setUser_days_spent_watching(float user_days_spent_watching) {
         this.user_days_spent_watching = user_days_spent_watching;
+    }
+
+    @Override
+    public String toString() {
+        return "MyInfo{" +
+                "user_id=" + user_id +
+                ", user_name='" + user_name + '\'' +
+                ", user_watching=" + user_watching +
+                ", user_completed=" + user_completed +
+                ", user_onhold=" + user_onhold +
+                ", user_plantowatch=" + user_plantowatch +
+                ", user_dropped=" + user_dropped +
+                ", user_days_spent_watching=" + user_days_spent_watching +
+                '}';
     }
 }//fin clase
 

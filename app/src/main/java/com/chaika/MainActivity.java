@@ -1,17 +1,15 @@
 package com.chaika;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.chaika.application.ChaikaApplication;
 import com.chaika.componentes.AppComponent;
-
 import com.chaika.componentes.DaggerAppComponent;
 import com.chaika.databases.Data;
-import com.chaika.llamadasAPI.DataUserProfile;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import javax.inject.Inject;
@@ -41,22 +39,24 @@ public class MainActivity extends AppCompatActivity {
         String val ="valor";
         boton.setOnClickListener(view -> showText(val));
 
-        //new DataUserProfile().getMalUserProfile("ricardo7227");
+        //new RestApiMal().getMalUserProfile("ricardo7227");
         //crashea cuando no envia una password correcto, a revisar
-        new DataUserProfile().getCredentials("ricardoAlexis","alexss00my**");
+
+
+        //new RestApiMal().getCredentials("ricardoAlexis","alexss00my**");
         //pendiente controlar los strings que recibe, espacios en blanco
-        new DataUserProfile().getAnimeSearch("Asterisk");
+        //new RestApiMal().getAnimeSearch("Asterisk");
 
       //A realizar: modulizar la aplicación a estilo de Dagger2
 
         //////////dagger2
        AppComponent component = DaggerAppComponent.builder()
-                .databaseComponent(ChaikaApplication.get(this).component())
+               .databaseApplicationComponent(ChaikaApplication.get(this).component())
                 .build();
 
         component.injectMain(this);
         //accedo a la base de datos, modo prueba
-        data.getUser();
+
 
 
 

@@ -3,11 +3,11 @@ package com.chaika.application;
 import android.app.Activity;
 import android.app.Application;
 
-
-import com.chaika.componentes.DaggerDatabaseComponent;
-import com.chaika.componentes.DatabaseComponent;
-
+import com.bumptech.glide.RequestManager;
+import com.chaika.componentes.DaggerDatabaseApplicationComponent;
+import com.chaika.componentes.DatabaseApplicationComponent;
 import com.chaika.databases.MalDBHelper;
+import com.chaika.llamadasAPI.RestApiMal;
 import com.chaika.modulos.ContextModulo;
 
 
@@ -17,9 +17,10 @@ import com.chaika.modulos.ContextModulo;
 
 public class ChaikaApplication extends Application{
 
-    private DatabaseComponent component;
+    private DatabaseApplicationComponent component;
 
     private MalDBHelper malDBHelper;
+    private RequestManager requestManager;
 
     public static ChaikaApplication get(Activity activity){
         return (ChaikaApplication) activity.getApplication();
@@ -28,17 +29,19 @@ public class ChaikaApplication extends Application{
     @Override
     public void onCreate(){
         super.onCreate();
-        component = DaggerDatabaseComponent.builder()
+        component = DaggerDatabaseApplicationComponent.builder()
                 .contextModulo(new ContextModulo(this))
                 .build();
 
-        malDBHelper = component.getMalDbHelper();
+        //malDBHelper = component.getMalDbHelper();
+        //nueva forma de hacer llamadas
+        RestApiMal.getInstance().getMalUserProfile("ricardo7227");
 
 
 
     }
 
-    public DatabaseComponent component(){
+    public DatabaseApplicationComponent component(){
         return component;
     }
 

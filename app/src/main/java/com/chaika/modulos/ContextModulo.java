@@ -15,7 +15,7 @@ public class ContextModulo {
     private final Context context;
 
     public ContextModulo(Context context){
-        this.context = context;
+        this.context = context.getApplicationContext();
     }
 
     @Provides

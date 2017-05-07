@@ -1,7 +1,5 @@
 package com.chaika.estructuraDatos.malAppInfo;
 
-import com.chaika.estructuraDatos.search.Anime;
-
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
@@ -36,5 +34,13 @@ public class MyAnimeList{
 
     public void setAnimes(List<Anime> animes) {
         this.animes = animes;
+    }
+
+    @Override
+    public String toString() {
+        return "MyAnimeList{" +
+                "myInfo=" + myInfo +
+                ", animes=" + animes +
+                '}';
     }
 }

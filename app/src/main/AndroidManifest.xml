@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:name=".application.ChaikaApplication"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.chaika.modulos.GlideModulo"
+            android:value="GlideModule" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

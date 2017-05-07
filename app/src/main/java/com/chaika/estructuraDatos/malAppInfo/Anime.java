@@ -15,7 +15,7 @@ public class Anime
     @Element(name = "series_status")
     private int series_status;
 
-    @Element(name = "series_synonyms")
+    @Element(name = "series_synonyms", required = false)
     private String series_synonyms;
 
     @Element(name = "my_watched_episodes")
@@ -30,7 +30,7 @@ public class Anime
     @Element(name = "series_title")
     private String series_title;
 
-    @Element(name = "my_rewatching")
+    @Element(name = "my_rewatching", required = false)
     private int my_rewatching;
 
     @Element(name = "my_finish_date")
@@ -54,7 +54,7 @@ public class Anime
     @Element(name = "my_last_updated")
     private String my_last_updated;
 
-    @Element(name = "my_tags")
+    @Element(name = "my_tags",required = false)
     private String my_tags;
 
     @Element(name = "my_score")
@@ -219,5 +219,30 @@ public class Anime
 
     public void setMy_rewatching_ep(int my_rewatching_ep) {
         this.my_rewatching_ep = my_rewatching_ep;
+    }
+
+    @Override
+    public String toString() {
+        return "Anime{" +
+                "series_type=" + series_type +
+                ", series_status=" + series_status +
+                ", series_synonyms='" + series_synonyms + '\'' +
+                ", my_watched_episodes=" + my_watched_episodes +
+                ", series_image='" + series_image + '\'' +
+                ", my_status=" + my_status +
+                ", series_title='" + series_title + '\'' +
+                ", my_rewatching=" + my_rewatching +
+                ", my_finish_date='" + my_finish_date + '\'' +
+                ", series_start='" + series_start + '\'' +
+                ", series_animedb_id=" + series_animedb_id +
+                ", my_id='" + my_id + '\'' +
+                ", my_start_date='" + my_start_date + '\'' +
+                ", series_end='" + series_end + '\'' +
+                ", my_last_updated='" + my_last_updated + '\'' +
+                ", my_tags='" + my_tags + '\'' +
+                ", my_score=" + my_score +
+                ", series_episodes=" + series_episodes +
+                ", my_rewatching_ep=" + my_rewatching_ep +
+                '}';
     }
 }

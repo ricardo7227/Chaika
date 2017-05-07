@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 /**
@@ -13,6 +14,8 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class ServiceGenerator {
 
+    private final String TAG = getClass().getName();
+
     public static String apiBaseUrl = UrlAPIs.BASE_URL_MALAPI;
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
@@ -20,6 +23,7 @@ public class ServiceGenerator {
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
                     .baseUrl(apiBaseUrl)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(SimpleXmlConverterFactory.create());
 
     private static Retrofit retrofit = builder.build();
@@ -60,6 +64,7 @@ public class ServiceGenerator {
     public static void changeApiBaseUrl(String newApiBaseUrl) {
         apiBaseUrl = newApiBaseUrl;
         builder = new Retrofit.Builder()
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(SimpleXmlConverterFactory.create())
                 .baseUrl(apiBaseUrl);
         retrofit = builder.build();

@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Gato on 16/04/2017.
  */
 @Root(name = "anime",strict = false)
-public class Anime {
+public class AnimeSearch {
     @ElementList(name = "entry",inline = true)
     public List<Entry> entradas;
 

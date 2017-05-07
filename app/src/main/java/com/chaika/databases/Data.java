@@ -15,7 +15,7 @@ import javax.inject.Inject;
  */
 
 public class Data {
-    private static final String TAG = "Data";
+    private final String TAG = getClass().getName();
 
 
     private MalDBHelper malDBHelper;
@@ -25,7 +25,7 @@ public class Data {
         this.malDBHelper = malDBHelper;
     }
 
-    public  UserData getUser(){
+    public UserData getUser(){
         SQLiteDatabase db = malDBHelper.getReadableDatabase();
         UserData userData = null;
 
@@ -99,7 +99,19 @@ public class Data {
 
         return userData;
 
+    }//fin getUser
 
+    /**
+     * Agrega los datos del usuario en la base de datos
+     * @param userData
+     */
+    public void upsert (UserData userData){
+        SQLiteDatabase db = malDBHelper.getWritableDatabase();
+        try {
+            db.insert(MalDBHelper.UserProfileEntry.TABLE_NAME,null,userData.getContentValues());
+        }catch (Exception e){
+            Log.e(TAG,e.getMessage());
+        }
     }
 
 
