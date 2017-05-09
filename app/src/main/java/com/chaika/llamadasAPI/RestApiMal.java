@@ -40,7 +40,7 @@ public class RestApiMal {
     }
 
 
-    public void getMalUserProfile(String userName){
+    public void getMalUserProfile(String userName,String status,String type){
         //cambio a la URL correspondiente
         ServiceGenerator.changeApiBaseUrl(UrlAPIs.BASE_URL_MALAPPINFO);
         String apiBase = apiBaseUrl;
@@ -49,7 +49,7 @@ public class RestApiMal {
         if (malClient == null){
             Logger.e("nulo");
         }
-        Observable<MyAnimeList> myAnimeListObservable = malClient.getUserData(userName);
+        Observable<MyAnimeList> myAnimeListObservable = malClient.getUserData(userName,status,type);
 
         myAnimeListObservable
                 .subscribeOn(Schedulers.newThread())

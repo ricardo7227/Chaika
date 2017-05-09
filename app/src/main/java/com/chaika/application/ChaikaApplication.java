@@ -35,7 +35,7 @@ public class ChaikaApplication extends Application{
 
         //malDBHelper = component.getMalDbHelper();
         //nueva forma de hacer llamadas
-        RestApiMal.getInstance().getMalUserProfile("ricardo7227");
+        RestApiMal.getInstance().getMalUserProfile("ricardo7227","all","anime");
 
 
 
