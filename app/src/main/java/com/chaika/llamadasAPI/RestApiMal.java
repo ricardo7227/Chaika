@@ -1,5 +1,6 @@
 package com.chaika.llamadasAPI;
 
+import com.chaika.estructuraDatos.EntryAnimeValues;
 import com.chaika.estructuraDatos.malAppInfo.Anime;
 import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
 import com.chaika.interfaces.MalClient;
@@ -80,6 +81,39 @@ public class RestApiMal {
                     @Override
                     public void onComplete() {
                         Logger.d("onComplete");
+                    }
+                });
+    }
+    public void addAnimeMal(String malId, StringBuilder entryAnimeValues,String username,String password){
+        MalClient malClient = ServiceGenerator.createService(MalClient.class,username,password);
+
+        Observable<EntryAnimeValues> entryAnimeValuesObservable = malClient.addAnime(malId,entryAnimeValues);
+
+        entryAnimeValuesObservable
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<EntryAnimeValues>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Logger.d("onSubscribe");
+                    }
+
+                    @Override
+                    public void onNext(@NonNull EntryAnimeValues entryAnimeValues) {
+                        Logger.d(entryAnimeValues.toString());
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Logger.e(e.getMessage() );
+
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Logger.d("onComplete");
+
                     }
                 });
     }

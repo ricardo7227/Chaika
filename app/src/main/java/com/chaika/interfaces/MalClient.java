@@ -1,11 +1,13 @@
 package com.chaika.interfaces;
 
+import com.chaika.estructuraDatos.EntryAnimeValues;
 import com.chaika.estructuraDatos.api.Credentials;
 import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
 import com.chaika.estructuraDatos.search.AnimeSearch;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -40,8 +42,7 @@ public interface MalClient {
     Observable<AnimeSearch> getAnimeSearch(@Query("q") String query);
 
     //api/animelist/add/id.xml
-    /*@FormUrlEncoded
-    @POST("animelist/add/id.xml")
-    */
+    @GET("animelist/add/{id}.xml")
+    Observable<EntryAnimeValues> addAnime(@Path("id") String malId, @Query("data") StringBuilder entryAnimeValues );
 
 }//fin clase
