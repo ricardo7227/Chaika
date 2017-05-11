@@ -1,6 +1,5 @@
 package com.chaika.llamadasAPI;
 
-import com.chaika.estructuraDatos.EntryAnimeValues;
 import com.chaika.estructuraDatos.malAppInfo.Anime;
 import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
 import com.chaika.interfaces.MalClient;
@@ -14,6 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
 import static com.chaika.llamadasAPI.ServiceGenerator.apiBaseUrl;
@@ -84,11 +84,39 @@ public class RestApiMal {
                     }
                 });
     }
-    public void addAnimeMal(String malId, StringBuilder entryAnimeValues,String username,String password){
+    public void addAnimeMal(String malId, String entryAnimeValues,String username,String password){
         MalClient malClient = ServiceGenerator.createService(MalClient.class,username,password);
 
-        Observable<EntryAnimeValues> entryAnimeValuesObservable = malClient.addAnime(malId,entryAnimeValues);
+        Observable<ResponseBody> entryAnimeValuesObservable = malClient.addAnime(malId,entryAnimeValues);
 
+        entryAnimeValuesObservable
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Logger.d("la subcribe");
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull ResponseBody responseBody) {
+                        Logger.d(responseBody.toString());
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Logger.e(e.getMessage() );
+
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Logger.d("la complete");
+                    }
+                });
+/*
         entryAnimeValuesObservable
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -115,7 +143,7 @@ public class RestApiMal {
                         Logger.d("onComplete");
 
                     }
-                });
+                });*/
     }
 
 

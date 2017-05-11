@@ -40,17 +40,37 @@ public class ChaikaApplication extends Application{
         EntryAnimeValues animeValues = new EntryAnimeValues();
         animeValues.setEpisode("2");
         animeValues.setStatus("1");
-        String animeMalId = "10";
+        String animeMalId = "34591";
         String username = "ricardoAlexis";
         String pasword = "alexss00my**";
 
         StringBuilder entryValues = new StringBuilder();
-        entryValues.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+        entryValues.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         entryValues.append("<entry>");
-        entryValues.append("\t<episode>11</episode>\n");
+        entryValues.append("<episode>1</episode>");
+        entryValues.append("<status>1</status>");
         entryValues.append("</entry>");
+        /***
+         * <?xml version="1.0" encoding="UTF-8"?>
+         <entry>
+         <episode>11</episode>
+         <status>1</status>
+         <score>7</score>
+         <storage_type></storage_type>
+         <storage_value></storage_value>
+         <times_rewatched></times_rewatched>
+         <rewatch_value></rewatch_value>
+         <date_start></date_start>
+         <date_finish></date_finish>
+         <priority></priority>
+         <enable_discussion></enable_discussion>
+         <enable_rewatching></enable_rewatching>
+         <comments></comments>
+         <tags>test tag, 2nd tag</tags>
+         </entry>
+         */
 
-        RestApiMal.getInstance().addAnimeMal(animeMalId,entryValues,username,pasword);
+        RestApiMal.getInstance().addAnimeMal(animeMalId,entryValues.toString(),username,pasword);
 
 
 
