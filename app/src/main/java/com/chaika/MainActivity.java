@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     public static TextView pantalla,textView;
     EditText editText;
     Button boton;
+    AppComponent component;
 
     @Inject
     Data data;
@@ -50,13 +51,13 @@ public class MainActivity extends AppCompatActivity {
       //A realizar: modulizar la aplicación a estilo de Dagger2
 
         //////////dagger2
-       AppComponent component = DaggerAppComponent.builder()
+        component = DaggerAppComponent.builder()
                .databaseApplicationComponent(ChaikaApplication.get(this).component())
                 .build();
 
         component.injectMain(this);
         //accedo a la base de datos, modo prueba
-
+        //data.getUser();
 
 
 

@@ -95,4 +95,7 @@ public class AnimeData {
     public void setRelatives(boolean relatives) {
         this.relatives = relatives;
     }
+
+
+
 }//fin clase

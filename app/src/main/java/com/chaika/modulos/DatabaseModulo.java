@@ -2,6 +2,7 @@ package com.chaika.modulos;
 
 import android.content.Context;
 
+import com.chaika.databases.Data;
 import com.chaika.databases.MalDBHelper;
 import com.chaika.scopes.DatabaseScope;
 
@@ -18,5 +19,10 @@ public class DatabaseModulo {
     @DatabaseScope
     public MalDBHelper malDBHelper (Context context){
         return new MalDBHelper(context.getApplicationContext());
+    }
+    @Provides
+    @DatabaseScope
+    public Data data(MalDBHelper malDBHelper){
+        return new Data(malDBHelper);
     }
 }//fin clase

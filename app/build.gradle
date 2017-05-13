@@ -69,6 +69,8 @@ dependencies {
 
     //Logger
     debugCompile 'com.orhanobut:logger:1.15'
+    //database checker
+    debugCompile 'com.amitshekhar.android:debug-db:1.0.0'
 
 
 }

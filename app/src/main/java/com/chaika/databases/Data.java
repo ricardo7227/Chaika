@@ -6,7 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.chaika.estructuraDatos.Database.UserData;
+import com.chaika.estructuraDatos.malAppInfo.Anime;
+import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
 import com.chaika.estructuraDatos.malAppInfo.MyInfo;
+import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
@@ -109,11 +112,36 @@ public class Data {
         SQLiteDatabase db = malDBHelper.getWritableDatabase();
         try {
             db.insert(MalDBHelper.UserProfileEntry.TABLE_NAME,null,userData.getContentValues());
+            Logger.d(userData.getMyInfo().toString());
         }catch (Exception e){
             Log.e(TAG,e.getMessage());
+        }finally {
+            malDBHelper.close();
+            db.close();
+            db = null;
         }
     }
 
+    /***
+     * Añade la lista de series
+      * @param myAnimeList
+     */
+    public void upsert(MyAnimeList myAnimeList){
+        SQLiteDatabase db = malDBHelper.getWritableDatabase();
+        try{
+            for (Anime a: myAnimeList.getAnimes()) {
+                Logger.d(a.toString());
+                db.insert(MalDBHelper.AnimeEntry.TABLE_NAME,null,a.getContentValuesSerie());
+            }
+        }catch (Exception e){
+            Logger.e(e.getMessage());
+        }finally {
+            malDBHelper.close();
+            db.close();
+            db = null;
+        }
+
+    }//fin upsert
 
 
 

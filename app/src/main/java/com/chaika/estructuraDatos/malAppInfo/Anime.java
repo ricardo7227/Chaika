@@ -1,5 +1,10 @@
 package com.chaika.estructuraDatos.malAppInfo;
 
+import android.content.ContentValues;
+import android.util.Log;
+
+import com.chaika.databases.MalDBHelper;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
@@ -245,4 +250,25 @@ public class Anime
                 ", my_rewatching_ep=" + my_rewatching_ep +
                 '}';
     }
-}
+    public ContentValues getContentValuesSerie(){
+        try {
+            ContentValues values = new ContentValues();
+
+            values.put(MalDBHelper.AnimeEntry.COLUMN_ANIMEDB_ID, getSeries_animedb_id());
+            values.put(MalDBHelper.AnimeEntry.COLUMN_TITLE ,getSeries_title());
+            values.put(MalDBHelper.AnimeEntry.COLUMN_SYNONYMS ,getSeries_synonyms());
+            values.put(MalDBHelper.AnimeEntry.COLUMN_TYPE ,getSeries_type());
+            values.put(MalDBHelper.AnimeEntry.COLUMN_EPISODES ,getSeries_episodes());
+            values.put(MalDBHelper.AnimeEntry.COLUMN_STATUS ,getSeries_status());
+            values.put(MalDBHelper.AnimeEntry.COLUMN_START_DATE ,getSeries_start());
+            values.put(MalDBHelper.AnimeEntry.COLUMN_END_DATE ,getSeries_end());
+            values.put(MalDBHelper.AnimeEntry.COLUMN_IMAGE ,getSeries_image());
+
+            return values;
+        }catch (Exception e){
+            Log.e("UserData",e.getMessage());
+        }
+        return null;
+    }
+
+}//fin clase

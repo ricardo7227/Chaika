@@ -1,7 +1,8 @@
 package com.chaika.llamadasAPI;
 
+import com.chaika.databases.Data;
+import com.chaika.estructuraDatos.Database.UserData;
 import com.chaika.estructuraDatos.api.Credentials;
-import com.chaika.estructuraDatos.malAppInfo.Anime;
 import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
 import com.chaika.estructuraDatos.search.AnimeSearch;
 import com.chaika.estructuraDatos.search.Entry;
@@ -26,7 +27,6 @@ import static com.chaika.llamadasAPI.ServiceGenerator.apiBaseUrl;
  * Created by Gato on 13/04/2017.
  */
 
-
 public class RestApiMal {
 
     private final String TAG = getClass().getName();
@@ -34,6 +34,8 @@ public class RestApiMal {
     private static Retrofit retrofit = null;
     private MalClient malClient;
     private static  RestApiMal instance;
+
+
 
     //instancia única de la clase
     public static RestApiMal getInstance(){
@@ -49,7 +51,7 @@ public class RestApiMal {
      * @param status - all - String, es el único que funciona, watching ---> X_X
      * @param type  - anime - manga, String, dos listas distintas
      */
-    public void getMalUserProfile(String userName,String status,String type){
+    public void getMalUserProfile(String userName, String status, String type,Data data){
         //cambio a la URL correspondiente
         ServiceGenerator.changeApiBaseUrl(UrlAPIs.BASE_URL_MALAPPINFO);
         String apiBase = apiBaseUrl;
@@ -65,18 +67,20 @@ public class RestApiMal {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         Logger.d("onSubscribe: " + d.toString());
+
                     }
 
                     @Override
                     public void onNext(@NonNull MyAnimeList myAnimeList) {
-                        Logger.d("onNext");
-                        //recorre la lista para mostrarla por el monitor
-                        //falta agregarla a la base de datos
-                        Logger.d(myAnimeList.getMyInfo().toString());
-                        List<Anime> animeList = myAnimeList.getAnimes();
-                        for (Anime a: animeList) {
-                            Logger.d(a.toString());
-                        }
+                        Logger.d("onNext MALAPPINFO");
+
+                        //creo el objeto a agregar en la DB
+                        UserData userData = new UserData();
+                        userData.setMyInfo(myAnimeList.getMyInfo());
+                        //información del usuario
+                        data.upsert(userData);
+                        //lista de series
+                        data.upsert(myAnimeList);
 
                     }
 
@@ -118,13 +122,18 @@ public class RestApiMal {
 
                     @Override
                     public void onNext(@NonNull ResponseBody responseBody) {
-                        Logger.d(ResposeBodyReader.instance().getResponse(responseBody));
+                        String respuesta = ResposeBodyReader.instance().getResponse(responseBody);
+                        Logger.d(respuesta);
+                        if (respuesta == "Created"){
+
+                        }else {
+                            //problemas añadiendo serie
+                        }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         Logger.e(e.getMessage() );
-
                         e.printStackTrace();
                     }
 
@@ -160,7 +169,13 @@ public class RestApiMal {
 
                     @Override
                     public void onNext(@NonNull ResponseBody responseBody) {
-                        Logger.d(ResposeBodyReader.instance().getResponse(responseBody));
+                        String respuesta = ResposeBodyReader.instance().getResponse(responseBody);
+                        Logger.d(respuesta);
+                        if (respuesta == "Updated"){
+
+                        }else {
+                            //problemas actualizando serie
+                        }
                     }
 
                     @Override
@@ -202,8 +217,13 @@ public class RestApiMal {
 
                     @Override
                     public void onNext(@NonNull ResponseBody responseBody) {
+                        String respuesta = ResposeBodyReader.instance().getResponse(responseBody);
+                        Logger.d(respuesta);
+                        if (respuesta == "Deleted"){
 
-                        Logger.d(ResposeBodyReader.instance().getResponse(responseBody));
+                        }else {
+                            //problemas eliminando serie
+                        }
                     }
 
                     @Override

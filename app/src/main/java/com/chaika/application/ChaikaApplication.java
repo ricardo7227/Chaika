@@ -10,7 +10,6 @@ import com.chaika.databases.MalDBHelper;
 import com.chaika.estructuraDatos.EntryAnimeValues;
 import com.chaika.llamadasAPI.RestApiMal;
 import com.chaika.modulos.ContextModulo;
-import com.chaika.utilidades.AnimeValuesXMLtoString;
 
 
 /**
@@ -37,7 +36,8 @@ public class ChaikaApplication extends Application{
 
         //malDBHelper = component.getMalDbHelper();
         //nueva forma de hacer llamadas
-        //RestApiMal.getInstance().getMalUserProfile("ricardo7227","all","anime");
+
+        RestApiMal.getInstance().getMalUserProfile("ricardoAlexis","all","anime",component.getData());
 
         String animeMalId = "34591";
         String username = "ricardoAlexis";
@@ -49,7 +49,7 @@ public class ChaikaApplication extends Application{
         valores.setScore("8");
         //añade una nueva serie a la lista
 
-        RestApiMal.getInstance().addAnimeMal(animeMalId, AnimeValuesXMLtoString.getInstance().convert(valores),username,pasword);
+        //RestApiMal.getInstance().addAnimeMal(animeMalId, AnimeValuesXMLtoString.getInstance().convert(valores),username,pasword);
         //RestApiMal.getInstance().updateAnimeMal(animeMalId,entryValues.toString(),username,pasword);
         //RestApiMal.getInstance().deleteAnimeMal(animeMalId,username,pasword);
 

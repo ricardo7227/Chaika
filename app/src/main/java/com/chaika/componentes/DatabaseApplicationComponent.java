@@ -1,6 +1,6 @@
 package com.chaika.componentes;
 
-import com.chaika.databases.MalDBHelper;
+import com.chaika.databases.Data;
 import com.chaika.modulos.DatabaseModulo;
 import com.chaika.scopes.DatabaseScope;
 
@@ -13,8 +13,9 @@ import dagger.Component;
 @Component(modules = {DatabaseModulo.class})
 public interface DatabaseApplicationComponent {
 
-    MalDBHelper getMalDbHelper();
+    //MalDBHelper getMalDbHelper();
 
+    Data getData();
     //para Glide
     //RequestManager getRequestManager();
 
