@@ -34,4 +34,12 @@ public class Credentials {
     public void setUser_name(String user_name) {
         this.user_name = user_name;
     }
+
+    @Override
+    public String toString() {
+        return "Credentials{" +
+                "user_id=" + user_id +
+                ", user_name='" + user_name + '\'' +
+                '}';
+    }
 }//fin clase

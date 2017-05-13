@@ -13,5 +13,14 @@ public class AnimeSearch {
     @ElementList(name = "entry",inline = true)
     public List<Entry> entradas;
 
+    public AnimeSearch() {
+    }
 
+    public List<Entry> getEntradas() {
+        return entradas;
+    }
+
+    public void setEntradas(List<Entry> entradas) {
+        this.entradas = entradas;
+    }
 }//fin clase

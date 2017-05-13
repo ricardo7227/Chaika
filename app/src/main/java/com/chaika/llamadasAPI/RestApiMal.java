@@ -1,8 +1,12 @@
 package com.chaika.llamadasAPI;
 
+import com.chaika.estructuraDatos.api.Credentials;
 import com.chaika.estructuraDatos.malAppInfo.Anime;
 import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
+import com.chaika.estructuraDatos.search.AnimeSearch;
+import com.chaika.estructuraDatos.search.Entry;
 import com.chaika.interfaces.MalClient;
+import com.chaika.utilidades.ResposeBodyReader;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
@@ -28,11 +32,10 @@ public class RestApiMal {
     private final String TAG = getClass().getName();
 
     private static Retrofit retrofit = null;
-
     private MalClient malClient;
-
     private static  RestApiMal instance;
 
+    //instancia única de la clase
     public static RestApiMal getInstance(){
         if (instance == null){
             instance = new RestApiMal();
@@ -40,16 +43,19 @@ public class RestApiMal {
         return instance;
     }
 
-
+    /**
+     * llamada que recibe toda la información del usuario, su perfil y su lista de series
+     * @param userName - nombre del usuario en el sitio web
+     * @param status - all - String, es el único que funciona, watching ---> X_X
+     * @param type  - anime - manga, String, dos listas distintas
+     */
     public void getMalUserProfile(String userName,String status,String type){
         //cambio a la URL correspondiente
         ServiceGenerator.changeApiBaseUrl(UrlAPIs.BASE_URL_MALAPPINFO);
         String apiBase = apiBaseUrl;
         //acceso al servicio
         MalClient malClient = ServiceGenerator.createService(MalClient.class);
-        if (malClient == null){
-            Logger.e("nulo");
-        }
+
         Observable<MyAnimeList> myAnimeListObservable = malClient.getUserData(userName,status,type);
 
         myAnimeListObservable
@@ -64,6 +70,8 @@ public class RestApiMal {
                     @Override
                     public void onNext(@NonNull MyAnimeList myAnimeList) {
                         Logger.d("onNext");
+                        //recorre la lista para mostrarla por el monitor
+                        //falta agregarla a la base de datos
                         Logger.d(myAnimeList.getMyInfo().toString());
                         List<Anime> animeList = myAnimeList.getAnimes();
                         for (Anime a: animeList) {
@@ -84,6 +92,15 @@ public class RestApiMal {
                     }
                 });
     }
+
+    /***
+     * añade una nueva serie a la lista
+     * @param malId String ID de la serie en MAL
+     * @param entryAnimeValues - String - XML parseado a String con los datos de la serie añadida
+     * @param username - String nick del usuario,
+     * @param password  - String - contraseña del perfil
+     *                  Cada petición para modificar la lista del usuario requiere identificación
+     */
     public void addAnimeMal(String malId, String entryAnimeValues,String username,String password){
         MalClient malClient = ServiceGenerator.createService(MalClient.class,username,password);
 
@@ -101,7 +118,7 @@ public class RestApiMal {
 
                     @Override
                     public void onNext(@NonNull ResponseBody responseBody) {
-                        Logger.d(responseBody.toString());
+                        Logger.d(ResposeBodyReader.instance().getResponse(responseBody));
                     }
 
                     @Override
@@ -116,19 +133,34 @@ public class RestApiMal {
                         Logger.d("la complete");
                     }
                 });
-/*
+
+    }//addAnime
+
+    /**
+     * Actualiza la información del estado de una serie.
+     * @param malId - ID de la serie en MAL
+     * @param entryAnimeValues - XML parseado con los datos a actualizar
+     * @param username
+     * @param password
+     */
+    public void updateAnimeMal(String malId, String entryAnimeValues,String username,String password){
+        MalClient malClient = ServiceGenerator.createService(MalClient.class,username,password);
+
+        Observable<ResponseBody> entryAnimeValuesObservable = malClient.updateAnime(malId,entryAnimeValues);
+
         entryAnimeValuesObservable
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<EntryAnimeValues>() {
+                .subscribe(new Observer<ResponseBody>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-                        Logger.d("onSubscribe");
+                        Logger.d("la onSubscribe");
+
                     }
 
                     @Override
-                    public void onNext(@NonNull EntryAnimeValues entryAnimeValues) {
-                        Logger.d(entryAnimeValues.toString());
+                    public void onNext(@NonNull ResponseBody responseBody) {
+                        Logger.d(ResposeBodyReader.instance().getResponse(responseBody));
                     }
 
                     @Override
@@ -140,88 +172,134 @@ public class RestApiMal {
 
                     @Override
                     public void onComplete() {
-                        Logger.d("onComplete");
+                        Logger.d("la onComplete");
+                    }
+                });
+
+    }//updateAnime
+
+
+    /***
+     * Borra la serie de la lista personal del usuario
+     * @param malId - ID de la serie en MAL
+     * @param username
+     * @param password
+     */
+    public void deleteAnimeMal(String malId,String username,String password){
+        MalClient malClient = ServiceGenerator.createService(MalClient.class,username,password);
+
+        Observable<ResponseBody> entryAnimeValuesObservable = malClient.deleteAnime(malId);
+
+        entryAnimeValuesObservable
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Logger.d("la onSubscribe");
 
                     }
-                });*/
-    }
+
+                    @Override
+                    public void onNext(@NonNull ResponseBody responseBody) {
+
+                        Logger.d(ResposeBodyReader.instance().getResponse(responseBody));
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Logger.e(e.getMessage() );
+
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Logger.d("la onComplete");
+                    }
+                });
+
+    }//deleteAnime
 
 
-
-
-   /* @Override
-    public void getMalUserProfile(String user) {
-        //cambio a la URL correspondiente
-        ServiceGenerator.changeApiBaseUrl(UrlAPIs.BASE_URL_MALAPPINFO);
-        String apiBase = apiBaseUrl;
-        //acceso al servicio
-        MalClient malClient = ServiceGenerator.createService(MalClient.class);
-
-        Call<MyAnimeList> llamada = malClient.getUserData(user);
-        //la url que consulta
-        String urlcall = llamada.request().url().toString();
-        llamada.enqueue(new Callback<MyAnimeList>() {
-            @Override
-            public void onResponse(Call<MyAnimeList> call, Response<MyAnimeList> response) {
-                if (response.isSuccessful()){
-                    MyAnimeList datosUsuario = response.body();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MyAnimeList> call, Throwable t) {
-                String val = "Error de conexión o formación";
-
-            }
-        });
-
-
-    }
-
-    @Override
+    /***
+     *  Obtiene las credenciales del usuario
+     *  Utilizado para validar el login de la aplicación
+     * @param user
+     * @param password
+     */
     public void getCredentials(String user, String password) {
 
         MalClient malClient = ServiceGenerator.createService(MalClient.class,user,password);
+        Observable<Credentials> credentialsObservable = malClient.getCredentials();
 
-        Call<Credentials> llamada = malClient.getCredentials();
-        llamada.enqueue(new Callback<Credentials>() {
-            @Override
-            public void onResponse(Call<Credentials> call, Response<Credentials> response) {
-                if (response.isSuccessful()){
-                    Credentials cr = response.body();
-                }
-            }
+        credentialsObservable
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Credentials>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Logger.d("onSubscribe getCredentials");
+                    }
 
-            @Override
-            public void onFailure(Call<Credentials> call, Throwable t) {
+                    @Override
+                    public void onNext(@NonNull Credentials credentials) {
+                        Logger.d(credentials.toString());
+                    }
 
-            }
-        });
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Logger.e("onError getCredentials: ",e.getMessage());
+                    }
 
+                    @Override
+                    public void onComplete() {
+                        Logger.d("onComplete getCredentials");
+                    }
+                });
+    }//fin getCredentials
 
-    }
+    /***
+     *
+     * @param query - termino a buscar en MAL
+     * @param username
+     * @param password
+     */
+    public void getAnimeSearch(String query,String username,String password) {
 
-    @Override
-    public void getAnimeSearch(String query) {
+        MalClient malClient = ServiceGenerator.createService(MalClient.class,username,password);
+        Observable<AnimeSearch> animeSearchObservable = malClient.getAnimeSearch(query);
 
-        MalClient malClient = ServiceGenerator.createService(MalClient.class);
-        Call<AnimeSearch> llamada = malClient.getAnimeSearch(query);
-        String urlcall = llamada.request().url().toString();
-        llamada.enqueue(new Callback<AnimeSearch>() {
-            @Override
-            public void onResponse(Call<AnimeSearch> call, Response<AnimeSearch> response) {
-                if (response.isSuccessful()){
-                    AnimeSearch entradas = response.body();
+        animeSearchObservable
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<AnimeSearch>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Logger.d("onSubscribe getAnimeSearch");
+                    }
 
-                }
-            }
+                    @Override
+                    public void onNext(@NonNull AnimeSearch animeSearch) {
+                        Logger.d(animeSearch);
 
-            @Override
-            public void onFailure(Call<AnimeSearch> call, Throwable t) {
+                        List<Entry> resultados = animeSearch.getEntradas();
+                        for (Entry a: resultados) {
+                            Logger.d(a.toString());
+                        }
+                    }
 
-            }
-        });
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Logger.e("onError getAnimeSearch: ",e.getMessage());
+                    }
 
-    }*/
+                    @Override
+                    public void onComplete() {
+                        Logger.d("onComplete getAnimeSearch");
+                    }
+                });
+    }//fin getAnimeSearch
+
 }//fin clase
 

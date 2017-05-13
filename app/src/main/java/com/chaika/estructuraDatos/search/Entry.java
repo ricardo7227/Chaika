@@ -130,4 +130,22 @@ public class Entry {
     public void setStart_date(String start_date) {
         this.start_date = start_date;
     }
+
+    @Override
+    public String toString() {
+        return "Entry{" +
+                "anime_id=" + anime_id +
+                ", anime_title='" + anime_title + '\'' +
+                ", anime_sinopsis='" + anime_sinopsis + '\'' +
+                ", end_date='" + end_date + '\'' +
+                ", status='" + status + '\'' +
+                ", score=" + score +
+                ", synonyms='" + synonyms + '\'' +
+                ", image_path='" + image_path + '\'' +
+                ", type='" + type + '\'' +
+                ", title_english='" + title_english + '\'' +
+                ", episodes=" + episodes +
+                ", start_date='" + start_date + '\'' +
+                '}';
+    }
 }//fin clase

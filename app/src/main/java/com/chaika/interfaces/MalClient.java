@@ -6,6 +6,7 @@ import com.chaika.estructuraDatos.search.AnimeSearch;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
@@ -16,18 +17,8 @@ import retrofit2.http.Query;
  */
 
 public interface MalClient {
-    /*
-    @GET("malappinfo.php/")
-    Call<MyAnimeList> getUserData(
-            @Query("u") String username);
 
-    @GET("account/verify_credentials.xml")
-    Call<Credentials> getCredentials();
-
-    @GET("anime/search.xml")
-    Call<AnimeSearch> getAnimeSearch(@Query("q") String query);
-    */
-    //https://myanimelist.net/malappinfo.php?u=ricardoAlexis&status=all&type=anime
+       //https://myanimelist.net/malappinfo.php?u=ricardoAlexis&status=all&type=anime
     //RXjava
     // acceso a la lista de toda la colección del usuario
     @GET("malappinfo.php/")
@@ -48,5 +39,16 @@ public interface MalClient {
     })
     @GET("animelist/add/{id}.xml")
     Observable<ResponseBody> addAnime(@Path("id") String malId, @Query("data") String entryAnimeValues );
+
+    ///api/animelist/update/id.xml
+    @Headers({
+            "Content-Type: application/xml; charset=utf-8",
+    })
+    @GET("animelist/update/{id}.xml")
+    Observable<ResponseBody> updateAnime(@Path("id") String malId, @Query("data") String entryAnimeValues );
+
+    //api/animelist/delete/id.xml
+    @DELETE("animelist/delete/{id}.xml")
+    Observable<ResponseBody> deleteAnime(@Path("id") String malId);
 
 }//fin clase
