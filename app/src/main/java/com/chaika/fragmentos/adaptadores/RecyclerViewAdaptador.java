@@ -1,15 +1,20 @@
 package com.chaika.fragmentos.adaptadores;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chaika.R;
+import com.chaika.application.AplicationConfig;
 import com.chaika.estructuraDatos.Database.AnimeData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,12 +25,24 @@ import java.util.List;
 public class RecyclerViewAdaptador extends
         RecyclerView.Adapter<RecyclerViewAdaptador.ViewHolder> {
 
+    // Store a member variable for the contacts
+    private List<AnimeData> animeList = new ArrayList<>();
+    // Store the context for easy access
+    private Context mContext;
+
+
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
         public TextView title_series;
+        public TextView studio_series;
+        public TextView vistos_series;
+        public TextView season_series;
+        public TextView source_series;
+
+        public ImageView cover_series;
 
 
         // We also create a constructor that accepts the entire item row
@@ -36,22 +53,27 @@ public class RecyclerViewAdaptador extends
             super(itemView);
 
             title_series = (TextView) itemView.findViewById(R.id.title_series);
+            studio_series = (TextView) itemView.findViewById(R.id.studio_series);
+            vistos_series = (TextView) itemView.findViewById(R.id.episodios_vistos);
+            season_series = (TextView) itemView.findViewById(R.id.season_series);
+            source_series = (TextView) itemView.findViewById(R.id.source_series);
+
+            cover_series =  (ImageView) itemView.findViewById(R.id.cover_serie);
 
         }
     }
 
-    // Store a member variable for the contacts
-    private List<AnimeData> animeList;
-    // Store the context for easy access
-    private Context mContext;
 
     // Pass in the contact array into the constructor
     public RecyclerViewAdaptador(Context context, List<AnimeData> animes) {
         animeList = animes;
         mContext = context;
     }
+    public RecyclerViewAdaptador() {
 
-    // Easy access to the context object in the recyclerview
+    }
+
+    // Easy access to the context object in the recycler_view
     private Context getContext() {
         return mContext;
     }
@@ -67,6 +89,7 @@ public class RecyclerViewAdaptador extends
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(contactView);
+
         return viewHolder;
     }
 
@@ -77,8 +100,22 @@ public class RecyclerViewAdaptador extends
         AnimeData animeData = animeList.get(position);
 
         // Set item views based on your views and data model
-        TextView textView = viewHolder.title_series;
-        textView.setText(animeData.getAnimeMalinfo().getSeries_title());
+        TextView title_series = viewHolder.title_series;
+        title_series.setText(animeData.getAnimeMalinfo().getSeries_title());
+        TextView studio_series = viewHolder.studio_series;
+        studio_series.setText("undefined Studio");//falta studio
+        TextView vistos_series = viewHolder.vistos_series;
+        vistos_series.setText( String.valueOf(animeData.getAnimeMalinfo().getMy_watched_episodes() ));
+        TextView season_series = viewHolder.season_series;
+        season_series.setText(animeData.getSeason());
+        TextView source_series = viewHolder.source_series;
+        source_series.setText(animeData.getSource());
+
+        ImageView cover_series = viewHolder.cover_series;
+        //pulir glide
+        Glide.with(AplicationConfig.getInstance().getContext()).load(animeData.getAnimeMalinfo().getSeries_image()).into(cover_series);
+
+
 
     }
 
@@ -86,6 +123,18 @@ public class RecyclerViewAdaptador extends
     @Override
     public int getItemCount() {
         return animeList.size();
+    }
+
+    public void setAnimeList(List<AnimeData> animeList){
+        this.animeList = animeList;
+    }
+    public void setListMAL(@Nullable List<AnimeData> animeDataList) {
+        if (animeDataList == null) {
+            return;
+        }
+        animeList.clear();
+        animeList.addAll(animeDataList);
+        notifyDataSetChanged();
     }
 
 }//fin clase

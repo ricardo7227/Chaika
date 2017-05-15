@@ -1,14 +1,16 @@
 package com.chaika.interfaces;
 
+import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
+
 /**
  * Created by Gato on 13/04/2017.
  */
 
-public interface InterfacesComunes {
-    void getMalUserProfile(String user);
-
+public interface ApiResult {
+    void SucessCall(MyAnimeList myAnimeList);
+/*
     void getCredentials(String user,String password);
 
     void getAnimeSearch(String query);
-
+*/
 }//fin clase

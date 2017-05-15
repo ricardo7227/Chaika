@@ -22,10 +22,19 @@ public class Data {
 
 
     private MalDBHelper malDBHelper;
+    private static Data instance;
     @Inject
     public Data(MalDBHelper malDBHelper){
 
         this.malDBHelper = malDBHelper;
+    }
+    public Data(){}
+
+    public static Data instance (){
+        if (instance == null){
+            instance = new Data();
+        }
+        return instance;
     }
 
     public UserData getUser(){

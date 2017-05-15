@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.chaika.R;
 
@@ -19,8 +18,8 @@ public class SecondFragment extends Fragment {
     private int page;
 
     // newInstance constructor for creating fragment with arguments
-    public static FirstFragment newInstance(int page, String title) {
-        FirstFragment fragmentFirst = new FirstFragment();
+    public static AllSeriesFragment newInstance(int page, String title) {
+        AllSeriesFragment fragmentFirst = new AllSeriesFragment();
         Bundle args = new Bundle();
         args.putInt("someInt", page);
         args.putString("someTitle", title);
@@ -41,8 +40,8 @@ public class SecondFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.all_series_fragment, container, false);
-        TextView tvLabel = (TextView) view.findViewById(R.id.textV);
-        tvLabel.setText(page + " -- " + title);
+//        TextView tvLabel = (TextView) view.findViewById(R.id.textV);
+//        tvLabel.setText(page + " -- " + title);
         return view;
     }
 }

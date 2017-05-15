@@ -1,11 +1,13 @@
 package com.chaika.llamadasAPI;
 
-import com.chaika.databases.Data;
+import com.chaika.application.AplicationConfig;
+import com.chaika.application.ChaikaApplication;
 import com.chaika.estructuraDatos.Database.UserData;
 import com.chaika.estructuraDatos.api.Credentials;
 import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
 import com.chaika.estructuraDatos.search.AnimeSearch;
 import com.chaika.estructuraDatos.search.Entry;
+import com.chaika.interfaces.ApiResult;
 import com.chaika.interfaces.MalClient;
 import com.chaika.utilidades.ResposeBodyReader;
 import com.orhanobut.logger.Logger;
@@ -35,7 +37,7 @@ public class RestApiMal {
     private MalClient malClient;
     private static  RestApiMal instance;
 
-
+    //private ApiResult apiResult;
 
     //instancia única de la clase
     public static RestApiMal getInstance(){
@@ -51,7 +53,7 @@ public class RestApiMal {
      * @param status - all - String, es el único que funciona, watching ---> X_X
      * @param type  - anime - manga, String, dos listas distintas
      */
-    public void getMalUserProfile(String userName, String status, String type,Data data){
+    public void getMalUserProfile(String userName, String status, String type,ApiResult apiResult){
         //cambio a la URL correspondiente
         ServiceGenerator.changeApiBaseUrl(UrlAPIs.BASE_URL_MALAPPINFO);
         String apiBase = apiBaseUrl;
@@ -78,9 +80,12 @@ public class RestApiMal {
                         UserData userData = new UserData();
                         userData.setMyInfo(myAnimeList.getMyInfo());
                         //información del usuario
-                        data.upsert(userData);
+                        ChaikaApplication.get(AplicationConfig.getInstance().getActivity()).component().getData().upsert(userData);
+                        //Data.instance().upsert(userData);
                         //lista de series
-                        data.upsert(myAnimeList);
+                        //Data.instance().upsert(myAnimeList);
+                        apiResult.SucessCall(myAnimeList);
+
 
                     }
 
