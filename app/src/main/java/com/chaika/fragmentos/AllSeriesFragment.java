@@ -26,7 +26,7 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
     // Store instance variables
     private String title;
     private int page;
-    RecyclerViewAdaptador adapter = new RecyclerViewAdaptador();
+    RecyclerViewAdaptador adapter;// = new RecyclerViewAdaptador();
     RecyclerView rvSeries;
     ArrayList<AnimeData> animeList;
 
@@ -115,10 +115,13 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
         animeList.add(c);
         animeList.add(d);
 */
+        rvSeries.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        rvSeries.setLayoutManager(layoutManager);
         // Create adapter passing in the sample user data
          //adapter = new RecyclerViewAdaptador(getContext(), animeList);
         // Attach the adapter to the recycler_view to populate items
-        rvSeries.setAdapter(adapter);
+        //rvSeries.setAdapter(adapter);
 
 //        RecyclerView.ItemDecoration decoration = new RecyclerView.ItemDecoration() {
 //            @Override
@@ -130,7 +133,7 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
 //        };
 //        rvSeries.addItemDecoration(decoration);
         // Set layout manager to position the items
-        rvSeries.setLayoutManager(new LinearLayoutManager(getContext()));
+       // rvSeries.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
         return view;
@@ -150,10 +153,11 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
             animeDataList.add(ad);
         }
         animeList = new ArrayList<AnimeData>(animeDataList);
+        adapter = new RecyclerViewAdaptador(getContext(),animeList);
         // Create adapter passing in the sample user data
         //adapter = new RecyclerViewAdaptador(getContext(), animeDataList);
-
-        adapter.setListMAL(animeList);
+        rvSeries.setAdapter(adapter);
+        //adapter.setListMAL(animeList);
 
         // Attach the adapter to the recycler_view to populate items
         //rvSeries.setAdapter(adapter);
