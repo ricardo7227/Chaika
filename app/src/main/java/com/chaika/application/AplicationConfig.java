@@ -3,6 +3,8 @@ package com.chaika.application;
 import android.app.Activity;
 import android.content.Context;
 
+import com.chaika.interfaces.ApiResult;
+
 /**
  * Created by Gato on 15/05/2017.
  */
@@ -11,6 +13,7 @@ public class AplicationConfig{
     private static AplicationConfig instance;
     private Activity activity;
     private Context context;
+    private ApiResult apiResult;
 
 
     public static AplicationConfig getInstance(){
@@ -36,5 +39,11 @@ public class AplicationConfig{
         this.context = context;
     }
 
+    public ApiResult getApiResult() {
+        return apiResult;
+    }
 
+    public void setApiResult(ApiResult apiResult) {
+        this.apiResult = apiResult;
+    }
 }//fin clase

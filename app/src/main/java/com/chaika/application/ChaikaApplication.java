@@ -8,8 +8,6 @@ import com.chaika.componentes.DaggerDatabaseApplicationComponent;
 import com.chaika.componentes.DatabaseApplicationComponent;
 import com.chaika.databases.MalDBHelper;
 import com.chaika.estructuraDatos.EntryAnimeValues;
-import com.chaika.fragmentos.AllSeriesFragment;
-import com.chaika.llamadasAPI.RestApiMal;
 import com.chaika.modulos.ContextModulo;
 
 
@@ -41,7 +39,7 @@ public class ChaikaApplication extends Application{
 
         //nueva forma de hacer llamadas
         //RestApiMal.getInstance().getMalUserProfile("ricardoAlexis","all","anime",component.getData());
-        RestApiMal.getInstance().getMalUserProfile("ricardoAlexis","all","anime", AllSeriesFragment.instance());
+        //RestApiMal.getInstance().getMalUserProfile("ricardoAlexis","all","anime", AplicationConfig.getInstance().getApiResult());
         String animeMalId = "34591";
         String username = "ricardoAlexis";
         String pasword = "alexss00my**";

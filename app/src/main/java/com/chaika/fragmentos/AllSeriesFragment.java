@@ -109,12 +109,12 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
         d.setSource("Light Novel");
 
          animeList = new ArrayList<AnimeData>();
-/*
+
         animeList.add(a);
         animeList.add(b);
         animeList.add(c);
         animeList.add(d);
-*/
+
         rvSeries.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvSeries.setLayoutManager(layoutManager);
@@ -153,10 +153,11 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
             animeDataList.add(ad);
         }
         animeList = new ArrayList<AnimeData>(animeDataList);
-        adapter = new RecyclerViewAdaptador(getContext(),animeList);
+        //adapter = new RecyclerViewAdaptador(getContext(),animeList);
         // Create adapter passing in the sample user data
         //adapter = new RecyclerViewAdaptador(getContext(), animeDataList);
-        rvSeries.setAdapter(adapter);
+
+        //rvSeries.setAdapter(adapter);
         //adapter.setListMAL(animeList);
 
         // Attach the adapter to the recycler_view to populate items
