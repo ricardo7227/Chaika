@@ -56,8 +56,8 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        page = getArguments().getInt("someInt", 0);
-        title = getArguments().getString("someTitle");
+//        page = getArguments().getInt("someInt", 0);
+  //      title = getArguments().getString("someTitle");
 
         //RestApiMal.getInstance().getMalUserProfile("ricardoAlexis","all","anime",component.getData());
     }
@@ -119,9 +119,9 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvSeries.setLayoutManager(layoutManager);
         // Create adapter passing in the sample user data
-         //adapter = new RecyclerViewAdaptador(getContext(), animeList);
+        adapter = new RecyclerViewAdaptador(getContext(), animeList);
         // Attach the adapter to the recycler_view to populate items
-        //rvSeries.setAdapter(adapter);
+        rvSeries.setAdapter(adapter);
 
 //        RecyclerView.ItemDecoration decoration = new RecyclerView.ItemDecoration() {
 //            @Override
@@ -153,11 +153,11 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
             animeDataList.add(ad);
         }
         animeList = new ArrayList<AnimeData>(animeDataList);
-        //adapter = new RecyclerViewAdaptador(getContext(),animeList);
+        adapter = new RecyclerViewAdaptador(getContext(),animeList);
         // Create adapter passing in the sample user data
         //adapter = new RecyclerViewAdaptador(getContext(), animeDataList);
 
-        //rvSeries.setAdapter(adapter);
+        rvSeries.setAdapter(adapter);
         //adapter.setListMAL(animeList);
 
         // Attach the adapter to the recycler_view to populate items

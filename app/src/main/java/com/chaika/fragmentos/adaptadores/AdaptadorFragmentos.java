@@ -45,4 +45,6 @@ public class AdaptadorFragmentos extends SmartFragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         return "Page " + position;
     }
-}
+
+
+}//fin clase

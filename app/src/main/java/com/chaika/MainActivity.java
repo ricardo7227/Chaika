@@ -1,8 +1,9 @@
 package com.chaika;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.chaika.application.AplicationConfig;
@@ -13,10 +14,12 @@ import com.chaika.databases.Data;
 import com.chaika.estructuraDatos.Database.AnimeData;
 import com.chaika.estructuraDatos.malAppInfo.Anime;
 import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
+import com.chaika.fragmentos.AllSeriesFragment;
+import com.chaika.fragmentos.SecondFragment;
 import com.chaika.fragmentos.adaptadores.RecyclerViewAdaptador;
 import com.chaika.fragmentos.adaptadores.SmartFragmentStatePagerAdapter;
+import com.chaika.fragmentos.adaptadores.ViewPagerAdapter;
 import com.chaika.interfaces.ApiResult;
-import com.chaika.llamadasAPI.RestApiMal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements ApiResult {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.all_series_fragment);
+        setContentView(R.layout.new_view);
 /*
         ViewPager vpPager = (ViewPager) findViewById(R.id.vpPager);
         adapterViewPager = new AdaptadorFragmentos(getSupportFragmentManager());
@@ -56,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements ApiResult {
                 .build();
 
         component.injectMain(this);
-
+/*
         // Lookup the recycler_view in activity layout
         rvSeries = (RecyclerView) findViewById(R.id.rvAnimeList);
 
@@ -73,8 +76,8 @@ public class MainActivity extends AppCompatActivity implements ApiResult {
         rvSeries.setAdapter(adapter);
 
         RestApiMal.getInstance().getMalUserProfile("ricardoAlexis","all","anime", this);
-
-
+*/
+        initViewPagerAndTabs();
     }//fin onCreate
 
     @Override
@@ -94,6 +97,21 @@ public class MainActivity extends AppCompatActivity implements ApiResult {
 
         rvSeries.setAdapter(adapter);
 
+    }
+
+    private void initViewPagerAndTabs() {
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        //AdaptadorFragmentos pagerAdapter = new AdaptadorFragmentos(getSupportFragmentManager());
+        //pagerAdapter.addFragment(PartThreeFragment.createInstance(20), getString(R.string.tab_1));
+        //pagerAdapter.addFragment(PartThreeFragment.createInstance(4), getString(R.string.tab_2));
+        ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        pagerAdapter.addFrag(AllSeriesFragment.instance(),"titulos");
+        pagerAdapter.addFrag(SecondFragment.newInstance(2,"page"),"VISTOS");
+
+        viewPager.setAdapter(pagerAdapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 
