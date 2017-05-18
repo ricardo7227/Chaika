@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Chaika Tracker</string>
+    <string name="my_status_series_completed">Completed</string>
+    <string name="my_status_series_dropped">Dropped</string>
+    <string name="my_status_series_onhold">On Hold</string>
+    <string name="my_status_series_plantowatch">Plan to watch</string>
+    <string name="my_status_series_watching">Watching</string>
+</resources>

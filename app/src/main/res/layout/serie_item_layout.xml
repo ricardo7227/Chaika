@@ -61,6 +61,16 @@
             android:layout_alignLeft="@+id/title_series"
             />
         <TextView
+            android:id="@+id/my_status_series"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            tools:text="Airing"
+            android:textSize="12sp"
+            android:layout_below="@+id/episodios_vistos"
+            android:layout_alignLeft="@+id/title_series"
+            />
+        <TextView
             android:id="@+id/season_series"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

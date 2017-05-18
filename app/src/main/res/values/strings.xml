@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Chaika Tracker</string>
+    
+    <string name="my_status_series_watching">Viendo...</string>
+    <string name="my_status_series_completed">Completa</string>
+    <string name="my_status_series_onhold">A punto de Abandonar</string>
+    <string name="my_status_series_dropped">Que arda en el infierno</string>
+    <string name="my_status_series_plantowatch">Pendiente de ver</string>
+
 </resources>

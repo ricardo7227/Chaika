@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.chaika.R;
 import com.chaika.application.AplicationConfig;
 import com.chaika.estructuraDatos.Database.AnimeData;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,7 @@ public class RecyclerViewAdaptador extends
         public TextView vistos_series;
         public TextView season_series;
         public TextView source_series;
+        public TextView my_status_series;
 
         public ImageView cover_series;
 
@@ -57,6 +59,7 @@ public class RecyclerViewAdaptador extends
             vistos_series = (TextView) itemView.findViewById(R.id.episodios_vistos);
             season_series = (TextView) itemView.findViewById(R.id.season_series);
             source_series = (TextView) itemView.findViewById(R.id.source_series);
+            my_status_series = (TextView) itemView.findViewById(R.id.my_status_series);
 
             cover_series =  (ImageView) itemView.findViewById(R.id.cover_serie);
 
@@ -103,13 +106,28 @@ public class RecyclerViewAdaptador extends
         TextView title_series = viewHolder.title_series;
         title_series.setText(animeData.getAnimeMalinfo().getSeries_title());
         TextView studio_series = viewHolder.studio_series;
-        studio_series.setText("undefined Studio");//falta studio
+        studio_series.setText("");//falta studio
         TextView vistos_series = viewHolder.vistos_series;
         vistos_series.setText( String.valueOf(animeData.getAnimeMalinfo().getMy_watched_episodes() ));
         TextView season_series = viewHolder.season_series;
         season_series.setText(animeData.getSeason());
         TextView source_series = viewHolder.source_series;
         source_series.setText(animeData.getSource());
+        TextView my_status_series = viewHolder.my_status_series;
+        //1/watching, 2/completed, 3/onhold, 4/dropped, 6/plantowatch
+        String [] estados = {getContext().getString(R.string.my_status_series_watching),
+                                getContext().getString(R.string.my_status_series_completed)
+                                ,getContext().getString(R.string.my_status_series_onhold)
+                                ,getContext().getString(R.string.my_status_series_dropped)
+                                ,getContext().getString(R.string.app_name)
+                                ,getContext().getString(R.string.my_status_series_plantowatch)};
+        int statusValue = animeData.getAnimeMalinfo().getMy_status() - 1;
+        try {
+            my_status_series.setText(statusValue < 0 || statusValue > 5 ? estados[4]:estados[statusValue]);
+        }catch (Exception e){
+            Logger.e(e.getMessage());
+            Logger.e(String.valueOf(animeData.getAnimeMalinfo().getSeries_animedb_id() + " status: " + statusValue));
+        }
 
         ImageView cover_series = viewHolder.cover_series;
         //pulir glide
