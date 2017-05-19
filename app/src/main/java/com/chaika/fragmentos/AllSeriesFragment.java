@@ -18,33 +18,21 @@ import com.chaika.interfaces.ApiResult;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.chaika.MainActivity.progressBar;
+
 /**
  * Created by Gato on 14/05/2017.
  */
 
 public class AllSeriesFragment extends Fragment implements ApiResult{
-    // Store instance variables
-    private String title;
-    private int page;
-    RecyclerViewAdaptador adapter;// = new RecyclerViewAdaptador();
+
+    RecyclerViewAdaptador adapter;
     RecyclerView rvSeries;
     ArrayList<AnimeData> animeList;
-
-    // newInstance constructor for creating fragment with arguments
-    public static AllSeriesFragment newInstance(int page, String title) {
-        AllSeriesFragment fragmentFirst = new AllSeriesFragment();
-        Bundle args = new Bundle();
-        args.putInt("someInt", page);
-        args.putString("someTitle", title);
-        fragmentFirst.setArguments(args);
-
-        return fragmentFirst;
-    }
 
 
     private static AllSeriesFragment instance;
 
-    // newInstance constructor for creating fragment with arguments
     public static AllSeriesFragment instance() {
         if (instance == null) {
             instance = new AllSeriesFragment();
@@ -52,119 +40,59 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
         return instance;
     }
 
-    // Store instance variables based on arguments passed
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        page = getArguments().getInt("someInt", 0);
-  //      title = getArguments().getString("someTitle");
 
-        //RestApiMal.getInstance().getMalUserProfile("ricardoAlexis","all","anime",component.getData());
     }
 
-    // Inflate the view for the fragment based on layout XML
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.all_series_fragment, container, false);
 
-//        TextView tvLabel = (TextView) view.findViewById(R.id.textV);
-//        tvLabel.setText(page + " -- " + title);
-
-
-        // Lookup the recycler_view in activity layout
+        //ubicamos el Xml a del RecyclerView
          rvSeries = (RecyclerView) view.findViewById(R.id.rvAnimeList);
 
-        // Initialize animeList
-        AnimeData a = new AnimeData();
-        Anime amala = new Anime();
-        amala.setSeries_title("asterisk War");
-        amala.setSeries_image("https://myanimelist.cdn-dena.com/images/anime/13/6441.jpg");
-        a.setAnimeMalinfo(amala);
-        a.setSeason("Spring 2013");
-        a.setSource("Novela Ligera");
-
-        AnimeData b = new AnimeData();
-        Anime amalb = new Anime();
-        amalb.setSeries_title("asterisk War Second Strike");
-        amalb.setSeries_image("https://myanimelist.cdn-dena.com/images/anime/7/6803.jpg");
-        b.setAnimeMalinfo(amalb);
-        b.setSeason("Spring 2014");
-        b.setSource("Novela Ligeras");
-
-        AnimeData c = new AnimeData();
-        Anime amalc = new Anime();
-        amalc.setSeries_title("asterisk War Pi Strike");
-        amalc.setSeries_image("https://myanimelist.cdn-dena.com/images/anime/10/75815.jpg");
-        c.setAnimeMalinfo(amalc);
-        c.setSeason("Spring 2017");
-        c.setSource("Light Novel");
-
-        AnimeData d = new AnimeData();
-        Anime amald = new Anime();
-        amald.setSeries_title("asterisk War Pi Strike");
-        amald.setSeries_image("https://myanimelist.cdn-dena.com/images/anime/10/75815.jpg");
-        d.setAnimeMalinfo(amald);
-        d.setSeason("Spring 2017");
-        d.setSource("Light Novel");
-
-         animeList = new ArrayList<AnimeData>();
-
-        animeList.add(a);
-        animeList.add(b);
-        animeList.add(c);
-        animeList.add(d);
 
         rvSeries.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvSeries.setLayoutManager(layoutManager);
-        // Create adapter passing in the sample user data
-        adapter = new RecyclerViewAdaptador(getContext(), animeList);
-        // Attach the adapter to the recycler_view to populate items
+
+
+        if (animeList != null){
+        adapter = new RecyclerViewAdaptador(getContext(), animeList);}
+
+        // definimos el adaptador en el RecyclerView
         rvSeries.setAdapter(adapter);
-
-//        RecyclerView.ItemDecoration decoration = new RecyclerView.ItemDecoration() {
-//            @Override
-//            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-//                super.getItemOffsets(outRect, view, parent, state);
-//                outRect.top = 0;
-//                outRect.bottom = 0;
-//            }
-//        };
-//        rvSeries.addItemDecoration(decoration);
-        // Set layout manager to position the items
-       // rvSeries.setLayoutManager(new LinearLayoutManager(getContext()));
-
 
         return view;
     }
 
+    //recibe los resutados del la llamada al API
     @Override
     public void SucessCall(MyAnimeList myAnimeList) {
 
         List<Anime> lista = myAnimeList.getAnimes();
 
         List<AnimeData> animeDataList = new ArrayList<>();
-        AnimeData ad;
-        for (Anime a:
-                lista) {
-            ad = new AnimeData();
-            ad.setAnimeMalinfo(a);
-            animeDataList.add(ad);
+
+        AnimeData item;
+        for (Anime info: lista) {
+            item = new AnimeData();
+            item.setAnimeMalinfo(info);
+            animeDataList.add(item);
         }
+        progressBar.setVisibility(View.GONE);
+
         animeList = new ArrayList<AnimeData>(animeDataList);
         adapter = new RecyclerViewAdaptador(getContext(),animeList);
-        // Create adapter passing in the sample user data
-        //adapter = new RecyclerViewAdaptador(getContext(), animeDataList);
 
         rvSeries.setAdapter(adapter);
-        //adapter.setListMAL(animeList);
-
-        // Attach the adapter to the recycler_view to populate items
-        //rvSeries.setAdapter(adapter);
-
-
 
     }
-}
+
+}//fin clase
 
