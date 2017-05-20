@@ -7,7 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.amitshekhar.utils.Utils;
+
 
 
 /**

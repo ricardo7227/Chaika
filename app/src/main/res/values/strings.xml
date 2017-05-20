@@ -7,4 +7,12 @@
     <string name="my_status_series_dropped">Que arda en el infierno</string>
     <string name="my_status_series_plantowatch">Pendiente de ver</string>
 
+    <string name="login_activity_title">Inicio de Sesion en: \n MyAnimeList.net</string>
+    <string name="login_activity_edit_username">Nombre de usuario</string>
+    <string name="login_activity_edit_password">Contraseña</string>
+    <string name="login_activity_error_header">Algo va mal, todavía no te podemos dar acceso :(</string>
+    <string name="login_activity_ready_header">Genial! Vamos a ello.</string>
+    <string name="login_activity_error_username">Usuario Invalido</string>
+    <string name="login_activity_error_password">Contraseña Invalida, parece un poco corta</string>
+
 </resources>

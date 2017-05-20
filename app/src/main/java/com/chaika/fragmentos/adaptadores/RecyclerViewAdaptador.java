@@ -1,7 +1,6 @@
 package com.chaika.fragmentos.adaptadores;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +16,8 @@ import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.annotations.Nullable;
 
 /**
  * Created by Gato on 14/05/2017.

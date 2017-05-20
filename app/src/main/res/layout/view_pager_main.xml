@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
 <android.support.design.widget.CoordinatorLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:id="@+id/coordinatorLayout"
-android:layout_width="match_parent"
-android:layout_height="match_parent">
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <android.support.design.widget.AppBarLayout
@@ -19,23 +25,30 @@ android:layout_height="match_parent">
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways" />
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabTextColor="@android:color/white"
-        app:tabSelectedTextColor="@android:color/white"
-        app:tabIndicatorColor="@android:color/white"
-        app:tabIndicatorHeight="6dp"/>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryLight"
+            app:tabIndicatorColor="@android:color/white"
+            app:tabIndicatorHeight="6dp"
+            app:tabSelectedTextColor="@color/colorTextPrimary"
+            app:tabTextColor="@android:color/white" />
 
     </android.support.design.widget.AppBarLayout>
-    <ProgressBar
-        android:layout_width="wrap_content"
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/progress_bar"
-        />
-
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tabLayout"
+            android:layout_gravity="center_horizontal"
+            android:progressTint="@color/colorTextSecondary"
+            android:id="@+id/progress_bar"
+            />
+</android.support.v4.widget.NestedScrollView>
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
@@ -47,8 +60,20 @@ android:layout_height="match_parent">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_margin="12dp"
-        android:src="@drawable/cover"
-        app:borderWidth="0dp" />
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/add_white_24dp"
+        app:backgroundTint = "@color/colorSecondaryDark"
+        app:borderWidth="0dp"
+        app:layout_behavior="com.chaika.fragmentos.design.ScrollingFloatingButton" />
+
 
 </android.support.design.widget.CoordinatorLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nvView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/colorSecondaryLight"
+        app:menu="@menu/drawer_view" />
+
+</android.support.v4.widget.DrawerLayout>

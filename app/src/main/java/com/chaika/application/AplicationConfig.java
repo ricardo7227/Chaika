@@ -9,7 +9,7 @@ import com.chaika.interfaces.ApiResult;
  * Created by Gato on 15/05/2017.
  */
 
-public class AplicationConfig{
+public class AplicationConfig  {
     private static AplicationConfig instance;
     private Activity activity;
     private Context context;
@@ -22,7 +22,6 @@ public class AplicationConfig{
         }
         return instance;
     }
-
     public Activity getActivity() {
         return activity;
     }

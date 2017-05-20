@@ -84,7 +84,7 @@ public class RestApiMal {
                         //Data.instance().upsert(userData);
                         //lista de series
                         //Data.instance().upsert(myAnimeList);
-                        apiResult.SucessCall(myAnimeList);
+                        apiResult.SuccessCall(myAnimeList);
 
 
                     }
@@ -253,7 +253,7 @@ public class RestApiMal {
      * @param user
      * @param password
      */
-    public void getCredentials(String user, String password) {
+    public void getCredentials(String user, String password,ApiResult apiResult) {
 
         MalClient malClient = ServiceGenerator.createService(MalClient.class,user,password);
         Observable<Credentials> credentialsObservable = malClient.getCredentials();
@@ -270,11 +270,13 @@ public class RestApiMal {
                     @Override
                     public void onNext(@NonNull Credentials credentials) {
                         Logger.d(credentials.toString());
+                        apiResult.SuccessCall(credentials);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         Logger.e("onError getCredentials: ",e.getMessage());
+                        apiResult.ErrorCall(e);
                     }
 
                     @Override

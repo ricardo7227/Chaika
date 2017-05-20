@@ -14,6 +14,7 @@ import com.chaika.databases.Data;
 import com.chaika.fragmentos.AllSeriesFragment;
 import com.chaika.fragmentos.SecondFragment;
 import com.chaika.fragmentos.adaptadores.ViewPagerAdapter;
+import com.chaika.llamadasAPI.RestApiMal;
 
 import javax.inject.Inject;
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     AppComponent component;
 
     public static ProgressBar progressBar;
+
 
     @Inject
     Data data;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         component.injectMain(this);
 
-
+        RestApiMal.getInstance().getMalUserProfile("ricardoAlexis","all","anime", AllSeriesFragment.instance());
 
         initViewPagerAndTabs();
 

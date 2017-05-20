@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 
 import com.chaika.R;
 import com.chaika.estructuraDatos.Database.AnimeData;
+import com.chaika.estructuraDatos.api.Credentials;
 import com.chaika.estructuraDatos.malAppInfo.Anime;
 import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
+import com.chaika.estructuraDatos.search.AnimeSearch;
 import com.chaika.fragmentos.adaptadores.RecyclerViewAdaptador;
 import com.chaika.interfaces.ApiResult;
 
@@ -73,7 +75,7 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
 
     //recibe los resutados del la llamada al API
     @Override
-    public void SucessCall(MyAnimeList myAnimeList) {
+    public void SuccessCall(MyAnimeList myAnimeList) {
 
         List<Anime> lista = myAnimeList.getAnimes();
 
@@ -91,6 +93,26 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
         adapter = new RecyclerViewAdaptador(getContext(),animeList);
 
         rvSeries.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void SuccessCall(Credentials credentials) {
+
+    }
+
+    @Override
+    public void SuccessCall(AnimeSearch animeSearch) {
+
+    }
+
+    @Override
+    public void genericResponse(String response) {
+
+    }
+
+    @Override
+    public void ErrorCall(Throwable error) {
 
     }
 
