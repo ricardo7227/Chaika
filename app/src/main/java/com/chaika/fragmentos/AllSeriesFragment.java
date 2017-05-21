@@ -73,7 +73,10 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
         return view;
     }
 
-    //recibe los resutados del la llamada al API
+    /*
+    *Resutados de las llamadas al API
+    *
+     */
     @Override
     public void SuccessCall(MyAnimeList myAnimeList) {
 
@@ -93,7 +96,8 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
         adapter = new RecyclerViewAdaptador(getContext(),animeList);
 
         rvSeries.setAdapter(adapter);
-
+        //añadimos a la base de datos
+        //ChaikaApplication.get(ApplicationConfig.getInstance().getActivity()).component().getData().upsert(myAnimeList);
     }
 
     @Override

@@ -47,7 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
         component.injectMain(this);
 
-        RestApiMal.getInstance().getMalUserProfile(ApplicationConfig.getInstance().getUsername(),"all","anime", AllSeriesFragment.instance());
+        int sizeList = ChaikaApplication.get(this).component().getData().getSizeListMal();
+        if (sizeList == -1) {
+            RestApiMal.getInstance().getMalUserProfile(ApplicationConfig.getInstance().getUsername(),"all","anime", AllSeriesFragment.instance());
+        }
 
         initViewPagerAndTabs();
 
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        pagerAdapter.addFrag(AllSeriesFragment.instance(),"series");
+        pagerAdapter.addFrag(AllSeriesFragment.instance(),getString(R.string.app_main_tab_series));
         pagerAdapter.addFrag(SecondFragment.newInstance(2,"page"),"VISTOS");
 
         viewPager.setAdapter(pagerAdapter);

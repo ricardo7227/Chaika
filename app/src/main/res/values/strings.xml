@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Chaika Tracker</string>
     <string name="app_ok">OK</string>
+
+    <string name="app_main_tab_series">Series</string>
     
     <string name="my_status_series_watching">Viendo...</string>
     <string name="my_status_series_completed">Completa</string>

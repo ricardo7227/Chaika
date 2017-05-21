@@ -2,6 +2,7 @@ package com.chaika.databases;
 
 
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -150,6 +151,28 @@ public class Data {
             db = null;
         }
 
+    }//fin upsert
+
+    /**
+     *
+     * @return tamaño de la lista de series
+     */
+    public int getSizeListMal(){
+        SQLiteDatabase db = malDBHelper.getReadableDatabase();
+        Cursor c = null;
+        int listSize = -1;
+        try{
+
+            listSize = (int) DatabaseUtils.queryNumEntries(db, MalDBHelper.AnimeEntry.TABLE_NAME);
+
+        }catch (Exception e){
+            Logger.e(e.getMessage());
+        }finally {
+            malDBHelper.close();
+            db.close();
+            db = null;
+        }
+        return listSize;
     }//fin upsert
 
 
