@@ -9,16 +9,20 @@ import com.chaika.interfaces.ApiResult;
  * Created by Gato on 15/05/2017.
  */
 
-public class AplicationConfig  {
-    private static AplicationConfig instance;
+public class ApplicationConfig {
+    private static ApplicationConfig instance;
     private Activity activity;
     private Context context;
+
     private ApiResult apiResult;
 
+    private String Username;
+    private String password;
 
-    public static AplicationConfig getInstance(){
+
+    public static ApplicationConfig getInstance(){
         if (instance == null){
-            instance = new AplicationConfig();
+            instance = new ApplicationConfig();
         }
         return instance;
     }
@@ -44,5 +48,21 @@ public class AplicationConfig  {
 
     public void setApiResult(ApiResult apiResult) {
         this.apiResult = apiResult;
+    }
+
+    public String getUsername() {
+        return Username;
+    }
+
+    public void setUsername(String username) {
+        Username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }//fin clase

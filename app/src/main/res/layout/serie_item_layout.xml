@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            tools:text="Airing"
+            tools:text="Watching"
             android:textSize="12sp"
             android:layout_below="@+id/episodios_vistos"
             android:layout_alignLeft="@+id/title_series"

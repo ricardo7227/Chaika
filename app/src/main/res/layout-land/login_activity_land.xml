@@ -5,16 +5,15 @@
 
     >
 
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scaleType="centerCrop"
-    android:id="@+id/image_background"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:id="@+id/image_background"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_traslucido"
-         >
+        >
 
         <ImageView
             android:id="@+id/logo"
@@ -47,19 +46,21 @@
                 >
 
 
+
+
                 <TextView
-                    android:id="@+id/login_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
+                    android:id="@+id/login_header"
+                    android:text="@string/login_activity_title"
+                    android:textSize="22dp"
+                    android:textColor="@color/colorPrimary"
                     android:layout_marginLeft="16dp"
-                    android:shadowColor="@color/colorTextPrimaryCyan"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="5"
-                    android:text="@string/app_name"
-                    android:textColor="@color/colorSecondaryLight"
-                    android:textSize="22sp" />
+                    android:layout_margin="16dp"
+
+                    />
+
+
 
 
             </LinearLayout>
@@ -81,32 +82,26 @@
                     <EditText
                         android:textSize="16sp"
                         android:id="@+id/username"
-                        android:layout_marginLeft="1dp"
+                        android:layout_marginLeft="-10dp"
                         android:layout_toRightOf="@+id/username_icon"
                         android:hint="@string/login_activity_edit_username"
-                        android:textColorHint="@color/colorSecondaryLight"
+                        android:textColorHint="@color/colorPrimaryLight"
                         android:textColor="@color/colorTextSecondary"
                         android:inputType="text"
-                        android:shadowColor="@color/colorTextPrimary"
-                        android:shadowDx="0"
-                        android:shadowDy="0"
-                        android:shadowRadius="15"
                         android:maxLength="16"
                         android:padding="10dp"
-                        android:background="@drawable/background_edittext"
+                        android:background="@color/colorSecondaryDark"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"/>
+                        android:layout_height="wrap_content"/>
 
                     <!-- ICON -->
                     <ImageView
                         android:padding="3dp"
-                        android:background="@drawable/background_edittext"
+                        android:background="@color/colorSecondaryDark"
                         android:id="@+id/username_icon"
                         android:src="@drawable/person_white_24dp"
                         android:layout_width="40dp"
                         android:layout_height="40dp" />
-
 
                 </RelativeLayout>
 
@@ -120,37 +115,26 @@
                     android:layout_marginRight="60dp"
                     android:layout_height="1dp"
                     android:background="@color/colorSecondaryLight" />
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+
+
 
                 <EditText
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:id="@+id/password"
-                    android:layout_marginLeft="1dp"
-                    android:layout_toRightOf="@+id/password_icon"
-                    android:hint="@string/login_activity_edit_password"
-                    android:textColorHint="@color/colorSecondaryLight"
-                    android:textColor="@color/colorTextSecondary"
-                    android:inputType="textPassword"
-                    android:maxLength="20"
-                    android:padding="10dp"
-                    android:background="@drawable/background_edittext"
+                    android:drawablePadding="38dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"/>
+                    android:hint="@string/login_activity_edit_password"
+                    android:textColorHint="@color/colorPrimaryLight"
+                    android:textColor="@color/colorTextSecondary"
+                    android:layout_marginLeft="60dp"
+                    android:inputType="textPassword"
+                    android:background="@color/colorSecondaryDark"
+                    android:maxLength="20"
 
-                <!-- ICON -->
-                <ImageView
-                    android:padding="3dp"
-                    android:background="@drawable/background_edittext"
-                    android:id="@+id/password_icon"
-                    android:src="@drawable/password"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp" />
-                </RelativeLayout>
-
-
+                    android:padding="16dp"
+                    android:drawableLeft="@drawable/password"
+                    android:layout_marginRight="60dp"/>
 
 
                 <View
@@ -158,14 +142,22 @@
                     android:layout_marginLeft="60dp"
                     android:layout_marginRight="60dp"
                     android:layout_height="1dp"
-                    android:background="@color/colorSecondaryLight"
-                    android:layout_marginBottom="63dp"
-                    />
+                    android:background="@color/colorSecondaryLight" />
+                android:layout_marginBottom="63dp"
+                />
 
 
             </LinearLayout>
         </LinearLayout>
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="110dp"
+            android:background="@color/colorSecondaryLight"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="109dp"
+            android:layout_marginLeft="110dp"
+            />
 
     </FrameLayout>
 
@@ -173,15 +165,14 @@
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryLight"
-        android:text="@string/login_activity_button_login"
-        android:textSize="20sp"
+        android:background="@color/colorPrimary"
+        android:text="Sign in"
+        android:textSize="20dp"
         android:textColor="@color/colorTextPrimary"
         android:gravity="center"
         android:padding="13dp"
         android:layout_marginBottom="18dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
+
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 

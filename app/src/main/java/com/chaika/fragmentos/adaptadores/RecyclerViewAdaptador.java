@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chaika.R;
-import com.chaika.application.AplicationConfig;
+import com.chaika.application.ApplicationConfig;
 import com.chaika.estructuraDatos.Database.AnimeData;
 import com.orhanobut.logger.Logger;
 
@@ -109,7 +109,8 @@ public class RecyclerViewAdaptador extends
         TextView studio_series = viewHolder.studio_series;
         studio_series.setText("");//falta studio
         TextView vistos_series = viewHolder.vistos_series;
-        vistos_series.setText( String.valueOf(animeData.getAnimeMalinfo().getMy_watched_episodes() ));
+        vistos_series.setText(getContext().getString(R.string.my_status_series_episodes,
+                animeData.getAnimeMalinfo().getMy_watched_episodes(), animeData.getAnimeMalinfo().getSeries_episodes()));
         TextView season_series = viewHolder.season_series;
         season_series.setText(animeData.getSeason());
         TextView source_series = viewHolder.source_series;
@@ -132,7 +133,7 @@ public class RecyclerViewAdaptador extends
 
         ImageView cover_series = viewHolder.cover_series;
         //pulir glide
-        Glide.with(AplicationConfig.getInstance().getContext()).load(animeData.getAnimeMalinfo().getSeries_image()).into(cover_series);
+        Glide.with(ApplicationConfig.getInstance().getContext()).load(animeData.getAnimeMalinfo().getSeries_image()).into(cover_series);
 
 
 

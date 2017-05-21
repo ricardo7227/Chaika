@@ -6,4 +6,10 @@
     <string name="my_status_series_onhold">On Hold</string>
     <string name="my_status_series_plantowatch">Plan to watch</string>
     <string name="my_status_series_watching">Watching</string>
+    <string name="app_ok">OK</string>
+    <string name="login_activity_button_checking">Verifying..</string>
+    <string name="login_activity_button_login">Log in</string>
+    <string name="login_activity_edit_password">Password</string>
+    <string name="login_activity_edit_username">Username</string>
+    <string name="my_status_series_episodes">%1$d of %2$d Eps Seen</string>
 </resources>

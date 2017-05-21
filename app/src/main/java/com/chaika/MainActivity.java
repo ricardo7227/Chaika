@@ -6,7 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
 
-import com.chaika.application.AplicationConfig;
+import com.chaika.application.ApplicationConfig;
 import com.chaika.application.ChaikaApplication;
 import com.chaika.componentes.AppComponent;
 import com.chaika.componentes.DaggerAppComponent;
@@ -34,8 +34,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_pager_main);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        AplicationConfig.getInstance().setActivity(this);
-        AplicationConfig.getInstance().setContext(this);
+
+        ApplicationConfig.getInstance().setActivity(this);
+        ApplicationConfig.getInstance().setContext(this);
+
 
 
         //////////dagger2
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         component.injectMain(this);
 
-        RestApiMal.getInstance().getMalUserProfile("ricardoAlexis","all","anime", AllSeriesFragment.instance());
+        RestApiMal.getInstance().getMalUserProfile(ApplicationConfig.getInstance().getUsername(),"all","anime", AllSeriesFragment.instance());
 
         initViewPagerAndTabs();
 

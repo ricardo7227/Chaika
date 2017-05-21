@@ -1,6 +1,6 @@
 package com.chaika.llamadasAPI;
 
-import com.chaika.application.AplicationConfig;
+import com.chaika.application.ApplicationConfig;
 import com.chaika.application.ChaikaApplication;
 import com.chaika.estructuraDatos.Database.UserData;
 import com.chaika.estructuraDatos.api.Credentials;
@@ -80,7 +80,7 @@ public class RestApiMal {
                         UserData userData = new UserData();
                         userData.setMyInfo(myAnimeList.getMyInfo());
                         //información del usuario
-                        ChaikaApplication.get(AplicationConfig.getInstance().getActivity()).component().getData().upsert(userData);
+                        ChaikaApplication.get(ApplicationConfig.getInstance().getActivity()).component().getData().upsert(userData);
                         //Data.instance().upsert(userData);
                         //lista de series
                         //Data.instance().upsert(myAnimeList);

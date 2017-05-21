@@ -12,4 +12,8 @@
     <color name="colorTextSecondary">#9e4f91</color>
 
     <color name="colorAccent">#FF4081</color>
+
+    <color name="traslucent_background">#64000000</color>
+    <color name="traslucent_background54">#54000000</color>
+
 </resources>
