@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         component.injectMain(this);
 
         int sizeList = ChaikaApplication.get(this).component().getData().getSizeListMal();
-        if (sizeList == -1) {
+        if (sizeList == 0) {
             RestApiMal.getInstance().getMalUserProfile(ApplicationConfig.getInstance().getUsername(),"all","anime", AllSeriesFragment.instance());
         }
 

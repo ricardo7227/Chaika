@@ -35,6 +35,35 @@ public class Entry {
 
     public Entry(){}
 
+
+    public Entry(long anime_id, String anime_title, String anime_sinopsis, String end_date, float score, String synonyms, String image_path, String title_english, int episodes, String start_date) {
+        this.anime_id = anime_id;
+        this.anime_title = anime_title;
+        this.anime_sinopsis = anime_sinopsis;
+        this.end_date = end_date;
+        this.score = score;
+        this.synonyms = synonyms;
+        this.image_path = image_path;
+        this.title_english = title_english;
+        this.episodes = episodes;
+        this.start_date = start_date;
+    }
+
+    public Entry(long anime_id, String anime_title, String anime_sinopsis, String end_date, String status, float score, String synonyms, String image_path, String type, String title_english, int episodes, String start_date) {
+        this.anime_id = anime_id;
+        this.anime_title = anime_title;
+        this.anime_sinopsis = anime_sinopsis;
+        this.end_date = end_date;
+        this.status = status;
+        this.score = score;
+        this.synonyms = synonyms;
+        this.image_path = image_path;
+        this.type = type;
+        this.title_english = title_english;
+        this.episodes = episodes;
+        this.start_date = start_date;
+    }
+
     public long getAnime_id() {
         return anime_id;
     }
