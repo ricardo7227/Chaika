@@ -55,7 +55,7 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.all_series_fragment, container, false);
 
-        //ubicamos el Xml a del RecyclerView
+        //ubicamos el Xml  del RecyclerView
          rvSeries = (RecyclerView) view.findViewById(R.id.rvAnimeList);
 
 

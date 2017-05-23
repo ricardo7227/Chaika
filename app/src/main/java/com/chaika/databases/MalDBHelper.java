@@ -48,6 +48,7 @@ public class MalDBHelper extends SQLiteOpenHelper {
         public static final String COLUMN_ANIMEDB_ID = "ANIMEDB_ID";
         public static final String COLUMN_TITLE = "ANIME_TITLE";
         public static final String COLUMN_SYNONYMS = "ANIME_SYNONYMS";
+        public static final String COLUMN_SYNOPSIS = "ANIME_SYNOPSIS";
         public static final String COLUMN_ENGLISH = "ANIME_ENGLISH";
         public static final String COLUMN_JAPANESE = "ANIME_JAPANESE";
         public static final String COLUMN_TYPE = "ANIME_TYPE";
@@ -91,6 +92,7 @@ public class MalDBHelper extends SQLiteOpenHelper {
                     AnimeEntry.COLUMN_ANIMEDB_ID + INTEGER_TYPE + COMMA_SEP +
                     AnimeEntry.COLUMN_TITLE + TEXT_TYPE + COMMA_SEP +
                     AnimeEntry.COLUMN_SYNONYMS + TEXT_TYPE + COMMA_SEP +
+                    AnimeEntry.COLUMN_SYNOPSIS + TEXT_TYPE + COMMA_SEP +
                     AnimeEntry.COLUMN_ENGLISH + TEXT_TYPE + COMMA_SEP +
                     AnimeEntry.COLUMN_JAPANESE + TEXT_TYPE + COMMA_SEP +
                     AnimeEntry.COLUMN_TYPE + TEXT_TYPE + COMMA_SEP +

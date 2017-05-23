@@ -1,5 +1,10 @@
 package com.chaika.estructuraDatos.search;
 
+import android.content.ContentValues;
+import android.util.Log;
+
+import com.chaika.databases.MalDBHelper;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
@@ -147,5 +152,21 @@ public class Entry {
                 ", episodes=" + episodes +
                 ", start_date='" + start_date + '\'' +
                 '}';
+    }
+
+    public ContentValues getContentValuesSerie(){
+        try {
+            ContentValues values = new ContentValues();
+
+            values.put(MalDBHelper.AnimeEntry.COLUMN_SYNOPSIS, getAnime_sinopsis());
+            values.put(MalDBHelper.AnimeEntry.COLUMN_ENGLISH ,getTitle_english());
+            values.put(MalDBHelper.AnimeEntry.COLUMN_SCORE ,getScore());
+
+
+            return values;
+        }catch (Exception e){
+            Log.e("UserData Entry",e.getMessage());
+        }
+        return null;
     }
 }//fin clase
