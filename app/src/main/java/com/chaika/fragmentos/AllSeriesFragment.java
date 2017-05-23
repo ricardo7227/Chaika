@@ -64,7 +64,8 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
         rvSeries.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvSeries.setLayoutManager(layoutManager);
-
+        //recogemos las series de la base de datos
+        animeList = ChaikaApplication.get(ApplicationConfig.getInstance().getActivity()).component().getData().getMyAnimeList();
 
         if (animeList != null){
         adapter = new RecyclerViewAdaptador(getContext(), animeList);}

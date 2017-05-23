@@ -1,12 +1,24 @@
 package com.chaika.estructuraDatos.malAppInfo;
 
 import android.content.ContentValues;
-import android.util.Log;
 
 import com.chaika.databases.MalDBHelper;
+import com.orhanobut.logger.Logger;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
+
+import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_ANIMEDB_ID;
+import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_MY_FINISH_DATE;
+import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_MY_ID;
+import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_MY_LAST_UPDATED;
+import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_MY_REWATCHING;
+import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_MY_REWATCHING_EP;
+import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_MY_SCORE;
+import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_MY_START_DATE;
+import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_MY_STATUS;
+import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_MY_TAGS;
+import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_MY_WATCHED_EPISODES;
 
 /**
  * Created by Gato on 30/04/2017.
@@ -300,9 +312,50 @@ public class Anime
 
             return values;
         }catch (Exception e){
-            Log.e("UserData",e.getMessage());
+            Logger.e(e.getMessage());
         }
         return null;
+    }
+
+    public ContentValues getContentValuesMySerie(){
+        try {
+            ContentValues values = new ContentValues();
+
+            values.put(MalDBHelper.MyAnimeEntry.COLUMN_ANIMEDB_ID, getSeries_animedb_id());
+            values.put(COLUMN_MY_ID ,getMy_id());
+            values.put(COLUMN_MY_WATCHED_EPISODES ,getMy_watched_episodes());
+            values.put(COLUMN_MY_START_DATE ,getMy_start_date());
+            values.put(COLUMN_MY_FINISH_DATE ,getMy_finish_date());
+            values.put(COLUMN_MY_SCORE ,getMy_score());
+            values.put(COLUMN_MY_STATUS,getMy_status());
+            values.put(COLUMN_MY_REWATCHING  ,getMy_rewatching());
+            values.put(COLUMN_MY_REWATCHING_EP ,getMy_rewatching_ep());
+            values.put(COLUMN_MY_LAST_UPDATED ,getMy_last_updated());
+            values.put(COLUMN_MY_TAGS ,getMy_tags());
+
+            return values;
+        }catch (Exception e){
+            Logger.e(e.getMessage());
+        }
+        return null;
+    }
+
+    public static String[] getProjection(){
+        String[] projection = {
+                COLUMN_ANIMEDB_ID ,
+                COLUMN_MY_ID ,
+                COLUMN_MY_WATCHED_EPISODES ,
+                COLUMN_MY_START_DATE ,
+                COLUMN_MY_FINISH_DATE ,
+                COLUMN_MY_SCORE ,
+                COLUMN_MY_STATUS ,
+                COLUMN_MY_REWATCHING ,
+                COLUMN_MY_REWATCHING_EP ,
+                COLUMN_MY_LAST_UPDATED ,
+                COLUMN_MY_TAGS ,
+        };
+
+        return projection;
     }
 
 }//fin clase

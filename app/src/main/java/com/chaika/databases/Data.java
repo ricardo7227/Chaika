@@ -15,7 +15,6 @@ import com.chaika.estructuraDatos.search.Entry;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -73,6 +72,7 @@ public class Data {
             for (Anime a: myAnimeList.getAnimes()) {
                 Logger.d(a.toString());
                 db.insert(MalDBHelper.AnimeEntry.TABLE_NAME,null,a.getContentValuesSerie());
+                db.insert(MalDBHelper.MyAnimeEntry.TABLE_NAME,null,a.getContentValuesMySerie());
             }
         }catch (Exception e){
             Logger.e(e.getMessage());
@@ -305,9 +305,9 @@ public class Data {
      *
      * @return array
      */
-    public List<AnimeData> getMyAnimeList(){
+    public ArrayList<AnimeData> getMyAnimeList(){
         SQLiteDatabase db = malDBHelper.getReadableDatabase();
-        List<AnimeData> myAnimeList = null;
+        ArrayList<AnimeData> myAnimeList = null;
         AnimeData animeData = null;
         Anime anime;
         Entry entry;
@@ -321,6 +321,78 @@ public class Data {
                 c = db.query(
                         MalDBHelper.AnimeEntry.TABLE_NAME,  // The table to query
                         AnimeData.getProjection(),                         // The columns to return
+                        where,                                     // The columns for the WHERE clause
+                        whereValues,                              // The values for the WHERE clause
+                        null,                                     // don't group the rows
+                        null,                                     // don't filter by row groups
+                        sortOrder                                 // The sort order
+                );
+            if (c != null && c.moveToNext()) {
+                c.moveToFirst();
+                myAnimeList = new ArrayList<>();
+                do {
+                    long animeID = c.getLong(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_ANIMEDB_ID));
+                    String title = c.getString(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_TITLE));
+                    String synonyms = c.getString(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_SYNONYMS));
+                    String sinopsis = c.getString(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_SINOPSIS));
+                    String title_english = c.getString(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_ENGLISH));
+                    String title_japanese = c.getString(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_JAPANESE));
+                    int type = c.getInt(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_TYPE));
+                    int episodes = c.getInt(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_EPISODES));
+                    int status = c.getInt(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_STATUS));
+                    String startDate = c.getString(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_START_DATE));
+                    String endDate = c.getString(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_END_DATE));
+                    String image = c.getString(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_IMAGE));
+                    float score = c.getFloat(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_SCORE));
+                    String season = c.getString(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_SEASON));
+                    String broadcast = c.getString(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_BROADCAST));
+                    String source = c.getString(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_SOURCE));
+                    String duration = c.getString(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_DURATION));
+                    String rating = c.getString(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_RATING));
+                    String last_update = c.getString(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_LAST_UPDATE));
+                    boolean relatives = c.getInt(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_RELATIVES)) > 0;
+
+
+                    anime = new Anime(type, status, synonyms, image, title, startDate, animeID, endDate, episodes);
+
+                    entry = new Entry(animeID, title, sinopsis, endDate, score, synonyms, image, title_english, episodes, startDate);
+
+                    animeData = new AnimeData(anime, entry, season, broadcast, source, duration, rating, title_japanese, last_update, relatives);
+
+                    myAnimeList.add(animeData);
+
+                }while (c.moveToNext());
+
+            }
+
+
+
+        }catch (Exception e){
+            Logger.e(e.getMessage());
+        }finally {
+            malDBHelper.close();
+            db.close();
+            db = null;
+        }
+        return myAnimeList;
+    }
+//pendiente en desarrollo
+    public ArrayList<AnimeData> getMyAnimeListbyStatus(int statusSeries){
+        SQLiteDatabase db = malDBHelper.getReadableDatabase();
+        ArrayList<AnimeData> myAnimeList = null;
+        AnimeData animeData = null;
+        Anime anime;
+        Entry entry;
+        Cursor c = null;
+        try{
+            String[] whereValues =  null;
+            String where = null;
+
+            String sortOrder = null;
+
+                c = db.query(
+                        MalDBHelper.MyAnimeEntry.TABLE_NAME,  // The table to query
+                        Anime.getProjection(),                         // The columns to return
                         where,                                     // The columns for the WHERE clause
                         whereValues,                              // The values for the WHERE clause
                         null,                                     // don't group the rows

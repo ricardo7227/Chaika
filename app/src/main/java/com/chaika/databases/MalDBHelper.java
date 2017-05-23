@@ -68,6 +68,21 @@ public class MalDBHelper extends SQLiteOpenHelper {
 
     }
 
+    public static abstract class MyAnimeEntry implements BaseColumns {
+        public static final String TABLE_NAME = "MY_ANIME";
+        public static final String COLUMN_ANIMEDB_ID = "ANIMEDB_ID";
+        public static final String COLUMN_MY_ID = "MY_ID";
+        public static final String COLUMN_MY_WATCHED_EPISODES = "MY_WATCHED_EPISODES";
+        public static final String COLUMN_MY_START_DATE = "MY_START_DATE";
+        public static final String COLUMN_MY_FINISH_DATE = "MY_FINISH_DATE";
+        public static final String COLUMN_MY_SCORE = "MY_SCORE";
+        public static final String COLUMN_MY_STATUS = "MY_STATUS";
+        public static final String COLUMN_MY_REWATCHING = "MY_REWATCHING";
+        public static final String COLUMN_MY_REWATCHING_EP = "MY_REWATCHING_EP";
+        public static final String COLUMN_MY_LAST_UPDATED = "MY_LAST_UPDATED";
+        public static final String COLUMN_MY_TAGS = "MY_TAGS";
+    }
+
     private static final String SQL_CREATE_USER_ENTRIES =
             "CREATE TABLE " + UserProfileEntry.TABLE_NAME + " (" +
                     UserProfileEntry._ID        + TEXT_TYPE +"  PRIMARY KEY," +
@@ -112,6 +127,22 @@ public class MalDBHelper extends SQLiteOpenHelper {
                     AnimeEntry.COLUMN_RELATIVES + INTEGER_TYPE +
                     " )";
 
+    private static final String SQL_CREATE_MY_ANIME_ENTRIES =
+            "CREATE TABLE " + MyAnimeEntry.TABLE_NAME + " (" +
+                    MyAnimeEntry._ID        + TEXT_TYPE +"  PRIMARY KEY," +
+                    MyAnimeEntry.COLUMN_ANIMEDB_ID + INTEGER_TYPE + COMMA_SEP +
+                    MyAnimeEntry.COLUMN_MY_ID + TEXT_TYPE + COMMA_SEP +
+                    MyAnimeEntry.COLUMN_MY_WATCHED_EPISODES + INTEGER_TYPE + COMMA_SEP +
+                    MyAnimeEntry.COLUMN_MY_START_DATE + TEXT_TYPE + COMMA_SEP +
+                    MyAnimeEntry.COLUMN_MY_FINISH_DATE + TEXT_TYPE + COMMA_SEP +
+                    MyAnimeEntry.COLUMN_MY_SCORE + INTEGER_TYPE + COMMA_SEP +
+                    MyAnimeEntry.COLUMN_MY_STATUS + INTEGER_TYPE + COMMA_SEP +
+                    MyAnimeEntry.COLUMN_MY_REWATCHING + INTEGER_TYPE + COMMA_SEP +
+                    MyAnimeEntry.COLUMN_MY_REWATCHING_EP + INTEGER_TYPE + COMMA_SEP +
+                    MyAnimeEntry.COLUMN_MY_LAST_UPDATED + TEXT_TYPE + COMMA_SEP +
+                    MyAnimeEntry.COLUMN_MY_TAGS + TEXT_TYPE +
+                    " )";
+
 
 
     private static final String SQL_DELETE_USER_ENTRIES =
@@ -119,6 +150,9 @@ public class MalDBHelper extends SQLiteOpenHelper {
 
     private static final String SQL_DELETE_ANIME_ENTRIES =
             "DROP TABLE IF EXISTS " + AnimeEntry.TABLE_NAME;
+
+    private static final String SQL_DELETE_MY_ANIME_ENTRIES =
+            "DROP TABLE IF EXISTS " + MyAnimeEntry.TABLE_NAME;
 
     public static synchronized MalDBHelper getInstance(Context context){
         if (sInstance == null){
@@ -133,17 +167,17 @@ public class MalDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_USER_ENTRIES);
         db.execSQL(SQL_CREATE_ANIME_ENTRIES);
+        db.execSQL(SQL_CREATE_MY_ANIME_ENTRIES);
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
         db.execSQL(SQL_DELETE_USER_ENTRIES);
         db.execSQL(SQL_DELETE_ANIME_ENTRIES);
+        db.execSQL(SQL_DELETE_MY_ANIME_ENTRIES);
         onCreate(db);
     }
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
-    //---deletes a particular title---
-
 }
