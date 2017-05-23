@@ -48,7 +48,7 @@ public class MalDBHelper extends SQLiteOpenHelper {
         public static final String COLUMN_ANIMEDB_ID = "ANIMEDB_ID";
         public static final String COLUMN_TITLE = "ANIME_TITLE";
         public static final String COLUMN_SYNONYMS = "ANIME_SYNONYMS";
-        public static final String COLUMN_SYNOPSIS = "ANIME_SYNOPSIS";
+        public static final String COLUMN_SINOPSIS = "ANIME_SINOPSIS";
         public static final String COLUMN_ENGLISH = "ANIME_ENGLISH";
         public static final String COLUMN_JAPANESE = "ANIME_JAPANESE";
         public static final String COLUMN_TYPE = "ANIME_TYPE";
@@ -62,6 +62,7 @@ public class MalDBHelper extends SQLiteOpenHelper {
         public static final String COLUMN_BROADCAST = "ANIME_BROADCAST";
         public static final String COLUMN_SOURCE = "ANIME_SOURCE";
         public static final String COLUMN_DURATION = "ANIME_DURATION";
+        public static final String COLUMN_RATING = "ANIME_RATING";
         public static final String COLUMN_LAST_UPDATE = "ANIME_LAST_UDDATE";
         public static final String COLUMN_RELATIVES = "ANIME_RELATIVES";
 
@@ -92,7 +93,7 @@ public class MalDBHelper extends SQLiteOpenHelper {
                     AnimeEntry.COLUMN_ANIMEDB_ID + INTEGER_TYPE + COMMA_SEP +
                     AnimeEntry.COLUMN_TITLE + TEXT_TYPE + COMMA_SEP +
                     AnimeEntry.COLUMN_SYNONYMS + TEXT_TYPE + COMMA_SEP +
-                    AnimeEntry.COLUMN_SYNOPSIS + TEXT_TYPE + COMMA_SEP +
+                    AnimeEntry.COLUMN_SINOPSIS + TEXT_TYPE + COMMA_SEP +
                     AnimeEntry.COLUMN_ENGLISH + TEXT_TYPE + COMMA_SEP +
                     AnimeEntry.COLUMN_JAPANESE + TEXT_TYPE + COMMA_SEP +
                     AnimeEntry.COLUMN_TYPE + TEXT_TYPE + COMMA_SEP +
@@ -106,6 +107,7 @@ public class MalDBHelper extends SQLiteOpenHelper {
                     AnimeEntry.COLUMN_BROADCAST + TEXT_TYPE + COMMA_SEP +
                     AnimeEntry.COLUMN_SOURCE + REAL_TYPE + COMMA_SEP +
                     AnimeEntry.COLUMN_DURATION + TEXT_TYPE + COMMA_SEP +
+                    AnimeEntry.COLUMN_RATING + TEXT_TYPE + COMMA_SEP +
                     AnimeEntry.COLUMN_LAST_UPDATE + TEXT_TYPE + COMMA_SEP +
                     AnimeEntry.COLUMN_RELATIVES + INTEGER_TYPE +
                     " )";

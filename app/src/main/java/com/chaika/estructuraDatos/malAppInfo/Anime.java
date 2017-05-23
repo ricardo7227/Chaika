@@ -74,6 +74,40 @@ public class Anime
     public Anime() {
     }
 
+    public Anime(int series_type, int series_status, String series_synonyms, String series_image, String series_title, String series_start, long series_animedb_id, String series_end, int series_episodes) {
+        this.series_type = series_type;
+        this.series_status = series_status;
+        this.series_synonyms = series_synonyms;
+        this.series_image = series_image;
+        this.series_title = series_title;
+        this.series_start = series_start;
+        this.series_animedb_id = series_animedb_id;
+        this.series_end = series_end;
+        this.series_episodes = series_episodes;
+    }
+
+    public Anime(int series_type, int series_status, String series_synonyms, int my_watched_episodes, String series_image, int my_status, String series_title, int my_rewatching, String my_finish_date, String series_start, long series_animedb_id, String my_id, String my_start_date, String series_end, String my_last_updated, String my_tags, float my_score, int series_episodes, int my_rewatching_ep) {
+        this.series_type = series_type;
+        this.series_status = series_status;
+        this.series_synonyms = series_synonyms;
+        this.my_watched_episodes = my_watched_episodes;
+        this.series_image = series_image;
+        this.my_status = my_status;
+        this.series_title = series_title;
+        this.my_rewatching = my_rewatching;
+        this.my_finish_date = my_finish_date;
+        this.series_start = series_start;
+        this.series_animedb_id = series_animedb_id;
+        this.my_id = my_id;
+        this.my_start_date = my_start_date;
+        this.series_end = series_end;
+        this.my_last_updated = my_last_updated;
+        this.my_tags = my_tags;
+        this.my_score = my_score;
+        this.series_episodes = series_episodes;
+        this.my_rewatching_ep = my_rewatching_ep;
+    }
+
     public int getSeries_type() {
         return series_type;
     }

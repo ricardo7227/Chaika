@@ -11,7 +11,7 @@ import com.orhanobut.logger.Logger;
 
 /**
  * Created by Gato on 20/05/2017.
- * Esta actividad comprueba si temos los datos del usuario
+ * Esta actividad comprueba si tenemos los datos del usuario
  */
 
 public class SplashActivity extends AppCompatActivity {

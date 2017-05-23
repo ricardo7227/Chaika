@@ -11,6 +11,7 @@ import com.chaika.application.ChaikaApplication;
 import com.chaika.componentes.AppComponent;
 import com.chaika.componentes.DaggerAppComponent;
 import com.chaika.databases.Data;
+import com.chaika.estructuraDatos.Database.AnimeData;
 import com.chaika.fragmentos.AllSeriesFragment;
 import com.chaika.fragmentos.SecondFragment;
 import com.chaika.fragmentos.adaptadores.ViewPagerAdapter;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         if (sizeList == 0) {
             RestApiMal.getInstance().getMalUserProfile(ApplicationConfig.getInstance().getUsername(),"all","anime", AllSeriesFragment.instance());
         }
+        AnimeData animeData = ChaikaApplication.get(this).component().getData().getAnimeById(16397);
 
         initViewPagerAndTabs();
 

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chaika.R;
+import com.chaika.application.ApplicationConfig;
+import com.chaika.application.ChaikaApplication;
 import com.chaika.estructuraDatos.Database.AnimeData;
 import com.chaika.estructuraDatos.api.Credentials;
 import com.chaika.estructuraDatos.malAppInfo.Anime;
@@ -97,7 +99,7 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
 
         rvSeries.setAdapter(adapter);
         //añadimos a la base de datos
-        //ChaikaApplication.get(ApplicationConfig.getInstance().getActivity()).component().getData().upsert(myAnimeList);
+        ChaikaApplication.get(ApplicationConfig.getInstance().getActivity()).component().getData().upsert(myAnimeList);
     }
 
     @Override
