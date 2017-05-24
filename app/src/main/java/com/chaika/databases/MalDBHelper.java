@@ -70,7 +70,7 @@ public class MalDBHelper extends SQLiteOpenHelper {
 
     public static abstract class MyAnimeEntry implements BaseColumns {
         public static final String TABLE_NAME = "MY_ANIME";
-        public static final String COLUMN_ANIMEDB_ID = "ANIMEDB_ID";
+        public static final String COLUMN_ANIMEDB_ID_FK = "ANIMEDB_ID_FK";
         public static final String COLUMN_MY_ID = "MY_ID";
         public static final String COLUMN_MY_WATCHED_EPISODES = "MY_WATCHED_EPISODES";
         public static final String COLUMN_MY_START_DATE = "MY_START_DATE";
@@ -130,7 +130,7 @@ public class MalDBHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_MY_ANIME_ENTRIES =
             "CREATE TABLE " + MyAnimeEntry.TABLE_NAME + " (" +
                     MyAnimeEntry._ID        + TEXT_TYPE +"  PRIMARY KEY," +
-                    MyAnimeEntry.COLUMN_ANIMEDB_ID + INTEGER_TYPE + COMMA_SEP +
+                    MyAnimeEntry.COLUMN_ANIMEDB_ID_FK + " INTEGER REFERENCES " + AnimeEntry.TABLE_NAME + COMMA_SEP +
                     MyAnimeEntry.COLUMN_MY_ID + TEXT_TYPE + COMMA_SEP +
                     MyAnimeEntry.COLUMN_MY_WATCHED_EPISODES + INTEGER_TYPE + COMMA_SEP +
                     MyAnimeEntry.COLUMN_MY_START_DATE + TEXT_TYPE + COMMA_SEP +

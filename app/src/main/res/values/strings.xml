@@ -2,7 +2,12 @@
     <string name="app_name">Chaika Tracker</string>
     <string name="app_ok">OK</string>
 
-    <string name="app_main_tab_series">Series</string>
+    <string name="app_main_tab_series">Todo el Anime</string>
+    <string name="app_main_tab_watching">Mirando</string>
+    <string name="app_main_tab_completed">Completadas</string>
+    <string name="app_main_tab_on_hold">Paradas</string>
+    <string name="app_main_tab_dropped">Abandonadas</string>
+    <string name="app_main_tab_plan_to_watch">Apuntadas para ver</string>
     
     <string name="my_status_series_watching">Viendo...</string>
     <string name="my_status_series_completed">Completa</string>

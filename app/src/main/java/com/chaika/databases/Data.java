@@ -317,8 +317,13 @@ public class Data {
             String where = null;
 
             String sortOrder = null;
+            String QUERY = "SELECT * FROM %s,%s WHERE %s.%s = %s.%s";
+            String QUERY_FORMAT = String.format(QUERY, MalDBHelper.AnimeEntry.TABLE_NAME, MalDBHelper.MyAnimeEntry.TABLE_NAME,
+                    MalDBHelper.AnimeEntry.TABLE_NAME,MalDBHelper.AnimeEntry.COLUMN_ANIMEDB_ID,
+                    MalDBHelper.MyAnimeEntry.TABLE_NAME,MalDBHelper.MyAnimeEntry.COLUMN_ANIMEDB_ID_FK);
 
-                c = db.query(
+            c = db.rawQuery(QUERY_FORMAT,null);
+                /*c = db.query(
                         MalDBHelper.AnimeEntry.TABLE_NAME,  // The table to query
                         AnimeData.getProjection(),                         // The columns to return
                         where,                                     // The columns for the WHERE clause
@@ -326,7 +331,7 @@ public class Data {
                         null,                                     // don't group the rows
                         null,                                     // don't filter by row groups
                         sortOrder                                 // The sort order
-                );
+                );*/
             if (c != null && c.moveToNext()) {
                 c.moveToFirst();
                 myAnimeList = new ArrayList<>();
@@ -352,8 +357,19 @@ public class Data {
                     String last_update = c.getString(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_LAST_UPDATE));
                     boolean relatives = c.getInt(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_RELATIVES)) > 0;
 
+                    String my_id = c.getString(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_ID));
+                    int myWatchedEpisodes = c.getInt(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_WATCHED_EPISODES));
+                    String myStartDate = c.getString(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_START_DATE));
+                    String myFinishDate = c.getString(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_FINISH_DATE));
+                    int myScore = c.getInt(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_SCORE));
+                    int myStatus = c.getInt(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_STATUS));
+                    int myRewatching = c.getInt(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_REWATCHING));
+                    int myRewatchingEp = c.getInt(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_REWATCHING_EP));
+                    String myLastUpdated = c.getString(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_LAST_UPDATED));
+                    String myTags = c.getString(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_TAGS));
 
-                    anime = new Anime(type, status, synonyms, image, title, startDate, animeID, endDate, episodes);
+                    anime = new Anime(type, status, synonyms, myWatchedEpisodes, image,myStatus, title, myRewatching, myFinishDate, startDate, animeID,my_id, myStartDate, endDate, myLastUpdated, myTags, myScore, episodes,myRewatchingEp);
+
 
                     entry = new Entry(animeID, title, sinopsis, endDate, score, synonyms, image, title_english, episodes, startDate);
 
@@ -376,7 +392,13 @@ public class Data {
         }
         return myAnimeList;
     }
-//pendiente en desarrollo
+
+
+    /***
+     *  Devuelve una lista de series basada en el status
+     * @param statusSeries
+     * @return
+     */
     public ArrayList<AnimeData> getMyAnimeListbyStatus(int statusSeries){
         SQLiteDatabase db = malDBHelper.getReadableDatabase();
         ArrayList<AnimeData> myAnimeList = null;
@@ -390,15 +412,15 @@ public class Data {
 
             String sortOrder = null;
 
-                c = db.query(
-                        MalDBHelper.MyAnimeEntry.TABLE_NAME,  // The table to query
-                        Anime.getProjection(),                         // The columns to return
-                        where,                                     // The columns for the WHERE clause
-                        whereValues,                              // The values for the WHERE clause
-                        null,                                     // don't group the rows
-                        null,                                     // don't filter by row groups
-                        sortOrder                                 // The sort order
-                );
+            String QUERY = "SELECT * FROM %s,%s WHERE %s.%s = %s.%s AND %s.%s = %s";
+            String QUERY_FORMAT = String.format(QUERY, MalDBHelper.AnimeEntry.TABLE_NAME, MalDBHelper.MyAnimeEntry.TABLE_NAME,
+                    MalDBHelper.AnimeEntry.TABLE_NAME,MalDBHelper.AnimeEntry.COLUMN_ANIMEDB_ID,
+                    MalDBHelper.MyAnimeEntry.TABLE_NAME,MalDBHelper.MyAnimeEntry.COLUMN_ANIMEDB_ID_FK,
+                    MalDBHelper.MyAnimeEntry.TABLE_NAME,MalDBHelper.MyAnimeEntry.COLUMN_MY_STATUS,
+                    statusSeries);
+            c = db.rawQuery(QUERY_FORMAT,null);
+
+
             if (c != null && c.moveToNext()) {
                 c.moveToFirst();
                 myAnimeList = new ArrayList<>();
@@ -424,8 +446,18 @@ public class Data {
                     String last_update = c.getString(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_LAST_UPDATE));
                     boolean relatives = c.getInt(c.getColumnIndex(MalDBHelper.AnimeEntry.COLUMN_RELATIVES)) > 0;
 
+                    String my_id = c.getString(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_ID));
+                    int myWatchedEpisodes = c.getInt(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_WATCHED_EPISODES));
+                    String myStartDate = c.getString(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_START_DATE));
+                    String myFinishDate = c.getString(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_FINISH_DATE));
+                    int myScore = c.getInt(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_SCORE));
+                    int myStatus = c.getInt(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_STATUS));
+                    int myRewatching = c.getInt(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_REWATCHING));
+                    int myRewatchingEp = c.getInt(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_REWATCHING_EP));
+                    String myLastUpdated = c.getString(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_LAST_UPDATED));
+                    String myTags = c.getString(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_TAGS));
 
-                    anime = new Anime(type, status, synonyms, image, title, startDate, animeID, endDate, episodes);
+                    anime = new Anime(type, status, synonyms, myWatchedEpisodes, image,myStatus, title, myRewatching, myFinishDate, startDate, animeID,my_id, myStartDate, endDate, myLastUpdated, myTags, myScore, episodes,myRewatchingEp);
 
                     entry = new Entry(animeID, title, sinopsis, endDate, score, synonyms, image, title_english, episodes, startDate);
 

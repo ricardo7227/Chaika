@@ -8,7 +8,7 @@ import com.orhanobut.logger.Logger;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_ANIMEDB_ID;
+import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_ANIMEDB_ID_FK;
 import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_MY_FINISH_DATE;
 import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_MY_ID;
 import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_MY_LAST_UPDATED;
@@ -321,7 +321,7 @@ public class Anime
         try {
             ContentValues values = new ContentValues();
 
-            values.put(MalDBHelper.MyAnimeEntry.COLUMN_ANIMEDB_ID, getSeries_animedb_id());
+            values.put(MalDBHelper.MyAnimeEntry.COLUMN_ANIMEDB_ID_FK, getSeries_animedb_id());
             values.put(COLUMN_MY_ID ,getMy_id());
             values.put(COLUMN_MY_WATCHED_EPISODES ,getMy_watched_episodes());
             values.put(COLUMN_MY_START_DATE ,getMy_start_date());
@@ -342,7 +342,7 @@ public class Anime
 
     public static String[] getProjection(){
         String[] projection = {
-                COLUMN_ANIMEDB_ID ,
+                COLUMN_ANIMEDB_ID_FK,
                 COLUMN_MY_ID ,
                 COLUMN_MY_WATCHED_EPISODES ,
                 COLUMN_MY_START_DATE ,

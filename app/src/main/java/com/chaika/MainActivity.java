@@ -12,8 +12,9 @@ import com.chaika.componentes.AppComponent;
 import com.chaika.componentes.DaggerAppComponent;
 import com.chaika.databases.Data;
 import com.chaika.estructuraDatos.Database.AnimeData;
+import com.chaika.estructuraDatos.constantes.MyStatus;
 import com.chaika.fragmentos.AllSeriesFragment;
-import com.chaika.fragmentos.SecondFragment;
+import com.chaika.fragmentos.ShowListByStatus;
 import com.chaika.fragmentos.adaptadores.ViewPagerAdapter;
 import com.chaika.llamadasAPI.RestApiMal;
 
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         if (sizeList == 0) {
             RestApiMal.getInstance().getMalUserProfile(ApplicationConfig.getInstance().getUsername(),"all","anime", AllSeriesFragment.instance());
         }
+        //donde implementarlo?
         AnimeData animeData = ChaikaApplication.get(this).component().getData().getAnimeById(16397);
 
         initViewPagerAndTabs();
@@ -65,7 +67,15 @@ public class MainActivity extends AppCompatActivity {
 
         ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFrag(AllSeriesFragment.instance(),getString(R.string.app_main_tab_series));
-        pagerAdapter.addFrag(SecondFragment.newInstance(2,"page"),"VISTOS");
+
+        //Definimos todo el contenido de cada uno de los fragmentos
+
+        pagerAdapter.addFrag(ShowListByStatus.newInstance(MyStatus.watching),getString(R.string.app_main_tab_watching));
+        pagerAdapter.addFrag(ShowListByStatus.newInstance(MyStatus.completed),getString(R.string.app_main_tab_completed));
+        pagerAdapter.addFrag(ShowListByStatus.newInstance(MyStatus.onhold),getString(R.string.app_main_tab_on_hold));
+        pagerAdapter.addFrag(ShowListByStatus.newInstance(MyStatus.dropped),getString(R.string.app_main_tab_dropped));
+        pagerAdapter.addFrag(ShowListByStatus.newInstance(MyStatus.plantowatch),getString(R.string.app_main_tab_plan_to_watch));
+
 
         viewPager.setAdapter(pagerAdapter);
 
