@@ -81,9 +81,6 @@ public class RestApiMal {
                         userData.setMyInfo(myAnimeList.getMyInfo());
                         //información del usuario
                         ChaikaApplication.get(ApplicationConfig.getInstance().getActivity()).component().getData().upsert(userData);
-                        //Data.instance().upsert(userData);
-                        //lista de series
-                        //Data.instance().upsert(myAnimeList);
                         apiResult.SuccessCall(myAnimeList);
 
 

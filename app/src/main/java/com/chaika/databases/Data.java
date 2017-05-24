@@ -69,11 +69,14 @@ public class Data {
     public void upsert(MyAnimeList myAnimeList){
         SQLiteDatabase db = malDBHelper.getWritableDatabase();
         try{
+            db.beginTransaction();
             for (Anime a: myAnimeList.getAnimes()) {
                 Logger.d(a.toString());
                 db.insert(MalDBHelper.AnimeEntry.TABLE_NAME,null,a.getContentValuesSerie());
                 db.insert(MalDBHelper.MyAnimeEntry.TABLE_NAME,null,a.getContentValuesMySerie());
             }
+            db.setTransactionSuccessful();
+            db.endTransaction();
         }catch (Exception e){
             Logger.e(e.getMessage());
         }finally {

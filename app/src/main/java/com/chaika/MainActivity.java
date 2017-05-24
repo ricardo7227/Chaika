@@ -56,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         //donde implementarlo?
         AnimeData animeData = ChaikaApplication.get(this).component().getData().getAnimeById(16397);
 
+        //revisar: http://blog.rhesoft.com/2015/03/30/tutorial-android-actionbar-with-material-design-and-search-field/
+        //toolbar de la aplicación
+
         initViewPagerAndTabs();
 
     }//fin onCreate
@@ -80,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);//produce efecto scroll en tabLayout para futuras mejoras -> https://medium.com/@elsenovraditya/set-tab-minimum-width-of-scrollable-tablayout-programmatically-8146d6101efe
         tabLayout.setupWithViewPager(viewPager);
     }
 

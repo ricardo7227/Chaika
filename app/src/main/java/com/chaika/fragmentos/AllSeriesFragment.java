@@ -22,6 +22,13 @@ import com.chaika.interfaces.ApiResult;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 import static com.chaika.MainActivity.progressBar;
 
 /**
@@ -99,8 +106,33 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
         adapter = new RecyclerViewAdaptador(getContext(),animeList);
 
         rvSeries.setAdapter(adapter);
-        //añadimos a la base de datos
-        ChaikaApplication.get(ApplicationConfig.getInstance().getActivity()).component().getData().upsert(myAnimeList);
+
+        //Creamos un hilo para añadir el array de series en la base de datos.
+        Observable.fromArray(myAnimeList)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
+                .subscribe(new Observer<MyAnimeList>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull MyAnimeList myAnimeList) {
+                //añadimos la lista a base de datos
+                ChaikaApplication.get(ApplicationConfig.getInstance().getActivity()).component().getData().upsert(myAnimeList);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 
     @Override
