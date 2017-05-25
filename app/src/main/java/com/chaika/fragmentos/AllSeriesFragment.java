@@ -1,5 +1,6 @@
 package com.chaika.fragmentos;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chaika.DetailSerie;
 import com.chaika.R;
 import com.chaika.application.ApplicationConfig;
 import com.chaika.application.ChaikaApplication;
@@ -18,6 +20,8 @@ import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
 import com.chaika.estructuraDatos.search.AnimeSearch;
 import com.chaika.fragmentos.adaptadores.RecyclerViewAdaptador;
 import com.chaika.interfaces.ApiResult;
+import com.chaika.interfaces.RecyclerViewClickListener;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +44,8 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
     RecyclerViewAdaptador adapter;
     RecyclerView rvSeries;
     ArrayList<AnimeData> animeList;
+
+    RecyclerViewClickListener listener;
 
 
     private static AllSeriesFragment instance;
@@ -74,8 +80,21 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
         //recogemos las series de la base de datos
         animeList = ChaikaApplication.get(ApplicationConfig.getInstance().getActivity()).component().getData().getMyAnimeList();
 
+
+        //recoge la posicion del click en la lista cargada de la vista
+        listener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) { //pendiente
+                Logger.d(view.getId() + ": " + position);
+                //lanza una nueva actividad sobre el item
+                ApplicationConfig.getInstance().getActivity().startActivity(new Intent(getContext(), DetailSerie.class).putExtra("animeId",position));
+            }
+        };
+
         if (animeList != null){
-        adapter = new RecyclerViewAdaptador(getContext(), animeList);}
+            progressBar.setVisibility(View.GONE);
+            adapter = new RecyclerViewAdaptador(getContext(), animeList,listener);}
+
 
         // definimos el adaptador en el RecyclerView
         rvSeries.setAdapter(adapter);
@@ -103,7 +122,7 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
         progressBar.setVisibility(View.GONE);
 
         animeList = new ArrayList<AnimeData>(animeDataList);
-        adapter = new RecyclerViewAdaptador(getContext(),animeList);
+        adapter = new RecyclerViewAdaptador(getContext(),animeList,listener);
 
         rvSeries.setAdapter(adapter);
 

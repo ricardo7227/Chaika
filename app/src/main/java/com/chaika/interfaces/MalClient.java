@@ -4,6 +4,7 @@ import com.chaika.estructuraDatos.api.Credentials;
 import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
 import com.chaika.estructuraDatos.search.AnimeSearch;
 
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.http.DELETE;
@@ -31,7 +32,7 @@ public interface MalClient {
 
     //realiza busqueda de una serie
     @GET("anime/search.xml")
-    Observable<AnimeSearch> getAnimeSearch(@Query("q") String query);
+    Maybe<AnimeSearch> getAnimeSearch(@Query("q") String query);
 
     //api/animelist/add/id.xml
     @Headers({

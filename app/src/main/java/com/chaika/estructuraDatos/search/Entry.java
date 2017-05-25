@@ -25,13 +25,13 @@ public class Entry {
     private String status;
     @Element(name = "score")
     private float score;
-    @Element(name = "synonyms")
+    @Element(name = "synonyms", required = false)
     private String synonyms;
     @Element(name = "image")
     private String image_path;
     @Element(name = "type")
     private String type;
-    @Element(name = "english")
+    @Element(name = "english", required = false)
     private String title_english;
     @Element(name = "episodes")
     private int episodes;

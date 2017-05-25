@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.chaika.R;
 import com.chaika.application.ApplicationConfig;
 import com.chaika.estructuraDatos.Database.AnimeData;
+import com.chaika.interfaces.RecyclerViewClickListener;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -32,10 +33,12 @@ public class RecyclerViewAdaptador extends
     // Store the context for easy access
     private Context mContext;
 
+    RecyclerViewClickListener listenerAdap;
+
 
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
         public TextView title_series;
@@ -48,12 +51,18 @@ public class RecyclerViewAdaptador extends
         public ImageView cover_series;
 
 
+        RecyclerViewClickListener listener;
+
+
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, RecyclerViewClickListener listener) {
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(itemView);
+
+            this.listener = listener;
+            itemView.setOnClickListener(this);
 
             title_series = (TextView) itemView.findViewById(R.id.title_series);
             studio_series = (TextView) itemView.findViewById(R.id.studio_series);
@@ -65,13 +74,20 @@ public class RecyclerViewAdaptador extends
             cover_series =  (ImageView) itemView.findViewById(R.id.cover_serie);
 
         }
-    }
+
+        @Override
+        public void onClick(View v) {
+
+            listener.onClick(v,getAdapterPosition());
+        }
+    }//fin viewHolder
 
 
     // Pass in the contact array into the constructor
-    public RecyclerViewAdaptador(Context context, List<AnimeData> animes) {
+    public RecyclerViewAdaptador(Context context, List<AnimeData> animes,RecyclerViewClickListener listenerAdap) {
         animeList = animes;
         mContext = context;
+        this.listenerAdap = listenerAdap;
     }
     public RecyclerViewAdaptador() {
 
@@ -92,15 +108,15 @@ public class RecyclerViewAdaptador extends
         View contactView = inflater.inflate(R.layout.serie_item_layout, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
+        ViewHolder viewHolder = new ViewHolder(contactView,listenerAdap);
 
         return viewHolder;
     }
 
-    // Involves populating data into the item through holder
+    // poblar de datos cada item
     @Override
     public void onBindViewHolder(RecyclerViewAdaptador.ViewHolder viewHolder, int position) {
-        // Get the data model based on position
+        // modelo
         AnimeData animeData = animeList.get(position);
 
         // Set item views based on your views and data model
@@ -139,7 +155,7 @@ public class RecyclerViewAdaptador extends
 
     }
 
-    // Returns the total count of items in the list
+    // Cantidad de items en la lista
     @Override
     public int getItemCount() {
         return animeList.size();

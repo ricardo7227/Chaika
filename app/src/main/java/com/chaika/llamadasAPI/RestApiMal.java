@@ -14,11 +14,14 @@ import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
@@ -292,35 +295,28 @@ public class RestApiMal {
     public void getAnimeSearch(String query,String username,String password) {
 
         MalClient malClient = ServiceGenerator.createService(MalClient.class,username,password);
-        Observable<AnimeSearch> animeSearchObservable = malClient.getAnimeSearch(query);
+        Maybe<AnimeSearch> animeSearchObservable = malClient.getAnimeSearch(query);
 
         animeSearchObservable
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<AnimeSearch>() {
+                .subscribe(new Consumer<AnimeSearch>() {
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        Logger.d("onSubscribe getAnimeSearch");
-                    }
-
-                    @Override
-                    public void onNext(@NonNull AnimeSearch animeSearch) {
-                        Logger.d(animeSearch);
-
+                    public void accept(@NonNull AnimeSearch animeSearch) throws Exception {
                         List<Entry> resultados = animeSearch.getEntradas();
                         for (Entry a: resultados) {
                             Logger.d(a.toString());
                         }
                     }
-
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void onError(@NonNull Throwable e) {
-                        Logger.e("onError getAnimeSearch: ",e.getMessage());
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                    Logger.e(throwable.getMessage());
                     }
-
+                }, new Action() {
                     @Override
-                    public void onComplete() {
-                        Logger.d("onComplete getAnimeSearch");
+                    public void run() throws Exception {
+                        Logger.d("vacio");
                     }
                 });
     }//fin getAnimeSearch

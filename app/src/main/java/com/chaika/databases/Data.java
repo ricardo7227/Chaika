@@ -108,15 +108,28 @@ public class Data {
     }//fin upsert
 
 
+    /**
+     * Añade sinopsis, score y titulo en ingles
+     *
+     * @param anime
+     */
     public void upsert(Entry anime){
         SQLiteDatabase db = malDBHelper.getWritableDatabase();
         try{
             Logger.d(anime.toString());
-            db.insert(MalDBHelper.AnimeEntry.TABLE_NAME,null,anime.getContentValuesSerie());
+            db.beginTransaction();
+
+            String[] whereValues =  new String[]{String.valueOf(anime.getAnime_id())};
+            String where = MalDBHelper.AnimeEntry.COLUMN_ANIMEDB_ID + " = ?";
+
+            db.update(MalDBHelper.AnimeEntry.TABLE_NAME,anime.getContentValuesSerie(),where,whereValues);
+
+            db.setTransactionSuccessful();
 
         }catch (Exception e){
             Logger.e(e.getMessage());
         }finally {
+            db.endTransaction();
             malDBHelper.close();
             db.close();
             db = null;
@@ -326,15 +339,7 @@ public class Data {
                     MalDBHelper.MyAnimeEntry.TABLE_NAME,MalDBHelper.MyAnimeEntry.COLUMN_ANIMEDB_ID_FK);
 
             c = db.rawQuery(QUERY_FORMAT,null);
-                /*c = db.query(
-                        MalDBHelper.AnimeEntry.TABLE_NAME,  // The table to query
-                        AnimeData.getProjection(),                         // The columns to return
-                        where,                                     // The columns for the WHERE clause
-                        whereValues,                              // The values for the WHERE clause
-                        null,                                     // don't group the rows
-                        null,                                     // don't filter by row groups
-                        sortOrder                                 // The sort order
-                );*/
+
             if (c != null && c.moveToNext()) {
                 c.moveToFirst();
                 myAnimeList = new ArrayList<>();

@@ -13,6 +13,8 @@ import com.chaika.application.ApplicationConfig;
 import com.chaika.application.ChaikaApplication;
 import com.chaika.estructuraDatos.Database.AnimeData;
 import com.chaika.fragmentos.adaptadores.RecyclerViewAdaptador;
+import com.chaika.interfaces.RecyclerViewClickListener;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
@@ -29,9 +31,10 @@ public class ShowListByStatus extends Fragment{
     //Estatus de la lista creada
     int myStatus;
 
+    RecyclerViewClickListener listener;
 
     private static ShowListByStatus instance;
-//pendiente reutilizar fragmento
+
     // newInstance constructor for creating fragment with arguments
     public static ShowListByStatus newInstance(int myStatus) {
         ShowListByStatus fragmentFirst = new ShowListByStatus();
@@ -69,8 +72,15 @@ public class ShowListByStatus extends Fragment{
         //recogemos las series de la base de datos
         animeList = ChaikaApplication.get(ApplicationConfig.getInstance().getActivity()).component().getData().getMyAnimeListbyStatus(myStatus);
 
+        listener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Logger.d(view.getId() + " : " + position);
+            }
+        };
+
         if (animeList != null){
-            adapter = new RecyclerViewAdaptador(getContext(), animeList);}
+            adapter = new RecyclerViewAdaptador(getContext(), animeList,listener);}
 
         // definimos el adaptador en el RecyclerView
         rvSeries.setAdapter(adapter);

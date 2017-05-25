@@ -40,7 +40,7 @@ public class ChaikaApplication extends Application{
         //nueva forma de hacer llamadas
         //RestApiMal.getInstance().getMalUserProfile("ricardoAlexis","all","anime",component.getData());
         //RestApiMal.getInstance().getMalUserProfile("ricardoAlexis","all","anime", AllSeriesFragment.instance());
-        String animeMalId = "34591";
+        String animeMalId = "3451";
         String username = "ricardoAlexis";
         String pasword = "alexss00my**";
 
