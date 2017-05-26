@@ -292,7 +292,7 @@ public class RestApiMal {
      * @param username
      * @param password
      */
-    public void getAnimeSearch(String query,String username,String password) {
+    public void getAnimeSearch(String query,String username,String password,ApiResult apiResult) {
 
         MalClient malClient = ServiceGenerator.createService(MalClient.class,username,password);
         Maybe<AnimeSearch> animeSearchObservable = malClient.getAnimeSearch(query);
@@ -303,6 +303,7 @@ public class RestApiMal {
                 .subscribe(new Consumer<AnimeSearch>() {
                     @Override
                     public void accept(@NonNull AnimeSearch animeSearch) throws Exception {
+                        apiResult.SuccessCall(animeSearch);
                         List<Entry> resultados = animeSearch.getEntradas();
                         for (Entry a: resultados) {
                             Logger.d(a.toString());

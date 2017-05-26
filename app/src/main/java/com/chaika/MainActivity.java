@@ -16,7 +16,6 @@ import com.chaika.estructuraDatos.constantes.MyStatus;
 import com.chaika.fragmentos.AllSeriesFragment;
 import com.chaika.fragmentos.ShowListByStatus;
 import com.chaika.fragmentos.adaptadores.ViewPagerAdapter;
-import com.chaika.llamadasAPI.RestApiMal;
 
 import javax.inject.Inject;
 
@@ -50,15 +49,15 @@ public class MainActivity extends AppCompatActivity {
         component.injectMain(this);
 
 
-        int sizeList = ChaikaApplication.get(this).component().getData().getSizeListMal();
+/*        int sizeList = ChaikaApplication.get(this).component().getData().getSizeListMal();
         if (sizeList == 0) {
             RestApiMal.getInstance().getMalUserProfile(ApplicationConfig.getInstance().getUsername(),"all","anime", AllSeriesFragment.instance());
-        }
+        }*/
         //donde implementarlo?
         AnimeData animeData = ChaikaApplication.get(this).component().getData().getAnimeById(16397);
 
         String query = "Aldnoah.Zero";
-        RestApiMal.getInstance().getAnimeSearch(query,ApplicationConfig.getInstance().getUsername(),ApplicationConfig.getInstance().getPassword());
+      //  RestApiMal.getInstance().getAnimeSearch(query,ApplicationConfig.getInstance().getUsername(),ApplicationConfig.getInstance().getPassword());
 
         //revisar: http://blog.rhesoft.com/2015/03/30/tutorial-android-actionbar-with-material-design-and-search-field/
         //toolbar de la aplicación

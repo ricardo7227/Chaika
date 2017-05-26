@@ -28,7 +28,6 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -86,8 +85,10 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
             @Override
             public void onClick(View view, int position) { //pendiente
                 Logger.d(view.getId() + ": " + position);
+                //recoge la ID de la serie.
+                int malID = getID(animeList,position);
                 //lanza una nueva actividad sobre el item
-                ApplicationConfig.getInstance().getActivity().startActivity(new Intent(getContext(), DetailSerie.class).putExtra("animeId",position));
+                ApplicationConfig.getInstance().getActivity().startActivity(new Intent(getContext(), DetailSerie.class).putExtra("animeId",malID));
             }
         };
 
@@ -100,6 +101,14 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
         rvSeries.setAdapter(adapter);
 
         return view;
+    }
+
+    public int getID(ArrayList<AnimeData> animeList,int position){
+        int id = 0;
+        if (animeList != null){
+             id = (int) animeList.get(position).getAnimeMalinfo().getSeries_animedb_id();
+        }
+        return id;
     }
 
     /*
@@ -128,7 +137,6 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
 
         //Creamos un hilo para añadir el array de series en la base de datos.
         Observable.fromArray(myAnimeList)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(new Observer<MyAnimeList>() {
             @Override

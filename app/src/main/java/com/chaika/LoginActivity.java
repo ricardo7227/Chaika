@@ -21,6 +21,7 @@ import com.chaika.application.ApplicationConfig;
 import com.chaika.estructuraDatos.api.Credentials;
 import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
 import com.chaika.estructuraDatos.search.AnimeSearch;
+import com.chaika.fragmentos.AllSeriesFragment;
 import com.chaika.interfaces.ApiResult;
 import com.chaika.llamadasAPI.RestApiMal;
 import com.chaika.utilidades.BlurBuilder;
@@ -239,6 +240,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         submit.setText(getResources().getText(R.string.app_ok));
         //definimos las credenciales del usuario en el entorno
         setCredentialsSystem(username.getText().toString().trim(),password.getText().toString().trim());
+        //Recuperamos las series del API
+        RestApiMal.getInstance().getMalUserProfile(ApplicationConfig.getInstance().getUsername(),"all","anime", AllSeriesFragment.instance());
         //lanzamos MainActivity
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
