@@ -1,5 +1,9 @@
 package com.chaika.llamadasAPI;
 
+import android.app.Application;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import com.chaika.application.ApplicationConfig;
 import com.chaika.application.ChaikaApplication;
 import com.chaika.estructuraDatos.Database.UserData;
@@ -9,13 +13,22 @@ import com.chaika.estructuraDatos.search.AnimeSearch;
 import com.chaika.estructuraDatos.search.Entry;
 import com.chaika.interfaces.ApiResult;
 import com.chaika.interfaces.MalClient;
+import com.chaika.utilidades.BlurBuilder;
 import com.chaika.utilidades.ResposeBodyReader;
 import com.orhanobut.logger.Logger;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -58,7 +71,7 @@ public class RestApiMal {
      */
     public void getMalUserProfile(String userName, String status, String type,ApiResult apiResult){
         //cambio a la URL correspondiente
-        ServiceGenerator.changeApiBaseUrl(UrlAPIs.BASE_URL_MALAPPINFO);
+        ServiceGenerator.changeApiBaseUrl(UrlAPIs.BASE_URL_MAL);
         String apiBase = apiBaseUrl;
         //acceso al servicio
         MalClient malClient = ServiceGenerator.createService(MalClient.class);
@@ -205,7 +218,7 @@ public class RestApiMal {
      * @param username
      * @param password
      */
-    public void deleteAnimeMal(String malId,String username,String password){
+    public void deleteAnimeMal(String malId,String username,String password,ApiResult apiResult){
         MalClient malClient = ServiceGenerator.createService(MalClient.class,username,password);
 
         Observable<ResponseBody> entryAnimeValuesObservable = malClient.deleteAnime(malId);
@@ -224,8 +237,9 @@ public class RestApiMal {
                     public void onNext(@NonNull ResponseBody responseBody) {
                         String respuesta = ResposeBodyReader.instance().getResponse(responseBody);
                         Logger.d(respuesta);
+                        apiResult.genericResponse(respuesta);
                         if (respuesta == "Deleted"){
-
+                           // apiResult.genericResponse(respuesta);
                         }else {
                             //problemas eliminando serie
                         }
@@ -321,6 +335,63 @@ public class RestApiMal {
                     }
                 });
     }//fin getAnimeSearch
+
+    /***
+     * A través de Jsoup, conecta con el perfil de la serie en MyAnimeList.net y recupera su HTML, recuperar información relevante
+     *
+     * @param animeId String
+     * @return Observable
+     */
+    public Observable<Document> getInfoAnimePage(String animeId){
+        return Observable.create(new ObservableOnSubscribe<Document>() {
+
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Document> e) throws Exception {
+                try {
+                    Document document = Jsoup.connect(UrlAPIs.BASE_URL_MAL + "anime/" + animeId).get();
+
+                    //Logger.d(document.text());
+
+                    e.onNext(document);
+
+
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    e.onError(ex);
+                }
+                e.onComplete();
+            }
+        });
+    }
+
+    /**
+     * Coge una imagen según su URL la transforma en Bitmap y le agrega un efecto blur
+     *
+     * @param url
+     * @param application
+     * @return ByteArrayOutputStream - Tratado por Glide
+     */
+    public Observable<ByteArrayOutputStream> getBitmapByUrl(URL  url, Application application){
+        return Observable.create(new ObservableOnSubscribe<ByteArrayOutputStream>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<ByteArrayOutputStream> e) throws Exception {
+
+                Bitmap bitmapBackgroud = BitmapFactory.decodeStream(url.openStream());
+
+                //agrega el efecto blur
+                Bitmap blurBitmapBackground = BlurBuilder.blur(application, bitmapBackgroud);
+
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                blurBitmapBackground.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+                e.onNext(stream);
+
+                e.onComplete();
+            }
+        });
+    }
+
+
 
 }//fin clase
 

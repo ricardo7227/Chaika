@@ -52,4 +52,6 @@ public interface MalClient {
     @DELETE("animelist/delete/{id}.xml")
     Observable<ResponseBody> deleteAnime(@Path("id") String malId);
 
+
+
 }//fin clase

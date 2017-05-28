@@ -12,4 +12,5 @@
     <string name="login_activity_edit_password">Password</string>
     <string name="login_activity_edit_username">Username</string>
     <string name="my_status_series_episodes">%1$d of %2$d Eps Seen</string>
+    <string name="details_activity_score">%1$s \\n by %2$s users</string>
 </resources>

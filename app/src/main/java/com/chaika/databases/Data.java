@@ -316,6 +316,65 @@ public class Data {
     }
 
     /***
+     * Recupera las estadisticas del usuario para una serie
+     *
+     * @param animeIdMal
+     * @return
+     */
+    public Anime getMyAnimeById(int animeIdMal){
+        SQLiteDatabase db = malDBHelper.getReadableDatabase();
+
+        Anime anime = null;
+
+        Cursor c = null;
+        try{
+            String[] whereValues =  new String[]{String.valueOf(animeIdMal)};
+            String where = MalDBHelper.MyAnimeEntry.COLUMN_ANIMEDB_ID_FK + " = ?";
+
+            String sortOrder = null;
+
+                c = db.query(
+                        MalDBHelper.MyAnimeEntry.TABLE_NAME,  // The table to query
+                        anime.getProjection(),                         // The columns to return
+                        where,                                     // The columns for the WHERE clause
+                        whereValues,                              // The values for the WHERE clause
+                        null,                                     // don't group the rows
+                        null,                                     // don't filter by row groups
+                        sortOrder                                 // The sort order
+                );
+            if (c != null && c.moveToNext()) {
+
+                long animeID = c.getLong(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_ANIMEDB_ID_FK));
+                String my_id = c.getString(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_ID));
+                int my_watched_episodes = c.getInt(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_WATCHED_EPISODES));
+                String my_start_date = c.getString(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_START_DATE));
+                String my_finish_date = c.getString(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_FINISH_DATE));
+                float my_score = c.getFloat(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_SCORE));
+                int my_status = c.getInt(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_STATUS));
+                int my_rewatching = c.getInt(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_REWATCHING));
+                int my_rewatching_ep = c.getInt(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_REWATCHING_EP));
+                String my_last_updated = c.getString(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_LAST_UPDATED));
+                String my_tags = c.getString(c.getColumnIndex(MalDBHelper.MyAnimeEntry.COLUMN_MY_TAGS));
+
+                anime = new Anime(my_watched_episodes, my_status, my_rewatching, my_finish_date,my_id, my_start_date, my_last_updated, my_tags, my_score,my_rewatching_ep);
+                anime.setSeries_animedb_id(animeID);
+
+
+            }
+
+
+
+        }catch (Exception e){
+            Logger.e(e.getMessage());
+        }finally {
+            malDBHelper.close();
+            db.close();
+            db = null;
+        }
+        return anime;
+    }
+
+    /***
      *
      * Devuelve una lista con todas las series almacenadas en la base de datos
      *
@@ -487,6 +546,40 @@ public class Data {
             db = null;
         }
         return myAnimeList;
+    }
+
+
+    /***
+     *
+     *DELETES
+     *
+     */
+    /***
+     *  Borra de la información de una serie de la base de datos
+     * @param animeId
+     */
+    public void deleteById(String animeId){
+        SQLiteDatabase db = malDBHelper.getWritableDatabase();
+        try {
+            db.beginTransaction();
+            String where = MalDBHelper.MyAnimeEntry.COLUMN_ANIMEDB_ID_FK + " = ?";
+            String mywhere = MalDBHelper.AnimeEntry.COLUMN_ANIMEDB_ID + " = ?";
+            String[] whereValues = new String[]{animeId};
+
+            db.delete(MalDBHelper.MyAnimeEntry.TABLE_NAME,where,whereValues);
+            db.delete(MalDBHelper.AnimeEntry.TABLE_NAME,mywhere,whereValues);
+            Logger.d(animeId);
+
+            db.setTransactionSuccessful();
+
+        }catch (Exception e){
+        Logger.e(e.getMessage());
+    }finally {
+            db.endTransaction();
+            malDBHelper.close();
+        db.close();
+        db = null;
+    }
     }
 
 

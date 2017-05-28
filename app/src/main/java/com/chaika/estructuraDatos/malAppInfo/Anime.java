@@ -120,6 +120,19 @@ public class Anime
         this.my_rewatching_ep = my_rewatching_ep;
     }
 
+    public Anime(int my_watched_episodes, int my_status, int my_rewatching, String my_finish_date, String my_id, String my_start_date, String my_last_updated, String my_tags, float my_score, int my_rewatching_ep) {
+        this.my_watched_episodes = my_watched_episodes;
+        this.my_status = my_status;
+        this.my_rewatching = my_rewatching;
+        this.my_finish_date = my_finish_date;
+        this.my_id = my_id;
+        this.my_start_date = my_start_date;
+        this.my_last_updated = my_last_updated;
+        this.my_tags = my_tags;
+        this.my_score = my_score;
+        this.my_rewatching_ep = my_rewatching_ep;
+    }
+
     public int getSeries_type() {
         return series_type;
     }

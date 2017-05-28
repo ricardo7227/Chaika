@@ -2,6 +2,8 @@
     <string name="app_name">Chaika Tracker</string>
     <string name="app_ok">OK</string>
 
+    <string name="my_score">Mi nota</string>
+
     <string name="app_main_tab_series">Todo el Anime</string>
     <string name="app_main_tab_watching">Mirando</string>
     <string name="app_main_tab_completed">Completadas</string>
@@ -29,5 +31,12 @@
     <string name="login_activity_ready_header">Genial! Vamos a ello.</string>
     <string name="login_activity_error_username">Usuario Invalido</string>
     <string name="login_activity_error_password">Contraseña Invalida, parece un poco corta</string>
+
+    <string name="details_activity_score">%1$s \n por %2$s usuarios</string>
+    <string name="details_activity_my_score"> -- </string>
+    <string name="details_activity_my_score_prompt">Califica esta serie</string>
+
+    <string name="toolbar_delete">Borrar</string>
+    <string name="toolbar_update">Actualizar</string>
 
 </resources>

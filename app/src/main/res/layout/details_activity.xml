@@ -1,40 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:focusableInTouchMode="true"
+    android:id="@+id/relative_layout"
+    android:orientation="vertical">
     <ImageView
-        android:layout_width="70dp"
-        android:layout_height="100dp"
-        android:src="@drawable/cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:id="@+id/cover_details"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="10sp"
-        android:layout_marginStart="5sp" />
-    <TextView
-        android:id="@+id/title_details"
-        android:padding="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hitsugi no Chaika"
-        android:layout_marginLeft="21dp"
-        android:layout_marginStart="5dp"
-        android:textSize="16sp"
-        android:textColor="@color/colorTextSecondary"
-        android:layout_alignTop="@+id/cover_details"
-        android:layout_toRightOf="@+id/cover_details"
-        android:layout_toEndOf="@+id/cover_details" />
+        android:id="@+id/image_background_details"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_traslucido"
+        >
 
-    <TextView
-        android:id="@+id/sinopsis"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_details"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="1dp"
-        android:text="Sinopsis"
-        android:textSize="13sp"
-        android:layout_below="@+id/title_details"
-        android:layout_alignLeft="@+id/title_details"
-        />
+        app:titleTextColor="@android:color/white"
+        android:background="?attr/colorPrimary">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/title_details"
+            android:text="Hitsugi no Chaika"
+            android:textColor="@color/colorTextSecondary"
+            android:shadowColor="@color/colorSecondary"
+            android:shadowRadius="20"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:textSize="16sp"/>
+    </android.support.v7.widget.Toolbar>
+     />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="3">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/progress_sinopsis"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        />
+
+                    <TextView
+                        android:id="@+id/sinopsis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="Sinopsis"
+                        android:textSize="13sp"
+                        android:scrollbars = "vertical"
+                        android:textColor="@color/colorSecondaryLight"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/score_details_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Score"
+                    android:textColor="@color/colorSecondaryLight"
+                    android:padding="5dp"
+                    android:textSize="16sp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/progress_score"
+                        android:layout_centerHorizontal="true"
+                        />
+                    <TextView
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/score_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text=""
+                        android:textSize="12sp" />
+
+                </RelativeLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorSecondaryLight"
+                    android:layout_marginBottom="5dp"
+                    />
+
+                    <TextView
+                        android:id="@+id/my_episodes_details_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Watched Episodes"
+                        android:textColor="@color/colorSecondaryLight"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/my_watched_episodes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textSize="15sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorSecondaryLight"
+                    android:layout_marginBottom="5dp"
+                    />
+
+                    <TextView
+                        android:id="@+id/my_score_details_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorSecondaryLight"
+                        android:padding="4dp"
+                        android:text="My Score"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/my_score_spiner"
+                        style="?android:attr/spinnerStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="9"
+                        android:textSize="16sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorSecondaryLight"
+                    android:layout_marginBottom="5dp"
+                    />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    </LinearLayout>
+    </FrameLayout>
 
 </RelativeLayout>

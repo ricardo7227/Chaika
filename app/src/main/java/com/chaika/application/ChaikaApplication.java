@@ -49,6 +49,12 @@ public class ChaikaApplication extends Application{
 
 
 
+
+
+
+
+
+
         EntryAnimeValues valores = new EntryAnimeValues();
         valores.setEpisode("5");
         valores.setStatus("1");
