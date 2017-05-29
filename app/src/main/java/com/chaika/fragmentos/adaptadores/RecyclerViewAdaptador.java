@@ -15,7 +15,6 @@ import com.chaika.estructuraDatos.Database.AnimeData;
 import com.chaika.interfaces.RecyclerViewClickListener;
 import com.orhanobut.logger.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.annotations.Nullable;
@@ -29,7 +28,7 @@ public class RecyclerViewAdaptador extends
         RecyclerView.Adapter<RecyclerViewAdaptador.ViewHolder> {
 
     // Store a member variable for the contacts
-    private List<AnimeData> animeList = new ArrayList<>();
+    private List<AnimeData> animeList;// = new ArrayList<>();
     // Store the context for easy access
     private Context mContext;
 
@@ -171,6 +170,12 @@ public class RecyclerViewAdaptador extends
         animeList.clear();
         animeList.addAll(animeDataList);
         notifyDataSetChanged();
+    }
+    public void removeItemList(int position) {
+
+        animeList.remove(position);
+        notifyDataSetChanged();
+
     }
 
 }//fin clase

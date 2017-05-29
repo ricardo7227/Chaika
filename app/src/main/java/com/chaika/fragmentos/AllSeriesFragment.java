@@ -46,6 +46,7 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
 
     RecyclerViewClickListener listener;
     int malIDPosition;
+    int positionArray;
 
 
     private static AllSeriesFragment instance;
@@ -86,6 +87,7 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
             @Override
             public void onClick(View view, int position) { //pendiente
                 Logger.d(view.getId() + ": " + position);
+                positionArray = position;
                 //recoge la ID de la serie.
                  malIDPosition = getID(animeList,position);
                 //lanza una nueva actividad sobre el item
@@ -176,13 +178,16 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
     @Override
     public void genericResponse(String response) {
         Logger.d(response);
-        if (response == "Deleted"){
+        if (response.equals("Deleted")){
 
-            animeList.remove(malIDPosition);
+            animeList.remove(positionArray);
             adapter.notifyDataSetChanged();
-            rvSeries.setAdapter(adapter);
 
+        }else if (response.equals("Updated")){
+
+            adapter.notifyItemChanged(positionArray);
         }
+
     }
 
     @Override

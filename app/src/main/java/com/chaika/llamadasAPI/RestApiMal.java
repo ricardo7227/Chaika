@@ -124,6 +124,9 @@ public class RestApiMal {
      *                  Cada petición para modificar la lista del usuario requiere identificación
      */
     public void addAnimeMal(String malId, String entryAnimeValues,String username,String password){
+        if (!ServiceGenerator.apiBaseUrl.equals(UrlAPIs.BASE_URL_MALAPI)) {
+            ServiceGenerator.changeApiBaseUrl(UrlAPIs.BASE_URL_MALAPI);
+        }
         MalClient malClient = ServiceGenerator.createService(MalClient.class,username,password);
 
         Observable<ResponseBody> entryAnimeValuesObservable = malClient.addAnime(malId,entryAnimeValues);
@@ -170,9 +173,11 @@ public class RestApiMal {
      * @param username
      * @param password
      */
-    public void updateAnimeMal(String malId, String entryAnimeValues,String username,String password){
-        MalClient malClient = ServiceGenerator.createService(MalClient.class,username,password);
-
+    public void updateAnimeMal(String malId, String entryAnimeValues,String username,String password,ApiResult apiResult){
+        if (!ServiceGenerator.apiBaseUrl.equals(UrlAPIs.BASE_URL_MALAPI)) {
+            ServiceGenerator.changeApiBaseUrl(UrlAPIs.BASE_URL_MALAPI);
+        }
+        MalClient malClient = ServiceGenerator.createService(MalClient.class, username, password);
         Observable<ResponseBody> entryAnimeValuesObservable = malClient.updateAnime(malId,entryAnimeValues);
 
         entryAnimeValuesObservable
@@ -189,11 +194,9 @@ public class RestApiMal {
                     public void onNext(@NonNull ResponseBody responseBody) {
                         String respuesta = ResposeBodyReader.instance().getResponse(responseBody);
                         Logger.d(respuesta);
-                        if (respuesta == "Updated"){
 
-                        }else {
-                            //problemas actualizando serie
-                        }
+                        apiResult.genericResponse(respuesta);
+
                     }
 
                     @Override
@@ -219,6 +222,9 @@ public class RestApiMal {
      * @param password
      */
     public void deleteAnimeMal(String malId,String username,String password,ApiResult apiResult){
+        if (!ServiceGenerator.apiBaseUrl.equals(UrlAPIs.BASE_URL_MALAPI)) {
+            ServiceGenerator.changeApiBaseUrl(UrlAPIs.BASE_URL_MALAPI);
+        }
         MalClient malClient = ServiceGenerator.createService(MalClient.class,username,password);
 
         Observable<ResponseBody> entryAnimeValuesObservable = malClient.deleteAnime(malId);
@@ -307,6 +313,9 @@ public class RestApiMal {
      * @param password
      */
     public void getAnimeSearch(String query,String username,String password,ApiResult apiResult) {
+        if (!ServiceGenerator.apiBaseUrl.equals(UrlAPIs.BASE_URL_MALAPI)) {
+            ServiceGenerator.changeApiBaseUrl(UrlAPIs.BASE_URL_MALAPI);
+        }
 
         MalClient malClient = ServiceGenerator.createService(MalClient.class,username,password);
         Maybe<AnimeSearch> animeSearchObservable = malClient.getAnimeSearch(query);

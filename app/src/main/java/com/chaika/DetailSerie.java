@@ -283,7 +283,7 @@ public class DetailSerie extends AppCompatActivity implements View.OnClickListen
         values.setScore(score);
         String updateSerie = AnimeValuesXMLtoString.getInstance().convert(values);
         RestApiMal.getInstance().updateAnimeMal(String.valueOf(animeData.getAnimeMalinfo().getSeries_animedb_id()),updateSerie,
-                ApplicationConfig.getInstance().getUsername(),ApplicationConfig.getInstance().getPassword());
+                ApplicationConfig.getInstance().getUsername(),ApplicationConfig.getInstance().getPassword(),this);
 
         }
 
