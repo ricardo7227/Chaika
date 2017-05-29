@@ -352,6 +352,21 @@ public class Anime
         }
         return null;
     }
+    //temporal
+    public ContentValues getContentValuesMySerieStatus(){
+        try {
+            ContentValues values = new ContentValues();
+
+            values.put(MalDBHelper.MyAnimeEntry.COLUMN_ANIMEDB_ID_FK, getSeries_animedb_id());
+            values.put(COLUMN_MY_WATCHED_EPISODES ,getMy_watched_episodes());
+            values.put(COLUMN_MY_SCORE ,getMy_score());
+
+            return values;
+        }catch (Exception e){
+            Logger.e(e.getMessage());
+        }
+        return null;
+    }
 
     public static String[] getProjection(){
         String[] projection = {

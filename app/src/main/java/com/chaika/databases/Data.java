@@ -547,7 +547,31 @@ public class Data {
         }
         return myAnimeList;
     }
+    /***
+     *
+     * UPDATES
+     *
+     */
 
+    //temporal
+    public void updateSerieState(Anime myanime){
+        SQLiteDatabase db = malDBHelper.getWritableDatabase();
+        try{
+            String[] whereValues =  new String[]{String.valueOf(myanime.getSeries_animedb_id())};
+            String where = MalDBHelper.MyAnimeEntry.COLUMN_ANIMEDB_ID_FK + " = ?";
+
+            db.update(MalDBHelper.MyAnimeEntry.TABLE_NAME,myanime.getContentValuesMySerieStatus(),where,whereValues);
+
+
+        }catch (Exception e){
+            Logger.e(e.getMessage());
+        }finally {
+            malDBHelper.close();
+            db.close();
+            db = null;
+        }
+
+    }
 
     /***
      *

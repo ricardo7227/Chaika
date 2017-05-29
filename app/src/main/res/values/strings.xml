@@ -39,4 +39,7 @@
     <string name="toolbar_delete">Borrar</string>
     <string name="toolbar_update">Actualizar</string>
 
+    <string name="response_updated">%1$s ha sido actualizada</string>
+    <string name="response_deleted">Hemos borrado %1$s de tu lista personal</string>
+
 </resources>

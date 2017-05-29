@@ -184,8 +184,14 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
             adapter.notifyDataSetChanged();
 
         }else if (response.equals("Updated")){
+            List<Object> payloads = new ArrayList<Object>();
+            payloads.add(new Integer(2));
+            payloads.add(new Integer(5));
+//pendiente
+            adapter.notifyItemChanged(positionArray,payloads);
 
-            adapter.notifyItemChanged(positionArray);
+            //adapter.notifyDataSetChanged();
+
         }
 
     }

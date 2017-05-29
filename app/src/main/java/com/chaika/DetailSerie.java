@@ -310,11 +310,19 @@ public class DetailSerie extends AppCompatActivity implements View.OnClickListen
             ChaikaApplication.get(this).component().getData()
                     .deleteById(String.valueOf(animeData.getAnimeMalinfo().getSeries_animedb_id()));
             Snackbar snackbar = Snackbar
-                    .make(baseLayout, "Deleted", Snackbar.LENGTH_LONG);
+                    .make(baseLayout,  getString(R.string.response_deleted,animeData.getAnimeMalinfo().getSeries_title()), Snackbar.LENGTH_LONG);
             snackbar.show();
         }else if (response.equals("Updated")){
+            Anime animeUpdated = new Anime();
+            animeUpdated.setSeries_animedb_id(animeData.getAnimeMalinfo().getSeries_animedb_id());
+            animeUpdated.setMy_score(Float.parseFloat(mScore.getText().toString()));
+            animeUpdated.setMy_watched_episodes(Integer.parseInt(myEpisodes.getText().toString()));
+
+            ChaikaApplication.get(this).component().getData()
+                    .updateSerieState(animeUpdated);
+
             Snackbar snackbar = Snackbar
-                    .make(baseLayout, "updated", Snackbar.LENGTH_LONG);
+                    .make(baseLayout, getString(R.string.response_updated,animeData.getAnimeMalinfo().getSeries_title()), Snackbar.LENGTH_LONG);
             snackbar.show();
         }
         AllSeriesFragment.instance().genericResponse(response);

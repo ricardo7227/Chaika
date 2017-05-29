@@ -154,6 +154,21 @@ public class RecyclerViewAdaptador extends
 
     }
 
+    @Override
+    public void onBindViewHolder(RecyclerViewAdaptador.ViewHolder holder, int position, List<Object> payloads) {
+        Logger.d("onBindUpdate");
+        if(!payloads.isEmpty()) {
+            if (payloads.get(0) instanceof Integer) {//pendiente
+                Logger.d("onBindUpdate payload" + payloads.get(0) + " " + payloads.get(1));
+                holder.vistos_series.setText(getContext().getString(R.string.my_status_series_episodes,
+                        (Integer)payloads.get(0), (Integer)payloads.get(1)));
+
+            }
+        }else {
+            super.onBindViewHolder(holder,position, payloads);
+        }
+    }
+
     // Cantidad de items en la lista
     @Override
     public int getItemCount() {
