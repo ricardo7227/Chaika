@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chaika.R;
 import com.chaika.application.ApplicationConfig;
+import com.chaika.application.ChaikaApplication;
 import com.chaika.estructuraDatos.Database.AnimeData;
+import com.chaika.estructuraDatos.malAppInfo.Anime;
 import com.chaika.interfaces.RecyclerViewClickListener;
 import com.orhanobut.logger.Logger;
 
@@ -156,12 +158,16 @@ public class RecyclerViewAdaptador extends
 
     @Override
     public void onBindViewHolder(RecyclerViewAdaptador.ViewHolder holder, int position, List<Object> payloads) {
-        Logger.d("onBindUpdate");
+
         if(!payloads.isEmpty()) {
-            if (payloads.get(0) instanceof Integer) {//pendiente
-                Logger.d("onBindUpdate payload" + payloads.get(0) + " " + payloads.get(1));
+            if (payloads.get(0) instanceof Integer) {//temporal-mejorable
+
+                Anime a = ChaikaApplication.get(ApplicationConfig.getInstance().getActivity()).component().getData().getMyAnimeById((Integer) payloads.get(0));
+                AnimeData animeData = ChaikaApplication.get(ApplicationConfig.getInstance().getActivity()).component().getData().getAnimeById((Integer) payloads.get(0));
+
+                Logger.d("onBindUpdate payload" + payloads.get(0));
                 holder.vistos_series.setText(getContext().getString(R.string.my_status_series_episodes,
-                        (Integer)payloads.get(0), (Integer)payloads.get(1)));
+                        a.getMy_watched_episodes(),animeData.getAnimeMalinfo().getSeries_episodes()));
 
             }
         }else {

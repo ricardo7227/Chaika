@@ -123,6 +123,7 @@
                         android:id="@+id/score_details"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/colorSecondaryLight"
                         android:padding="5dp"
                         android:text=""
                         android:textSize="12sp" />
@@ -133,7 +134,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/colorSecondaryLight"
+                    android:background="@color/colorTextPrimaryCyan"
                     android:layout_marginBottom="5dp"
                     />
 
@@ -149,13 +150,15 @@
                         android:id="@+id/my_watched_episodes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/colorSecondaryLight"
                         android:layout_margin="5dp"
                         android:inputType="number"
                         android:textSize="15sp" />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/colorSecondaryLight"
+                    android:background="@color/colorTextPrimaryCyan"
                     android:layout_marginBottom="5dp"
                     />
 
@@ -174,12 +177,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textColor="@color/colorSecondaryLight"
                         android:text="9"
                         android:textSize="16sp" />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/colorSecondaryLight"
+                    android:background="@color/colorTextPrimaryCyan"
                     android:layout_marginBottom="5dp"
                     />
 

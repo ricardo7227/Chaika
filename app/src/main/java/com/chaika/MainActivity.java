@@ -94,23 +94,3 @@ public class MainActivity extends AppCompatActivity {
 
 }//fin clase
 
-/* pantalla = (TextView) findViewById(R.id.pantalla);
-        boton = (Button) findViewById(R.id.button);
-        textView = (TextView) findViewById(R.id.text);
-        editText = (EditText) findViewById(R.id.editText);
-        //RXbin...
-        RxTextView.textChanges(editText).subscribe(charSequence -> {textView.setText(charSequence);});
-        String val ="valor";
-        boton.setOnClickListener(view -> showText(val));
-*/
-
-//soporte Lambda Expressions
-//boton.setOnClickListener(v -> pantalla.setText("click"));
-
-//new RestApiMal().getMalUserProfile("ricardo7227");
-//crashea cuando no envia una password correcto, a revisar
-
-
-//new RestApiMal().getCredentials("ricardoAlexis","alexss00my**");
-//pendiente controlar los strings que recibe, espacios en blanco
-//new RestApiMal().getAnimeSearch("Asterisk");

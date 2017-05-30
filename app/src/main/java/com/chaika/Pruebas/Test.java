@@ -2,15 +2,8 @@ package com.chaika.Pruebas;
 
 
 import android.util.Log;
-import android.widget.TextView;
-
-import com.chaika.MainActivity;
-
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
@@ -19,8 +12,6 @@ import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.internal.operators.single.SingleObserveOn;
 
 /**
  * Created by Gato on 23/04/2017.
@@ -214,6 +205,28 @@ public class Test {
         } ;*/
     //muestra por pantalla un numero ascendente infinitamente
     //observableInf.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observerLong);
+
+    /* pantalla = (TextView) findViewById(R.id.pantalla);
+        boton = (Button) findViewById(R.id.button);
+        textView = (TextView) findViewById(R.id.text);
+        editText = (EditText) findViewById(R.id.editText);
+        //RXbin...
+        RxTextView.textChanges(editText).subscribe(charSequence -> {textView.setText(charSequence);});
+        String val ="valor";
+        boton.setOnClickListener(view -> showText(val));
+*/
+
+//soporte Lambda Expressions
+//boton.setOnClickListener(v -> pantalla.setText("click"));
+
+//new RestApiMal().getMalUserProfile("ricardo7227");
+//crashea cuando no envia una password correcto, a revisar
+
+
+//new RestApiMal().getCredentials("ricardoAlexis","alexss00my**");
+//pendiente controlar los strings que recibe, espacios en blanco
+//new RestApiMal().getAnimeSearch("Asterisk");
+
 
 }//fin clase
 

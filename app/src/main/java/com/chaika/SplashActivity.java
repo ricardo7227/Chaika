@@ -10,8 +10,13 @@ import com.chaika.application.ApplicationConfig;
 import com.orhanobut.logger.Logger;
 
 /**
- * Created by Gato on 20/05/2017.
- * Esta actividad comprueba si tenemos los datos del usuario
+ *
+ * Esta actividad comprueba si tenemos los datos del usuario.
+ *
+ * Comprueba si existen datos del usuario en la aplicación
+ * Si no existen lanza la actividad de login
+ *
+ *  Created by Gato on 20/05/2017.
  */
 
 public class SplashActivity extends AppCompatActivity {
@@ -20,6 +25,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ///condición de Arranque
         if (!getSessionMal()) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -31,11 +37,16 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
+    /***
+     * Verifica los datos del usuario en la aplicación
+     * @return true - datos en el sistema, false - no existen datos
+     */
     public boolean getSessionMal(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String username = preferences.getString("Username", null);
         String password = preferences.getString("Password", null);
         boolean flag = false;
+
         if (username != null && password != null && password.length() > 3 && username.length() > 1){
             flag = true;
             //defino los datos del usuario en la sesion

@@ -40,30 +40,43 @@ import io.reactivex.subscribers.DisposableSubscriber;
 import static android.text.TextUtils.isEmpty;
 
 /**
+ * Actividad destinada ha verificar los datos personales del usuario.
+ *
+ * Será lanzada cuando no existan credenciales en el sistema.
+ *
+ * Solo se saldrá de esta actividad cuando se verifiquen los datos del usuario,
+ * la actividad se encargará de avisar de posibles errores al usuario.
+ *
+ *
+ * Mejoras pendientes:
+ * - mensajes más especificos sobre errores en la introducción de datos.
+ * - imágenes de fondo capturadas directamente de la red.
+ *
  * Created by Gato on 20/05/2017.
  */
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener,ApiResult{
+
 
     EditText username,password;
     TextView submit,login_header;
 
     ImageView backgroundImage,logo;
     Timer timer = null;
-    int i = 0;
-    Bitmap photoArray[];
-    int resourceArray [];
-    Bitmap bitmapBackgroud;
-    Bitmap blurBitmapBackground;
+    int i = 0;//varible que sirve de contador para rotar la imagen de fondo en la aplicación
+    int resourceArray [];//array que almacena la dirección de las imagenes de fondo
+    Bitmap bitmapBackgroud;//bitmap capturado en el array superior
+    Bitmap blurBitmapBackground;//bitmap tratado al que se añade un efecto difuminado
 
-    ByteArrayOutputStream stream;
-
-    //el observer trata lo emitido por los observables
-    private DisposableSubscriber<Boolean> disposableObserver = null;
+    ByteArrayOutputStream stream;//rodeo para mostrar las imágenes
 
     //Observables encargados de emitir cadenas de caracteres
     private Flowable<CharSequence> userNameChangeObservable;
     private Flowable<CharSequence> passwordChangeObservable;
+
+    //el observer trata lo emitido por los observables
+    private DisposableSubscriber<Boolean> disposableObserver = null;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,7 +100,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         timer = new Timer("RefreshBackground");
-        timer.schedule(updateBackGround, 1000L, 10000L);//here 6000L is starting //delay and 3000L is periodic delay after starting delay
+        timer.schedule(updateBackGround, 1000L, 10000L);//here 1000L is starting //delay and 10000L is periodic delay after starting delay
 
 
 
@@ -101,8 +114,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }//fin on create
 
-    private void combineEvents() {
 
+    /***
+     * Verifica que la información introducida por el usuario, respeta un minimos de normas para su posterior verificación en red
+     *
+     */
+    private void combineEvents() {
+        //activa el boton de login cuando se han introducido los dos campos correctamente
         disposableObserver =
                 new DisposableSubscriber<Boolean>() {
                     @Override
@@ -128,12 +146,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 };
 
+        //verifica el patrón de caracteres permitidos en el username, máximos y minimos en los strings
         Flowable.combineLatest(
                 userNameChangeObservable,
                 passwordChangeObservable,
                 (newUserName, newPassword) -> {
-            boolean usernameValid = !isEmpty(newUserName) && newUserName.length() > 1 && newUserName.length() < 17 &&
-                    Pattern.matches("([A-Za-z0-9_-]+)",newUserName);
+                    String usernameValue = newUserName.toString().trim();
+            boolean usernameValid = !isEmpty(usernameValue) && usernameValue.length() > 1 && usernameValue.length() < 17 &&
+                    Pattern.matches("([A-Za-z0-9_-]+)",usernameValue);
             if (!usernameValid) {
                 username.setError(getResources().getText(R.string.login_activity_error_username));
             }
@@ -152,6 +172,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
 
         if (view.getId() == R.id.login){
+
             Logger.d(username.getText().toString() + ":" +password.getText().toString());
             //llamada para comprobar la credenciales del usuario
             RestApiMal.getInstance().getCredentials(username.getText().toString().trim(),password.getText().toString().trim(),this);
@@ -261,6 +282,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void ErrorCall(Throwable error) {
+
+
         login_header.setTextSize(13);
         login_header.setText(getResources().getText(R.string.login_activity_error_header_llamada));
         logo.clearAnimation();
