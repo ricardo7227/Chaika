@@ -8,6 +8,9 @@ import com.bumptech.glide.RequestManager;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Modulo para glide, queda pendiente de desarrollar.
+ */
 @Module(includes = ContextModulo.class)
 public class GlideModuleDagger {
 

@@ -9,6 +9,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 /**
+ * Clase que utiliza Retrofit para generar un servicio unico, con el que realizar peticiones al servidor.
  * Created by Gato on 16/04/2017.
  */
 
@@ -31,7 +32,6 @@ public class ServiceGenerator {
     public static <S> S createService(Class<S> serviceClass) {
         return createService(serviceClass, null, null);
     }
-    //metodo para el login
     public static <S> S createService(
             Class<S> serviceClass, String username, String password) {
        if (!TextUtils.isEmpty(username)

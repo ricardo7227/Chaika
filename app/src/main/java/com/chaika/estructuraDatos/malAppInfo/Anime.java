@@ -21,6 +21,9 @@ import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_MY_TAGS;
 import static com.chaika.databases.MalDBHelper.MyAnimeEntry.COLUMN_MY_WATCHED_EPISODES;
 
 /**
+ * Objeto utilizado para organizar la información recibida de la llamada al API que devuelve una lista con todas series almacenadas
+ * por el usuario.
+ *
  * Created by Gato on 30/04/2017.
  */
 @Root(name = "anime",strict = false)

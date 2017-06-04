@@ -7,6 +7,7 @@ import com.chaika.scopes.DatabaseScope;
 import dagger.Component;
 
 /**
+ * Componente de Dagger2 que da acceso a la base de datos
  * Created by Gato on 01/05/2017.
  */
 @DatabaseScope

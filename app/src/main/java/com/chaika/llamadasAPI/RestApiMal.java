@@ -42,6 +42,8 @@ import retrofit2.Retrofit;
 import static com.chaika.llamadasAPI.ServiceGenerator.apiBaseUrl;
 
 /**
+ * Clase en la que se definen todas peticiones que se realizan al servidor.
+ *
  * Created by Gato on 13/04/2017.
  */
 
@@ -346,7 +348,7 @@ public class RestApiMal {
     }//fin getAnimeSearch
 
     /***
-     * A través de Jsoup, conecta con el perfil de la serie en MyAnimeList.net y recupera su HTML, recuperar información relevante
+     * A través de Jsoup, conecta con el perfil de la serie en MyAnimeList.net y recupera su HTML, para extraer información relevante
      *
      * @param animeId String
      * @return Observable

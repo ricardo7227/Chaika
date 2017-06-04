@@ -3,6 +3,8 @@ package com.chaika.utilidades;
 import com.chaika.estructuraDatos.EntryAnimeValues;
 
 /**
+ * Clase que se encarga de convertir un modelo XML a String para ser usado en las llamadas de añadir y actualizar del API.
+ *
  * Created by Gato on 13/05/2017.
  * modelo
  *

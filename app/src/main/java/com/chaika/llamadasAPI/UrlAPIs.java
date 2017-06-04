@@ -1,6 +1,8 @@
 package com.chaika.llamadasAPI;
 
 /**
+ * Base de las URLs que se utilizaran para realizar las peticiones.
+ *
  * Created by Gato on 13/04/2017.
  */
 

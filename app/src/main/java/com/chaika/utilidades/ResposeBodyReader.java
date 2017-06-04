@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import okhttp3.ResponseBody;
 
 /**
+ * Clase que recibe un objeto ResponseBody y los transforma en un String legible.
+ *
  * Created by Gato on 13/05/2017.
  */
 

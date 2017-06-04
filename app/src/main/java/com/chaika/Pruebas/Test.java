@@ -14,6 +14,8 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
 /**
+ * Clase para realizar pruebas con nuevas implementaciones.
+ *
  * Created by Gato on 23/04/2017.
  */
 

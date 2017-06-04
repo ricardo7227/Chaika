@@ -5,6 +5,8 @@ import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
 import com.chaika.estructuraDatos.search.AnimeSearch;
 
 /**
+ * Interface encargada de gestionar todas las posibles respuestas a las llamadas del servidor.
+ *
  * Created by Gato on 13/04/2017.
  */
 

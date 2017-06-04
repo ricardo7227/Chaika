@@ -4,7 +4,8 @@ import com.orhanobut.logger.Logger;
 
 /**
  *
- * Clase con ditintas utilidades para utilizar en el proyecto
+ * Clase con ditintas utilidades para utilizar en el proyecto.
+ *
  * Created by Gato on 27/05/2017.
  */
 
@@ -21,10 +22,10 @@ public class Utilidades {
     }
 
     /**
-     * Recibe la url con imagen de la portada de una serie y la cambia por su versión más grande
+     * Recibe la url con imagen de la portada de una serie y la cambia por su versión más grande.
      *
-     * @param urlImage
-     * @return String - url
+     * @param urlImage String url de la imagen almacenada en DB.
+     * @return String - url con la ruta de una imagen más grande que la original.
      */
     public String getLargeCoverVersion(String urlImage){
 

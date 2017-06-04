@@ -7,6 +7,8 @@ import com.chaika.databases.MalDBHelper;
 import com.chaika.estructuraDatos.malAppInfo.MyInfo;
 
 /**
+ * Objeto utilizado en la recuperación de información personal de la base de datos.
+ *
  * Created by Gato on 30/04/2017.
  */
 

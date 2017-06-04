@@ -15,6 +15,10 @@ import com.chaika.modulos.ContextModulo;
  * Created by Gato on 02/05/2017.
  */
 
+/**
+ *
+ * Clase que se extiende de la aplicación y por lo tanto única, de momento desde aquñi se Arranca el servicio de Dagger2
+ */
 public class ChaikaApplication extends Application{
 
     private DatabaseApplicationComponent component;
@@ -43,13 +47,6 @@ public class ChaikaApplication extends Application{
         String animeMalId = "3451";
         String username = "ricardoAlexis";
         String pasword = "alexss00my**";
-
-
-
-
-
-
-
 
 
 

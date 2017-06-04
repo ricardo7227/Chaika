@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.chaika.R;
 
 /**
+ * Fragmento pendiente de desarrollar.
  * Created by Gato on 14/05/2017.
  */
 

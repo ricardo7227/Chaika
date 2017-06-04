@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Adaptador de fragmentos al que agregaremos distintos fragmentos para mostrarlo en la pantalla principal.
+ *
  * Created by ricardo on 18/5/17.
  */
 

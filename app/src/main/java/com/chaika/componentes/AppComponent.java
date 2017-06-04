@@ -7,6 +7,7 @@ import com.chaika.scopes.AppScope;
 import dagger.Component;
 
 /**
+ * Componente para el uso de Dagger2
  * Created by Gato on 02/05/2017.
  */
 @AppScope

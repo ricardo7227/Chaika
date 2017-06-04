@@ -8,6 +8,8 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
+ * Modulo que provee de un contexto para usar Dagger2.
+ *
  * Created by Gato on 01/05/2017.
  */
 @Module

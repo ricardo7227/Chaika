@@ -25,6 +25,8 @@ import static com.chaika.databases.MalDBHelper.AnimeEntry.COLUMN_TITLE;
 import static com.chaika.databases.MalDBHelper.AnimeEntry.COLUMN_TYPE;
 
 /**
+ * Objeto utilizado en la recuperación de información de la base de datos.
+ *
  * Created by Gato on 30/04/2017.
  */
 

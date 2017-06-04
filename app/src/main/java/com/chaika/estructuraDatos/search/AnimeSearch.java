@@ -6,6 +6,8 @@ import org.simpleframework.xml.Root;
 import java.util.List;
 
 /**
+ * Objeto utilizado para deserializar la respuesta de la llamada a una petición de búsqueda.
+ *
  * Created by Gato on 16/04/2017.
  */
 @Root(name = "anime",strict = false)

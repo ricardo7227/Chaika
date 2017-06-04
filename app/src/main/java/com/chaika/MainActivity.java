@@ -19,14 +19,17 @@ import com.chaika.fragmentos.adaptadores.ViewPagerAdapter;
 
 import javax.inject.Inject;
 
+/***
+ * Actividad principal  de la aplicación, esta se mostrará siempre que tengamos las credenciales del usuario.
+ * Esta contiene un adaptador de fragmentos al cual agregamos una serie de fragmentos que contienen distintas listas
+ * basadas en un estado.
+ *
+ */
 public class MainActivity extends AppCompatActivity {
 
 
     AppComponent component;
-
     public static ProgressBar progressBar;
-
-
     @Inject
     Data data;
 
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.view_pager_main);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
+        //Definimos en la configuración la activad y contexto que podemos necesitar en distintos puntos de la aplicación
         ApplicationConfig.getInstance().setActivity(this);
         ApplicationConfig.getInstance().setContext(this);
 
@@ -67,7 +71,9 @@ public class MainActivity extends AppCompatActivity {
     }//fin onCreate
 
 
-
+    /***
+     * Localiza el viewpager en el que se incrustará la vista en la pantalla y se agregan los fragmentod que utilizaremos
+     */
     private void initViewPagerAndTabs() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
 

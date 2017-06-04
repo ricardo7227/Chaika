@@ -3,6 +3,10 @@ package com.chaika.estructuraDatos.malAppInfo;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
+/***
+ * Objeto que almacena la información estadistica del usuario.
+ *
+ */
 @Root(name = "myinfo",strict = false)
 public class MyInfo {
     @Element(name = "user_id")

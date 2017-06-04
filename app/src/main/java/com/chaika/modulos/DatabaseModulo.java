@@ -10,6 +10,8 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
+ * Modulo que provee de acceso a la base de datos para Dagger2.
+ *
  * Created by Gato on 01/05/2017.
  */
 @Module(includes = ContextModulo.class)

@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 /**
+ * Clase en la que se declaran todos los métodos utilizados para manipular la base de datos.
+ * Insertar, actualizar o elimiinar son los métodos más comunes.
+ *
  * Created by Gato on 01/05/2017.
  */
 
@@ -45,7 +48,7 @@ public class Data {
 
 
     /**
-     * Agrega los datos del usuario en la base de datos
+     * Agrega los datos del usuario en la base de datos.
      * @param userData
      */
     public void upsert (UserData userData){
@@ -63,8 +66,8 @@ public class Data {
     }
 
     /***
-     * Añade la lista de series
-      * @param myAnimeList
+     * Añade la lista de series.
+      * @param myAnimeList objeto
      */
     public void upsert(MyAnimeList myAnimeList){
         SQLiteDatabase db = malDBHelper.getWritableDatabase();
@@ -88,8 +91,8 @@ public class Data {
     }//fin upsert
 
     /**
-     * Añade una única serie a la base de datos
-     * @param anime
+     * Añade una única serie a la base de datos.
+     * @param anime objeto
      */
     public void upsert(Anime anime){
         SQLiteDatabase db = malDBHelper.getWritableDatabase();
@@ -109,9 +112,9 @@ public class Data {
 
 
     /**
-     * Añade sinopsis, score y titulo en ingles
+     * Añade sinopsis, score y titulo en ingles.
      *
-     * @param anime
+     * @param anime objeto
      */
     public void upsert(Entry anime){
         SQLiteDatabase db = malDBHelper.getWritableDatabase();
@@ -145,7 +148,10 @@ public class Data {
      * GETTERS
      *
      */
-
+    /**
+     * Recupera la información del usuario.
+     * @return objeto con todos los datos personales del usuario
+     */
     public UserData getUser(){
         SQLiteDatabase db = malDBHelper.getReadableDatabase();
         UserData userData = null;
@@ -223,8 +229,9 @@ public class Data {
     }//fin getUser
 
     /**
+     * Cuenta cuantas series existen almacenadas en la base de datos.
      *
-     * @return tamaño de la lista de series
+     * @return tamaño de la lista de series.
      */
     public int getSizeListMal(){
         SQLiteDatabase db = malDBHelper.getReadableDatabase();
@@ -246,7 +253,7 @@ public class Data {
 
 
     /**
-     * Recupera los datos de una serie según su ID
+     * Recupera los datos de una serie según su ID.
      *
      * @param animeIdMal
      * @return
@@ -316,10 +323,10 @@ public class Data {
     }
 
     /***
-     * Recupera las estadisticas del usuario para una serie
+     * Recupera las estadisticas del usuario para una serie.
      *
-     * @param animeIdMal
-     * @return
+     * @param animeIdMal identificador de la serie.
+     * @return objeto con los datos personales del usuario para una serie.
      */
     public Anime getMyAnimeById(int animeIdMal){
         SQLiteDatabase db = malDBHelper.getReadableDatabase();
@@ -376,9 +383,9 @@ public class Data {
 
     /***
      *
-     * Devuelve una lista con todas las series almacenadas en la base de datos
+     * Devuelve una lista con todas las series almacenadas en la base de datos.
      *
-     * @return array
+     * @return array con toda la información de dos tablas.
      */
     public ArrayList<AnimeData> getMyAnimeList(){
         SQLiteDatabase db = malDBHelper.getReadableDatabase();
@@ -462,9 +469,9 @@ public class Data {
 
 
     /***
-     *  Devuelve una lista de series basada en el status
-     * @param statusSeries
-     * @return
+     *  Devuelve una lista de series basada en el status.
+     * @param statusSeries valor entero que van del 1 al 6.
+     * @return array que consulta la información de dos tablas.
      */
     public ArrayList<AnimeData> getMyAnimeListbyStatus(int statusSeries){
         SQLiteDatabase db = malDBHelper.getReadableDatabase();
@@ -579,7 +586,7 @@ public class Data {
      *
      */
     /***
-     *  Borra de la información de una serie de la base de datos
+     *  Borra  la información de una serie de la base de datos.
      * @param animeId
      */
     public void deleteById(String animeId){

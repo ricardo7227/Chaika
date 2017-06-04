@@ -1,6 +1,8 @@
 package com.chaika.estructuraDatos.constantes;
 
 /**
+ * Valores constantes con los que identificar los distintos tipos de estados de una serie.
+ *
  * Created by ricardo on 24/5/17.
  */
 

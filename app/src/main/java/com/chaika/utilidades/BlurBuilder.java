@@ -8,6 +8,7 @@ import android.support.v8.renderscript.RenderScript;
 import android.support.v8.renderscript.ScriptIntrinsicBlur;
 
 /**
+ * Clase que recibe una imagen en bitmap y le agrega un efecto de difuminado.
  * Created by Gato on 20/05/2017.
  */
 
