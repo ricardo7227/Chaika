@@ -40,7 +40,7 @@ import io.reactivex.subscribers.DisposableSubscriber;
 import static android.text.TextUtils.isEmpty;
 
 /**
- * Actividad destinada ha verificar los datos personales del usuario.
+ * Actividad destinada a verificar los datos personales del usuario.
  *
  * Será lanzada cuando no existan credenciales en el sistema.
  *
@@ -174,6 +174,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (view.getId() == R.id.login){
 
             Logger.d(username.getText().toString() + ":" +password.getText().toString());
+
             //llamada para comprobar la credenciales del usuario
             RestApiMal.getInstance().getCredentials(username.getText().toString().trim(),password.getText().toString().trim(),this);
 

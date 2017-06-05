@@ -22,10 +22,22 @@ import javax.inject.Inject;
 public class MainActivity extends AppCompatActivity {
 
 
+    /***
+     *
+     * Actividad principal de la aplicación, en ella se muestran todas las series del usuario.
+     *
+     * Esta compuesta por un ViewPager, este permite agregar distintas vistas con desplazamiento lateral.
+     *
+     * Cada una de esta vistas es un fragmento y cada fragmento contiene un RecyclerView que nos permite mostrar una pila de datos en forma de lista.
+     *
+     * Cada lista es distinta, que se filtran según un criterio.
+     *
+     */
+
     AppComponent component;
 
+    //Barra de carga
     public static ProgressBar progressBar;
-
 
     @Inject
     Data data;
@@ -36,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.view_pager_main);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
+        //
         ApplicationConfig.getInstance().setActivity(this);
         ApplicationConfig.getInstance().setContext(this);
 
