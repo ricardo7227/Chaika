@@ -52,6 +52,12 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
+ * Actividad lanzanda para ver en más detalle información personalizada de una serie.
+ * Esta muestra una imagen difuminada de fondo, la sinopsis de la serie, la nota que este tiene en la comunidad, el número de episodios
+ * vistos por usuario y su nota personal.
+ * Además tiene dos botones en la parte superior que le permiten actualizar y borrar la serie de su cuenta.
+ *
+ *
  * Created by ricardo on 25/5/17.
  */
 
@@ -76,7 +82,7 @@ public class DetailSerie extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.details_activity);
 
         Intent intent = getIntent();
-        int animeId = intent.getIntExtra("animeId",0);
+        int animeId = intent.getIntExtra("animeId",0); //recupera el identificador de la serie envia desde la actividad anterior.
         Logger.d(animeId);
 
         cover = (ImageView) findViewById(R.id.image_background_details);
@@ -112,6 +118,9 @@ public class DetailSerie extends AppCompatActivity implements View.OnClickListen
         return true;
     }
 
+    /**
+     * se encarga de cargar toda la información en pantalla.
+     */
     public void pintarPantalla(){
 
         title.setText(animeData.getAnimeMalinfo().getSeries_title());
@@ -126,7 +135,6 @@ public class DetailSerie extends AppCompatActivity implements View.OnClickListen
                 android.R.layout.simple_spinner_dropdown_item, items);
 
 
-
         if (miNota < 1 || miNota > 10){
             mScore.setText(getString(R.string.details_activity_my_score));
 
@@ -134,14 +142,13 @@ public class DetailSerie extends AppCompatActivity implements View.OnClickListen
             mScore.setText(String.valueOf(miNota));
         }
 
-
         setBackgroudImage(Utilidades.getInstance().getLargeCoverVersion(animeData.getAnimeMalinfo().getSeries_image()));
 
 
     }
 
     /**
-     * Define la imagen de fondo la pantalla
+     * Define la imagen de fondo de la pantalla.
      * @param urlImage
      */
     public void setBackgroudImage(String urlImage){
@@ -172,6 +179,13 @@ public class DetailSerie extends AppCompatActivity implements View.OnClickListen
 
                         @Override
                         public void onError(@NonNull Throwable e) {
+                            Glide.with(getApplicationContext())
+                                    .load(
+                                            R.drawable.background_series
+                                    )
+                                    .centerCrop()
+                                    .crossFade(500)
+                                    .into(cover);
 
                         }
 
@@ -267,6 +281,10 @@ public class DetailSerie extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    /**
+     * Realiza una llamada para borrar una serie de la lista.
+     * @param malId
+     */
     private void deleteSerie(String malId) {
 
         RestApiMal.getInstance().deleteAnimeMal(malId,
@@ -277,6 +295,11 @@ public class DetailSerie extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    /**
+     * Realiza una llamada para actualizar la información de una serie.
+     * @param episodes
+     * @param score
+     */
     private void updateSerie(String episodes,String score) {
         EntryAnimeValues values = new EntryAnimeValues();
         values.setEpisode(episodes);
@@ -287,6 +310,12 @@ public class DetailSerie extends AppCompatActivity implements View.OnClickListen
 
         }
 
+
+    /****
+     *
+     * Respuestas del servidor
+     *
+     */
     @Override
     public void SuccessCall(MyAnimeList myAnimeList) {
         //nada aquí
@@ -309,9 +338,11 @@ public class DetailSerie extends AppCompatActivity implements View.OnClickListen
         if (response.equals("Deleted")){
             ChaikaApplication.get(this).component().getData()
                     .deleteById(String.valueOf(animeData.getAnimeMalinfo().getSeries_animedb_id()));
+
             Snackbar snackbar = Snackbar
                     .make(baseLayout,  getString(R.string.response_deleted,animeData.getAnimeMalinfo().getSeries_title()), Snackbar.LENGTH_LONG);
             snackbar.show();
+
         }else if (response.equals("Updated")){
             Anime animeUpdated = new Anime();
             animeUpdated.setSeries_animedb_id(animeData.getAnimeMalinfo().getSeries_animedb_id());
@@ -325,6 +356,7 @@ public class DetailSerie extends AppCompatActivity implements View.OnClickListen
                     .make(baseLayout, getString(R.string.response_updated,animeData.getAnimeMalinfo().getSeries_title()), Snackbar.LENGTH_LONG);
             snackbar.show();
         }
+        //avisamos al fragmento anterior que hemos actualizado o borrado una serie.
         AllSeriesFragment.instance().genericResponse(response);
 
     }

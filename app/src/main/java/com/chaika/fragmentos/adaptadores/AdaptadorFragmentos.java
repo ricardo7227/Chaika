@@ -6,9 +6,10 @@ import android.support.v4.app.FragmentManager;
 import com.chaika.fragmentos.SecondFragment;
 
 /**
+ * Adaptador de Fragmento que no esta siendo actualizado.
  * Created by Gato on 14/05/2017.
  */
-
+@Deprecated
 public class AdaptadorFragmentos extends SmartFragmentStatePagerAdapter {
     private static int NUM_ITEMS = 3;
 

@@ -4,6 +4,8 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 /**
+ * Objeto utilizado para recibir la respuesta del servidor en la llamada de verificar credenciales.
+ *
  * Created by Gato on 16/04/2017.
  */
 @Root(name = "user")

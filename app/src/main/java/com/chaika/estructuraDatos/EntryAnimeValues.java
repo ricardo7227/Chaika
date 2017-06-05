@@ -4,6 +4,7 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 /**
+ * Objeto utilzado en para las llamadas al API de actualizar que requieren de distintos parametros a actualizar en la cuenta.
  * Created by ricardo on 10/5/17.
  */
 @Root(name = "entry",strict = false)

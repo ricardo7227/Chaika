@@ -19,6 +19,8 @@ import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
 
 /**
+ * Fragmento genérico que será reutilizado para mostrar distintas series según el estaus que el usuario la tenga en su perfil.
+ *
  * Created by ricardo on 24/5/17.
  */
 
@@ -36,7 +38,7 @@ public class ShowListByStatus extends Fragment{
     private static ShowListByStatus instance;
 
     // newInstance constructor for creating fragment with arguments
-    public static ShowListByStatus newInstance(int myStatus) {
+    public static ShowListByStatus newInstance(int myStatus) { //recibe el status que se quiere mostrar
         ShowListByStatus fragmentFirst = new ShowListByStatus();
         Bundle args = new Bundle();
         args.putInt("myStatus", myStatus);
@@ -51,7 +53,7 @@ public class ShowListByStatus extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        myStatus = getArguments().getInt("myStatus", 0);
+        myStatus = getArguments().getInt("myStatus", 0); //captura el status
 
 
     }

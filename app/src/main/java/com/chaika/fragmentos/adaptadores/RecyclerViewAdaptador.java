@@ -22,6 +22,8 @@ import java.util.List;
 import io.reactivex.annotations.Nullable;
 
 /**
+ * Adaptador para RecyclerView en el cual declaramos los componentes que se van a mostrar en cada una de los items que componen la lista creada.
+ *
  * Created by Gato on 14/05/2017.
  */
 // Create the basic adapter extending from RecyclerView.Adapter
@@ -159,7 +161,7 @@ public class RecyclerViewAdaptador extends
     @Override
     public void onBindViewHolder(RecyclerViewAdaptador.ViewHolder holder, int position, List<Object> payloads) {
 
-        if(!payloads.isEmpty()) {
+        if(!payloads.isEmpty()) {//se llama cuando se actualiza información en la pantalla de detalles
             if (payloads.get(0) instanceof Integer) {//temporal-mejorable
 
                 Anime a = ChaikaApplication.get(ApplicationConfig.getInstance().getActivity()).component().getData().getMyAnimeById((Integer) payloads.get(0));

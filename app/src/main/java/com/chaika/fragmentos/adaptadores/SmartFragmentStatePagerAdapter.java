@@ -7,6 +7,7 @@ import android.util.SparseArray;
 import android.view.ViewGroup;
 
 /*
+No esta siendo utilizado por problemas en su implementación.
    Extension of FragmentStatePagerAdapter which intelligently caches 
    all active fragments and manages the fragment lifecycles. 
    Usage involves extending from SmartFragmentStatePagerAdapter as you would any other PagerAdapter.

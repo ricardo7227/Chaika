@@ -13,9 +13,12 @@ import android.widget.ListAdapter;
 import android.widget.SpinnerAdapter;
 
 /**
+ * Clase no utilizada
+ *
  * Decorator Adapter to allow a Spinner to show a 'Nothing Selected...' initially
  * displayed instead of the first choice in the Adapter.
  */
+@Deprecated
 public class NothingSelectedSpinnerAdapter implements SpinnerAdapter, ListAdapter {
 
     protected static final int EXTRA = 1;

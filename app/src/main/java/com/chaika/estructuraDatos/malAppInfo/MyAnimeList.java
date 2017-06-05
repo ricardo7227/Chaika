@@ -7,6 +7,8 @@ import org.simpleframework.xml.Root;
 import java.util.List;
 
 /**
+ * Objeto utilizado para deserializar la respuesta a la llamada que devuelve toda la información de la cuenta.
+ *
  * Created by Gato on 13/04/2017.
  */
 @Root(name = "myanimelist",strict = false)

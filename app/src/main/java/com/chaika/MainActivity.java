@@ -19,20 +19,18 @@ import com.chaika.fragmentos.adaptadores.ViewPagerAdapter;
 
 import javax.inject.Inject;
 
+/***
+ *
+ * Actividad principal de la aplicación, en ella se muestran todas las series del usuario.
+ *
+ * Esta compuesta por un adaptador de fragmentos, este permite agregar distintas vistas con desplazamiento lateral.
+ *
+ * Cada una de esta vistas es un fragmento y cada fragmento contiene un RecyclerView que nos permite mostrar una pila de datos en forma de lista.
+ *
+ * Cada lista es distinta, que se filtran según un criterio.
+ *
+ */
 public class MainActivity extends AppCompatActivity {
-
-
-    /***
-     *
-     * Actividad principal de la aplicación, en ella se muestran todas las series del usuario.
-     *
-     * Esta compuesta por un ViewPager, este permite agregar distintas vistas con desplazamiento lateral.
-     *
-     * Cada una de esta vistas es un fragmento y cada fragmento contiene un RecyclerView que nos permite mostrar una pila de datos en forma de lista.
-     *
-     * Cada lista es distinta, que se filtran según un criterio.
-     *
-     */
 
     AppComponent component;
 
@@ -48,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.view_pager_main);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
-        //
+
+        //Definimos en la configuración la activad y contexto que podemos necesitar en distintos puntos de la aplicación
+
         ApplicationConfig.getInstance().setActivity(this);
         ApplicationConfig.getInstance().setContext(this);
 
@@ -80,7 +80,9 @@ public class MainActivity extends AppCompatActivity {
     }//fin onCreate
 
 
-
+    /***
+     * Localiza el viewpager en el que se incrustará la vista en la pantalla y se agregan los fragmentod que utilizaremos
+     */
     private void initViewPagerAndTabs() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
 

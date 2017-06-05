@@ -7,6 +7,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
+ * Modulos de Dagger2.
  * Created by Gato on 02/05/2017.
  */
 @Module

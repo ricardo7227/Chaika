@@ -8,6 +8,12 @@ import android.provider.BaseColumns;
 import javax.inject.Inject;
 
 /**
+ * Clase en la que se declaran todas las tablas que componen la base de datos.
+ * En esta primera versión:
+ * Tabla de usuario con la información personal.
+ * Tabla de series con la información de esta.
+ * Tabla MisSeries, esta tiene como clave foranea el identifador de la serie, para almacenar información especifica del usuario.
+ *
  * Created by Gato on 30/04/2017.
  */
 

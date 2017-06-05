@@ -9,6 +9,7 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 /**
+ * Objeto utilizado en la deserialización de todos los resultados en la llamada al API de busqueda.
  * Created by Gato on 16/04/2017.
  */
 @Root(name = "entry",strict = false)

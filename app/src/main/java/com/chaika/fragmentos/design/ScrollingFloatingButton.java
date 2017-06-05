@@ -11,8 +11,10 @@ import android.view.View;
 
 
 /**
+ * Clase pendiente de desarrollar.
  * Created by ricardo on 19/5/17.
  */
+@Deprecated
 public class ScrollingFloatingButton extends CoordinatorLayout.Behavior<FloatingActionButton> {
     private int toolbarHeight;
 

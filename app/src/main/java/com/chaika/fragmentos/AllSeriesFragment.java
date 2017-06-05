@@ -35,6 +35,11 @@ import io.reactivex.schedulers.Schedulers;
 import static com.chaika.MainActivity.progressBar;
 
 /**
+ * Primer fragmento que se carga en el MainActivity, este implementa la interface de respuestas del servidor necesaria en el primer arraque
+ * de la aplicación, porque se encarga de mostrar toda la información recibida y agregarla a la base de datos local.
+ *
+ * Esta hará uso de un adaptador para Recycler, clase que nos permite presentar información en forma de lista por pantalla.
+ *
  * Created by Gato on 14/05/2017.
  */
 
@@ -42,13 +47,16 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
 
     RecyclerViewAdaptador adapter;
     RecyclerView rvSeries;
-    ArrayList<AnimeData> animeList;
+    ArrayList<AnimeData> animeList;// array con la información de todas las series
 
-    RecyclerViewClickListener listener;
-    int malIDPosition;
-    int positionArray;
+    RecyclerViewClickListener listener; //interface con el que conocenos la posición del elemento seleccionado
+    int malIDPosition; //Identificador de la Serie seleccionada
+    int positionArray; //posición de una serie dentro del array
 
 
+    /**
+     * Instancia única
+     */
     private static AllSeriesFragment instance;
 
     public static AllSeriesFragment instance() {
@@ -78,6 +86,7 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
         rvSeries.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvSeries.setLayoutManager(layoutManager);
+
         //recogemos las series de la base de datos
         animeList = ChaikaApplication.get(ApplicationConfig.getInstance().getActivity()).component().getData().getMyAnimeList();
 
@@ -106,6 +115,12 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
         return view;
     }
 
+    /***
+     *  método implementado en onClick para devolver el identificador de la serie sobre la serie presionada
+     * @param animeList Array con todas la series cargadas
+     * @param position
+     * @return int ID identificador de la serie
+     */
     public int getID(ArrayList<AnimeData> animeList,int position){
         int id = 0;
         if (animeList != null){
@@ -114,9 +129,16 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
         return id;
     }
 
+
     /*
     *Resutados de las llamadas al API
     *
+     */
+
+
+    /**
+     *  Recibe todas la series del servidor y las trata para mostrarse por pantalla y agregarlas a la base de datos
+     * @param myAnimeList
      */
     @Override
     public void SuccessCall(MyAnimeList myAnimeList) {
@@ -133,6 +155,7 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
         }
         progressBar.setVisibility(View.GONE);
 
+        //cargamos la información en el adaptador
         animeList = new ArrayList<AnimeData>(animeDataList);
         adapter = new RecyclerViewAdaptador(getContext(),animeList,listener);
 
@@ -167,23 +190,28 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
 
     @Override
     public void SuccessCall(Credentials credentials) {
-
+    //nada aquí
     }
 
     @Override
     public void SuccessCall(AnimeSearch animeSearch) {
-
+    //nada aquí
     }
 
+    /***
+     * Respuestas que recibe del servidor sobre las acciones de borrar y actualizar información que se realizan desde la actividad DetailSerie.
+     *
+     * @param response
+     */
     @Override
     public void genericResponse(String response) {
         Logger.d(response);
-        if (response.equals("Deleted")){
+        if (response.equals("Deleted")){    //elimina la serie de la lista si esta ha sido eliminada del sistema
 
             animeList.remove(positionArray);
             adapter.notifyDataSetChanged();
 
-        }else if (response.equals("Updated")){
+        }else if (response.equals("Updated")){      //Actualiza la posible información mostrada en la lista
             //pendiente
             adapter.notifyItemChanged(positionArray,malIDPosition);
 
