@@ -24,7 +24,7 @@ public interface ApiResult {
     void genericResponse(String response);
 
     //Posibles errores en las llamadas
-    void ErrorCall(Throwable error);
+    void ErrorCall(Throwable error,String data);
 
 
 }//fin clase

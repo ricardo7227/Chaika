@@ -204,7 +204,7 @@ public class RestApiMal {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         Logger.e(e.getMessage() );
-
+                        apiResult.ErrorCall(e,"Update");
                         e.printStackTrace();
                     }
 
@@ -256,7 +256,7 @@ public class RestApiMal {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         Logger.e(e.getMessage() );
-
+                        apiResult.ErrorCall(e,"Delete");
                         e.printStackTrace();
                     }
 
@@ -298,7 +298,7 @@ public class RestApiMal {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         Logger.e("onError getCredentials: ",e.getMessage());
-                        apiResult.ErrorCall(e);
+                        apiResult.ErrorCall(e,"Credentials");
                     }
 
                     @Override

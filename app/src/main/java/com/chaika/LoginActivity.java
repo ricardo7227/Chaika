@@ -282,7 +282,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void ErrorCall(Throwable error) {
+    public void ErrorCall(Throwable error,String data) {
 
 
         login_header.setTextSize(13);

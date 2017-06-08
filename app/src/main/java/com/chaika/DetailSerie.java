@@ -362,7 +362,17 @@ public class DetailSerie extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
-    public void ErrorCall(Throwable error) {
+    public void ErrorCall(Throwable error,String data) {
+        if (data.equals("Update")){
+            Snackbar snackbar = Snackbar
+                    .make(baseLayout,  getString(R.string.response_updated_error,animeData.getAnimeMalinfo().getSeries_title()), Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }else if (data.equals("Delete")){
+            Snackbar snackbar = Snackbar
+                    .make(baseLayout,  getString(R.string.response_deleted_error,animeData.getAnimeMalinfo().getSeries_title()), Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
+
 //nada aquí
     }
 }//fin clase

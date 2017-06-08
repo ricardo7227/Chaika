@@ -222,7 +222,7 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
     }
 
     @Override
-    public void ErrorCall(Throwable error) {
+    public void ErrorCall(Throwable error,String data) {
 
     }
 

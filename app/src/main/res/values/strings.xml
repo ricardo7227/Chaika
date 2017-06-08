@@ -40,6 +40,8 @@
     <string name="toolbar_update">Actualizar</string>
 
     <string name="response_updated">%1$s ha sido actualizada</string>
+    <string name="response_updated_error">No hemos podido actualizar %1$s en este momento</string>
     <string name="response_deleted">Hemos borrado %1$s de tu lista personal</string>
+    <string name="response_deleted_error">No hemos podido borrar %1$s de tu lista personal</string>
 
 </resources>
