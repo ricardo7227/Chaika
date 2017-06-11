@@ -60,7 +60,7 @@ public class AnimeValuesXMLtoString {
             entryValues.append(
                     "<status>" + entryAnimeValues.getStatus() + "</status>");
         }
-        if (entryAnimeValues.getScore() != null){
+        if (entryAnimeValues.getScore() != null && !entryAnimeValues.getScore().equals("--")){
             entryValues.append(
                     "<score>" + entryAnimeValues.getScore() + "</score>");
         }

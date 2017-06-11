@@ -346,7 +346,12 @@ public class DetailSerie extends AppCompatActivity implements View.OnClickListen
         }else if (response.equals("Updated")){
             Anime animeUpdated = new Anime();
             animeUpdated.setSeries_animedb_id(animeData.getAnimeMalinfo().getSeries_animedb_id());
-            animeUpdated.setMy_score(Float.parseFloat(mScore.getText().toString()));
+            try {
+               float miNota = Float.parseFloat(mScore.getText().toString());
+                animeUpdated.setMy_score(miNota);
+            }catch (NumberFormatException e){
+                Logger.e(e.getMessage());
+            }
             animeUpdated.setMy_watched_episodes(Integer.parseInt(myEpisodes.getText().toString()));
 
             ChaikaApplication.get(this).component().getData()
