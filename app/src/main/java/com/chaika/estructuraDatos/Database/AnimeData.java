@@ -48,6 +48,10 @@ public class AnimeData {
     public AnimeData() {
     }
 
+    public AnimeData(Entry animeSearch) {
+        this.animeSearch = animeSearch;
+    }
+
     public AnimeData(Anime animeMalinfo, Entry animeSearch, String season, String broadcast, String source, String duration, String rating, String title_japanese, String lastUpdate, boolean relatives) {
         this.animeMalinfo = animeMalinfo;
         this.animeSearch = animeSearch;

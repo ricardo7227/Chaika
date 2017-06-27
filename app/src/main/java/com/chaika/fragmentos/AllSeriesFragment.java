@@ -74,6 +74,7 @@ public class AllSeriesFragment extends Fragment implements ApiResult{
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -1,9 +1,16 @@
 package com.chaika;
 
 import android.os.Bundle;
+import android.provider.SearchRecentSuggestions;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ProgressBar;
 
 import com.chaika.application.ApplicationConfig;
@@ -15,6 +22,9 @@ import com.chaika.estructuraDatos.constantes.MyStatus;
 import com.chaika.fragmentos.AllSeriesFragment;
 import com.chaika.fragmentos.ShowListByStatus;
 import com.chaika.fragmentos.adaptadores.ViewPagerAdapter;
+import com.chaika.llamadasAPI.RestApiMal;
+import com.chaika.search.content_provider.Provider;
+import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
@@ -29,7 +39,7 @@ import javax.inject.Inject;
  * Cada lista es distinta, que se filtran según un criterio.
  *
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     AppComponent component;
 
@@ -39,11 +49,16 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     Data data;
 
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_pager_main);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 
 
         //Definimos en la configuración la activad y contexto que podemos necesitar en distintos puntos de la aplicación
@@ -63,10 +78,51 @@ public class MainActivity extends AppCompatActivity {
         //revisar: http://blog.rhesoft.com/2015/03/30/tutorial-android-actionbar-with-material-design-and-search-field/
         //toolbar de la aplicación
 
+
+
         initViewPagerAndTabs();
 
     }//fin onCreate
 
+    //history
+    private void addQueryToRecent(String query) {
+        SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+                Provider.AUTHORITY,
+                Provider.MODE);
+        suggestions.saveRecentQuery(query, "recent");
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_box, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // perform query here
+                Logger.d(query);
+                if (!String.valueOf(query).isEmpty()) {
+                    RestApiMal.getInstance().getAnimeSearch(query.trim(), ApplicationConfig.getInstance().getUsername(), ApplicationConfig.getInstance().getPassword(), ApplicationConfig.getInstance());
+                }
+                // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
+                // see https://code.google.com/p/android/issues/detail?id=24599
+                searchView.clearFocus();
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Logger.d(newText);//parte que se actualiza cada nuevo caracter
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
 
     /***
      * Localiza el viewpager en el que se incrustará la vista en la pantalla y se agregan los fragmentod que utilizaremos

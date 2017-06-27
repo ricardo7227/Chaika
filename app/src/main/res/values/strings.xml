@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Chaika Tracker</string>
     <string name="app_ok">OK</string>
+    <string name="search_hint">Título</string>
+
 
     <string name="my_score">Mi nota</string>
 

@@ -2,8 +2,15 @@ package com.chaika.application;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 
+import com.chaika.SearchActivity;
+import com.chaika.estructuraDatos.api.Credentials;
+import com.chaika.estructuraDatos.malAppInfo.MyAnimeList;
+import com.chaika.estructuraDatos.search.AnimeSearch;
 import com.chaika.interfaces.ApiResult;
+import com.orhanobut.logger.Logger;
 
 /**
  * Clase que sirve de configuración de la aplicación, aqui se declaran todo lo que puede ser suceptible de ser requerido en distintos puntos
@@ -16,7 +23,7 @@ import com.chaika.interfaces.ApiResult;
  * Created by Gato on 15/05/2017.
  */
 
-public class ApplicationConfig {
+public class ApplicationConfig implements ApiResult {
     private static ApplicationConfig instance;
     private Activity activity;
     private Context context;
@@ -74,5 +81,47 @@ public class ApplicationConfig {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    /***
+     *
+     * respuestas del servidor
+     *
+     */
+
+    @Override
+    public void SuccessCall(MyAnimeList myAnimeList) {
+
+    }
+
+    @Override
+    public void SuccessCall(Credentials credentials) {
+
+    }
+
+    @Override
+    public void SuccessCall(AnimeSearch animeSearch) {
+        Logger.d(animeSearch);
+
+        Bundle resultados = new Bundle();
+        resultados.putParcelable("results",animeSearch);//pasamos los resultados
+        //cuando recibimos respuesta del servidor abrimos una nueva actividad
+        ApplicationConfig.getInstance().getActivity().startActivity(
+                new Intent(ApplicationConfig.getInstance().getActivity(),
+                        SearchActivity.class)
+                        .putExtras(resultados));
+
+
+    }
+
+    @Override
+    public void genericResponse(String response) {
+
+    }
+
+    @Override
+    public void ErrorCall(Throwable error, String data) {
+
     }
 }//fin clase

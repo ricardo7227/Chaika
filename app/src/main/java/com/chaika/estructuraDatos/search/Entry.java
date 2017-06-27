@@ -1,6 +1,8 @@
 package com.chaika.estructuraDatos.search;
 
 import android.content.ContentValues;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.chaika.databases.MalDBHelper;
@@ -13,7 +15,7 @@ import org.simpleframework.xml.Root;
  * Created by Gato on 16/04/2017.
  */
 @Root(name = "entry",strict = false)
-public class Entry {
+public class Entry implements Parcelable{
     @Element(name = "id")
     public long anime_id;
     @Element(name = "title")
@@ -69,6 +71,33 @@ public class Entry {
         this.episodes = episodes;
         this.start_date = start_date;
     }
+
+    protected Entry(Parcel in) {
+        anime_id = in.readLong();
+        anime_title = in.readString();
+        anime_sinopsis = in.readString();
+        end_date = in.readString();
+        status = in.readString();
+        score = in.readFloat();
+        synonyms = in.readString();
+        image_path = in.readString();
+        type = in.readString();
+        title_english = in.readString();
+        episodes = in.readInt();
+        start_date = in.readString();
+    }
+
+    public static final Creator<Entry> CREATOR = new Creator<Entry>() {
+        @Override
+        public Entry createFromParcel(Parcel in) {
+            return new Entry(in);
+        }
+
+        @Override
+        public Entry[] newArray(int size) {
+            return new Entry[size];
+        }
+    };
 
     public long getAnime_id() {
         return anime_id;
@@ -198,5 +227,27 @@ public class Entry {
             Log.e("UserData Entry",e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(anime_id);
+        parcel.writeString(anime_title);
+        parcel.writeString(anime_sinopsis);
+        parcel.writeString(end_date);
+        parcel.writeString(status);
+        parcel.writeFloat(score);
+        parcel.writeString(synonyms);
+        parcel.writeString(image_path);
+        parcel.writeString(type);
+        parcel.writeString(title_english);
+        parcel.writeInt(episodes);
+        parcel.writeString(start_date);
+
     }
 }//fin clase
